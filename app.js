@@ -9,53 +9,69 @@ const DAY=864e5;
 const COL={"Beyaz":"#ECEEEF","Siyah":"#1C1F23","Gri metalik":"#7F868E","Kırmızı":"#A8242A","Lacivert":"#22355C","Füme":"#474D55","Gümüş":"#BCC1C6","Mavi":"#2D62A6","Bordo":"#5E1E25"};
 const PARTS={onTampon:"Ön tampon",kaput:"Motor kaputu",solOnCam:"Sol ön çamurluk",sagOnCam:"Sağ ön çamurluk",solOnKapi:"Sol ön kapı",sagOnKapi:"Sağ ön kapı",solArkaKapi:"Sol arka kapı",sagArkaKapi:"Sağ arka kapı",tavan:"Tavan",solArkaCam:"Sol arka çamurluk",sagArkaCam:"Sağ arka çamurluk",bagaj:"Bagaj kapağı",arkaTampon:"Arka tampon"};
 const ST={o:["Orijinal","#D9DDE1"],l:["Lokal boyalı","#F5D77E"],b:["Boyalı","#EE9F3B"],d:["Değişen","#D2463C"]};
-const DEFAULTS=[
- {id:2051,marka:"BMW",model:"3 Serisi",paket:"320i M Sport",yil:2020,km:68400,yakit:"Benzin",vites:"Otomatik",kasa:"Sedan",renk:"Mavi",motor:"1.597 cc · 170 hp",cekis:"Arkadan itiş",fiyat:2950000,tramer:0,exp:{},gun:1,ag:0,kokpit:"siyah",
-  acik:["Tek sahibinden, tüm bakımları yetkili serviste yapılmış. Bakım geçmişi ve faturaları mevcut.","M Sport paket, deri koltuk, geri görüş kamerası ve adaptif LED farlar. Hatasız, boyasız, tramer kaydı yoktur."],
-  don:["Deri koltuk","Hafızalı sürücü koltuğu","Geri görüş kamerası","Adaptif LED far","Navigasyon","Apple CarPlay","Şerit takip","Park sensörü"]},
- {id:2050,marka:"Toyota",model:"Corolla",paket:"1.8 Hybrid Flame X-Pack",yil:2022,km:41200,yakit:"Hibrit",vites:"Otomatik",kasa:"Sedan",renk:"Beyaz",motor:"1.798 cc · 122 hp",cekis:"Önden çekiş",fiyat:1850000,tramer:12400,exp:{arkaTampon:"b"},gun:2,ag:0,kokpit:"siyah",
-  acik:["Şehir içi 4,5 litre civarı yakıt tüketimi olan hibrit Corolla. Garantisi devam ediyor.","Arka tampon park hasarı nedeniyle boyalıdır, onun dışında orijinaldir."],
-  don:["Adaptif hız sabitleyici","Şerit takip","Geri görüş kamerası","Kablosuz şarj","Çift bölgeli klima","LED far"]},
- {id:2049,marka:"Peugeot",model:"3008",paket:"1.5 BlueHDi GT Line",yil:2022,km:57800,yakit:"Dizel",vites:"Otomatik",kasa:"SUV",renk:"Gri metalik",motor:"1.499 cc · 130 hp",cekis:"Önden çekiş",fiyat:2450000,tramer:0,exp:{},gun:2,ag:1,kokpit:"siyah",
-  acik:["GT Line paket, panoramik cam tavan ve dijital gösterge paneli. Hatasız ve boyasızdır.","Lastikleri yeni, bir sonraki periyodik bakımı 75.000 km'de."],
-  don:["Panoramik cam tavan","Dijital gösterge","360° kamera","Elektrikli bagaj","Kör nokta uyarısı","Anahtarsız giriş"]},
- {id:2048,marka:"Fiat",model:"Egea",paket:"1.4 Fire Urban",yil:2021,km:96500,yakit:"Benzin & LPG",vites:"Manuel",kasa:"Sedan",renk:"Beyaz",motor:"1.368 cc · 95 hp",cekis:"Önden çekiş",fiyat:1150000,tramer:28600,exp:{sagOnKapi:"b",sagArkaKapi:"l",onTampon:"b"},gun:3,ag:1,kokpit:"siyah",
-  acik:["Fabrika çıkışlı LPG'li, ekonomik aile aracı. LPG muayenesi yeni yapıldı.","Sağ ön kapı boyalı, sağ arka kapıda lokal boya, ön tampon boyalıdır. Değişen parçası yoktur."],
-  don:["Klima","Bluetooth","Hız sabitleyici","Elektrikli camlar","Park sensörü"]},
- {id:2047,marka:"Renault",model:"Clio",paket:"1.0 TCe Touch",yil:2021,km:52300,yakit:"Benzin",vites:"Manuel",kasa:"Hatchback",renk:"Kırmızı",motor:"999 cc · 90 hp",cekis:"Önden çekiş",fiyat:1050000,tramer:0,exp:{},gun:5,ag:0,kokpit:"siyah",
-  acik:["İlk sahibinden, kadın sürücü kullanımında. Hatasız ve boyasız.","Şehir içi kullanım için ideal, düşük yakıt tüketimi."],
-  don:["Dokunmatik ekran","Apple CarPlay","Hız sabitleyici","Otomatik klima","LED gündüz farı"]},
- {id:2046,marka:"Volkswagen",model:"Passat",paket:"1.6 TDI Business",yil:2019,km:142000,yakit:"Dizel",vites:"Otomatik",kasa:"Sedan",renk:"Siyah",motor:"1.598 cc · 120 hp",cekis:"Önden çekiş",fiyat:2150000,tramer:46200,exp:{kaput:"b",solOnCam:"d",onTampon:"b"},gun:6,ag:2,kokpit:"bej",
-  acik:["Uzun yol kullanılmış, tüm bakımları zamanında yapılmış Passat. DSG şanzıman bakımı 130.000 km'de yapıldı.","Motor kaputu ve ön tampon boyalı, sol ön çamurluk değişendir. Hava yastıkları orijinaldir."],
-  don:["Deri koltuk","Koltuk ısıtma","Navigasyon","Adaptif hız sabitleyici","Geri görüş kamerası","Elektrikli bagaj"]},
- {id:2045,marka:"Hyundai",model:"i20",paket:"1.4 MPI Style",yil:2022,km:33900,yakit:"Benzin",vites:"Otomatik",kasa:"Hatchback",renk:"Lacivert",motor:"1.368 cc · 100 hp",cekis:"Önden çekiş",fiyat:1090000,tramer:0,exp:{},gun:8,ag:2,kokpit:"siyah",
-  acik:["Düşük kilometreli, otomatik vitesli i20. Garantisi devam ediyor.","Hatasız, boyasız, tramer kaydı yoktur."],
-  don:["Dijital gösterge","Geri görüş kamerası","Şerit takip","Kablosuz CarPlay","Otomatik far"]},
- {id:2044,marka:"Honda",model:"Civic",paket:"1.5 VTEC Eco Elegance",yil:2021,km:61000,yakit:"Benzin & LPG",vites:"Otomatik",kasa:"Sedan",renk:"Füme",motor:"1.498 cc · 129 hp",cekis:"Önden çekiş",fiyat:1750000,tramer:9800,exp:{bagaj:"l"},gun:9,ag:0,kokpit:"siyah",
-  acik:["Fabrika çıkışlı LPG'li Eco Civic. Yakıt masrafı çok düşük.","Bagaj kapağında lokal boya vardır, diğer parçalar orijinaldir."],
-  don:["Sunroof","Geri görüş kamerası","Hız sabitleyici","Otomatik klima","Yağmur sensörü"]},
- {id:2043,marka:"Dacia",model:"Duster",paket:"1.3 TCe Prestige",yil:2023,km:24500,yakit:"Benzin",vites:"Manuel",kasa:"SUV",renk:"Gümüş",motor:"1.332 cc · 150 hp",cekis:"Önden çekiş",fiyat:1390000,tramer:0,exp:{},gun:11,ag:1,kokpit:"siyah",
-  acik:["Neredeyse sıfır ayarında Duster. Garantisi 2028'e kadar devam ediyor.","Hatasız ve boyasızdır."],
-  don:["360° kamera","Navigasyon","Anahtarsız giriş","Tavan rayı","Otomatik klima"]},
- {id:2042,marka:"Ford",model:"Kuga",paket:"1.5 EcoBlue Titanium",yil:2021,km:88700,yakit:"Dizel",vites:"Otomatik",kasa:"SUV",renk:"Bordo",motor:"1.499 cc · 120 hp",cekis:"Önden çekiş",fiyat:2100000,tramer:21300,exp:{solArkaKapi:"b",solArkaCam:"l"},gun:13,ag:2,kokpit:"bej",
-  acik:["Titanium paket, geniş bagaj hacmi ile aile kullanımına uygun SUV.","Sol arka kapı boyalı, sol arka çamurlukta lokal boya vardır."],
-  don:["Elektrikli bagaj","Koltuk ısıtma","Geri görüş kamerası","Adaptif hız sabitleyici","Şerit takip","Kablosuz şarj"]}
-];
 
+/* Örnek araçlar (demo). photos: img/araclar klasöründeki fotoğraflar. */
+const DEFAULTS=[
+ {id:3009,marka:"Mercedes-Benz",model:"C 200",paket:"1.5 AMG Line",yil:2022,km:38500,yakit:"Benzin",vites:"Otomatik",kasa:"Sedan",renk:"Siyah",motor:"1.496 cc · 204 hp",cekis:"Arkadan itiş",fiyat:4375000,tramer:0,exp:{},gun:1,kokpit:"siyah",
+  acik:["Türkiye bayi çıkışlı, tek sahibinden C 200 AMG Line. Tüm bakımları yetkili serviste yapılmış, servis kayıtları mevcuttur.","48V hafif hibrit destekli 1.5 turbo motor. Hatasız, boyasız, tramer kaydı yoktur. Kış lastikleriyle birlikte teslim edilir."],
+  don:["AMG Line dış paket","12,3\" dijital gösterge","11,9\" multimedya ekranı","64 renk ambiyans aydınlatma","Geri görüş kamerası","Elektrikli bagaj kapağı","Kablosuz şarj","Apple CarPlay & Android Auto"],photos:[]},
+ {id:3008,marka:"BMW",model:"320i",paket:"1.6 M Sport",yil:2020,km:68400,yakit:"Benzin",vites:"Otomatik",kasa:"Sedan",renk:"Mavi",motor:"1.597 cc · 170 hp",cekis:"Arkadan itiş",fiyat:2950000,tramer:0,exp:{},gun:2,kokpit:"siyah",
+  acik:["Tek sahibinden, tüm bakımları yetkili serviste yapılmış. Bakım geçmişi ve faturaları mevcuttur.","M Sport paket, deri koltuk, geri görüş kamerası ve adaptif LED farlar. Hatasız, boyasız, tramer kaydı yoktur."],
+  don:["M Sport paket","Deri koltuk","Hafızalı sürücü koltuğu","Geri görüş kamerası","Adaptif LED far","Navigasyon","Apple CarPlay","Park sensörü"],photos:[]},
+ {id:3007,marka:"Volkswagen",model:"Tiguan",paket:"1.5 TSI R-Line DSG",yil:2022,km:46900,yakit:"Benzin",vites:"Otomatik",kasa:"SUV",renk:"Beyaz",motor:"1.498 cc · 150 hp",cekis:"Önden çekiş",fiyat:2690000,tramer:8750,exp:{arkaTampon:"l"},gun:3,kokpit:"siyah",
+  acik:["R-Line paket, dijital kokpit ve Matrix LED farlara sahip Tiguan. Bakımları yetkili serviste yapılmıştır.","Arka tamponda park kaynaklı lokal boya vardır, diğer tüm parçalar orijinaldir."],
+  don:["R-Line paket","Dijital kokpit","IQ.Light Matrix LED far","Elektrikli bagaj","Adaptif hız sabitleyici","Şerit takip","Geri görüş kamerası","Anahtarsız giriş"],photos:[]},
+ {id:3006,marka:"Peugeot",model:"3008",paket:"1.5 BlueHDi GT EAT8",yil:2022,km:57800,yakit:"Dizel",vites:"Otomatik",kasa:"SUV",renk:"Gri metalik",motor:"1.499 cc · 130 hp",cekis:"Önden çekiş",fiyat:2450000,tramer:0,exp:{},gun:4,kokpit:"siyah",
+  acik:["GT paket, panoramik cam tavan ve dijital i-Cockpit gösterge. Hatasız ve boyasızdır.","Lastikleri yeni, bir sonraki periyodik bakımı 75.000 km'de."],
+  don:["Panoramik cam tavan","Dijital i-Cockpit","360° kamera","Elektrikli bagaj","Kör nokta uyarısı","Anahtarsız giriş","Full LED far"],photos:[]},
+ {id:3005,marka:"Toyota",model:"Corolla",paket:"1.8 Hybrid Flame X-Pack",yil:2022,km:41200,yakit:"Hibrit",vites:"Otomatik",kasa:"Sedan",renk:"Beyaz",motor:"1.798 cc · 122 hp",cekis:"Önden çekiş",fiyat:1850000,tramer:12400,exp:{arkaTampon:"b"},gun:5,kokpit:"siyah",
+  acik:["Şehir içinde 4,5 litre civarı yakıt tüketen hibrit Corolla. Bakımları yetkili serviste yapılmıştır.","Arka tampon park hasarı nedeniyle boyalıdır, onun dışında orijinaldir."],
+  don:["Adaptif hız sabitleyici","Şerit takip","Geri görüş kamerası","Kablosuz şarj","Çift bölgeli klima","LED far"],photos:[]},
+ {id:3004,marka:"Dacia",model:"Duster",paket:"1.3 TCe 130 Prestige",yil:2023,km:24500,yakit:"Benzin",vites:"Manuel",kasa:"SUV",renk:"Gümüş",motor:"1.332 cc · 130 hp",cekis:"Önden çekiş",fiyat:1390000,tramer:0,exp:{},gun:7,kokpit:"siyah",
+  acik:["Neredeyse sıfır ayarında Duster. Distribütör garantisi devam etmektedir.","Hatasız ve boyasızdır."],
+  don:["360° kamera","Navigasyon","Anahtarsız giriş","Tavan rayı","Otomatik klima"],photos:[]},
+ {id:3003,marka:"Renault",model:"Clio",paket:"1.0 TCe Touch",yil:2021,km:52300,yakit:"Benzin",vites:"Manuel",kasa:"Hatchback",renk:"Kırmızı",motor:"999 cc · 90 hp",cekis:"Önden çekiş",fiyat:1050000,tramer:0,exp:{},gun:9,kokpit:"siyah",
+  acik:["İlk sahibinden, düzenli bakımlı Clio. Hatasız ve boyasız.","Şehir içi kullanım için ideal, düşük yakıt tüketimi."],
+  don:["Dokunmatik ekran","Apple CarPlay","Hız sabitleyici","Otomatik klima","LED gündüz farı"],photos:[]},
+ {id:3002,marka:"Fiat",model:"Egea",paket:"1.4 Fire Urban",yil:2021,km:96500,yakit:"Benzin & LPG",vites:"Manuel",kasa:"Sedan",renk:"Beyaz",motor:"1.368 cc · 95 hp",cekis:"Önden çekiş",fiyat:1150000,tramer:28600,exp:{sagOnKapi:"b",sagArkaKapi:"l",onTampon:"b"},gun:11,kokpit:"siyah",
+  acik:["LPG'li, ekonomik aile aracı. LPG muayenesi yeni yapıldı.","Sağ ön kapı boyalı, sağ arka kapıda lokal boya, ön tampon boyalıdır. Değişen parçası yoktur."],
+  don:["Klima","Bluetooth","Hız sabitleyici","Elektrikli camlar","Park sensörü"],photos:[]},
+ {id:3001,marka:"Honda",model:"Civic",paket:"1.5 VTEC Eco Elegance",yil:2021,km:61000,yakit:"Benzin & LPG",vites:"Otomatik",kasa:"Sedan",renk:"Füme",motor:"1.498 cc · 129 hp",cekis:"Önden çekiş",fiyat:1690000,tramer:9800,exp:{bagaj:"l"},gun:14,kokpit:"siyah",sold:true,
+  acik:["Fabrika çıkışlı LPG'li Eco Civic. Yakıt masrafı çok düşük.","Bagaj kapağında lokal boya vardır, diğer parçalar orijinaldir."],
+  don:["Sunroof","Geri görüş kamerası","Hız sabitleyici","Otomatik klima","Yağmur sensörü"],photos:[]}
+];
 
 /* ======================= YARDIMCILAR ======================= */
 const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
 const fmt=n=>Math.round(n).toLocaleString("tr-TR");
 const tl=n=>fmt(n)+" ₺";
 const today=new Date();
 const dateOf=g=>{const d=new Date(today);d.setDate(d.getDate()-g);return d.toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})};
+const ago=g=>g<=0?"Bugün":g===1?"Dün":`${g} gün önce`;
 const title=c=>`${c.yil} ${c.marka} ${c.model}`;
+const trSort=(a,b)=>a.localeCompare(b,"tr");
+const sv=(p,st)=>`<svg class="ico" viewBox="0 0 24 24"${st?` style="${st}"`:""}>${p}</svg>`;
 const I={
- cam:'<svg class="ico" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
- heart:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
- check:'<svg class="ico" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m5 12 4.5 4.5L19 7"/></svg>',
- l:'<svg class="ico" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>',
- r:'<svg class="ico" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>'
+ cam:sv('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',"width:13px;height:13px"),
+ heart:sv('<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'),
+ check:sv('<path d="m5 12 4.5 4.5L19 7"/>'),
+ l:sv('<path d="m15 5-7 7 7 7"/>'),
+ r:sv('<path d="m9 5 7 7-7 7"/>'),
+ x:sv('<path d="M6 6l12 12M18 6 6 18"/>'),
+ arrow:sv('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+ cal:sv('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+ road:sv('<path d="M3.5 17a9 9 0 1 1 17 0"/><path d="m12 14 4-5"/><circle cx="12" cy="14" r="1.2"/>'),
+ fuel:sv('<path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M15 9h2a2 2 0 0 1 2 2v6a1.5 1.5 0 0 0 3 0V8l-3-3M7 7h5"/>'),
+ gear:sv('<circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><path d="M5 7v10M12 7v10M19 7v5H5"/>'),
+ car:sv('<path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="3" y="11" width="18" height="6" rx="2"/><path d="M6 17v2M18 17v2"/>'),
+ engine:sv('<path d="M4 10h2V8h3V6h6v2h2l2 2h2v6h-2l-2 2H9l-2-2H4z"/>'),
+ share:sv('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>'),
+ cmp:sv('<rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="16" rx="1.5"/>'),
+ grid:sv('<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'),
+ phone:sv('<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>'),
+ bolt:sv('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'),
+ wa:'<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>'
 };
 
 /* ======================= ARAÇ ÇİZİMLERİ ======================= */
@@ -161,16 +177,16 @@ function ekspertiz(u,c){
 const LABEL={vitrin:"Showroom",dis:"Dış çekim",kokpit:"Kokpit",ekspertiz:"Ekspertiz şeması"};
 const labelOf=k=>/^p\d+$/.test(k)?`Fotoğraf ${+k.slice(1)+1}`:LABEL[k];
 function scene(c,k){
-  if(/^p\d+$/.test(k)){const i=+k.slice(1);return `<img class="img" src="${c.photos[i]}" alt="${title(c)}, fotoğraf ${i+1}">`}
+  if(/^p\d+$/.test(k)){const i=+k.slice(1);return `<img class="img" loading="lazy" decoding="async" src="${esc(c.photos[i])}" alt="${title(c)}, fotoğraf ${i+1}">`}
   const u="r"+(++UID);
   const body=k==="vitrin"?showroom(u,c,{}):k==="dis"?outdoor(u,c):k==="kokpit"?kokpit(u,c):ekspertiz(u,c);
   return `<svg class="img" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${title(c)} · ${LABEL[k]}">${body}</svg>`;
 }
 
-
 /* ======================= GENEL YARDIMCILAR ======================= */
 function prep(c){
   c.exp=c.exp||{};c.don=c.don||[];c.acik=c.acik||[];c.photos=c.photos||[];c.sold=!!c.sold;c.tramer=+c.tramer||0;
+  c.takas=c.takas!==false;c.agirHasar=c.agirHasar||"Yok";
   c.gun=c.added?Math.max(0,Math.floor((Date.now()-c.added)/DAY)):(c.gun||0);
   c.sc=c.photos.length?c.photos.map((_,i)=>"p"+i).concat("ekspertiz"):["vitrin","dis","kokpit","ekspertiz"];
   c.hatasiz=!Object.keys(c.exp).length&&!c.tramer;
@@ -234,7 +250,7 @@ const DbAPI={
 };
 
 const IDB={
-  open(){return new Promise((res,rej)=>{try{const r=indexedDB.open("galeriSitesi",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
+  open(){return new Promise((res,rej)=>{try{const r=indexedDB.open("canAutoDemo2",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
   async get(k){try{const d=await IDB.open();return await new Promise(res=>{const q=d.transaction("kv").objectStore("kv").get(k);q.onsuccess=()=>res(q.result??null);q.onerror=()=>res(null)})}catch(e){return null}},
   async set(k,v){try{const d=await IDB.open();await new Promise((res,rej)=>{const t=d.transaction("kv","readwrite");t.objectStore("kv").put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)})}catch(e){console.warn(e)}}
 };
@@ -262,86 +278,195 @@ const LocalAPI={
 const API=sb?DbAPI:LocalAPI;
 
 /* ======================= SİTE BİLGİLERİ ======================= */
+const isPlaceholder=v=>!v||/X{2,}|buraya|^İlçe \/ İl$/i.test(String(v));
 function bindSite(){
-  document.querySelectorAll("[data-site]").forEach(el=>{const v=S[el.dataset.site];if(v!=null)el.textContent=v});
-  document.querySelectorAll("[data-tel]").forEach(a=>a.href=telHref(S.phone));
-  document.querySelectorAll("[data-mail]").forEach(a=>a.href="mailto:"+S.email);
-  document.querySelectorAll("[data-wa]").forEach(a=>a.href=wa(S.whatsapp||S.phone,a.dataset.wa||""));
-  document.querySelectorAll("[data-maps]").forEach(a=>a.href=S.mapsUrl||"#iletisim");
-  document.querySelectorAll("[data-ig]").forEach(a=>{if(S.instagram)a.href=S.instagram;else a.hidden=true});
-  document.querySelectorAll("[data-years]").forEach(el=>{if(+S.founded>0){el.textContent=new Date().getFullYear()-S.founded}else if(el.parentElement){el.parentElement.hidden=true}});
-  document.querySelectorAll("[data-demo]").forEach(el=>el.hidden=!S.demoNotice);
+  $$("[data-site]").forEach(el=>{const v=S[el.dataset.site];if(v!=null)el.textContent=v});
+  $$("[data-tel]").forEach(a=>a.href=telHref(S.phone));
+  $$("[data-mail]").forEach(a=>a.href="mailto:"+S.email);
+  $$("[data-wa]").forEach(a=>a.href=wa(S.whatsapp||S.phone,a.dataset.wa||""));
+  $$("[data-maps]").forEach(a=>a.href=S.mapsUrl||"#iletisim");
+  $$("[data-ig]").forEach(a=>{if(S.instagram)a.href=S.instagram;else a.hidden=true});
+  $$("[data-ilan]").forEach(a=>{if(S.ilanUrl)a.href=S.ilanUrl;else a.hidden=true});
+  $$("[data-years]").forEach(el=>{if(+S.founded>0)el.textContent=new Date().getFullYear()-S.founded});
+  $$("[data-years-box]").forEach(el=>el.hidden=!(+S.founded>0));
+  $$("[data-demo]").forEach(el=>el.hidden=!S.demoNotice);
   $("#yearNow").textContent=new Date().getFullYear();
   document.title=`${S.name} | ${S.seoTitle||"İkinci el araç"}`;
-  $("#team").innerHTML=AGENTS.map(a=>`<div class="person"><div class="avatar" style="background:${esc(a.c||"#24364F")}">${esc(initials(a.ad))}</div><div><b>${esc(a.ad)}</b><span>${esc(a.rol)}</span><a class="ph-n num" href="${telHref(a.tel)}">${esc(a.tel)}</a></div></div>`).join("");
+  if(S.agents&&S.agents.length){
+    $("#ekip").hidden=false;
+    $("#team").innerHTML=S.agents.map(a=>`<div class="person"><div class="avatar" style="background:${esc(a.c||"#24364F")}">${esc(initials(a.ad))}</div><div><b>${esc(a.ad)}</b><span>${esc(a.rol)}</span><a class="ph-n num" href="${telHref(a.tel)}">${esc(a.tel)}</a></div></div>`).join("");
+  }
   for(let y=new Date().getFullYear();y>=2000;y--)$("#sYil").add(new Option(y));
   $("#sYil").value=String(new Date().getFullYear()-6);
-  $("#mapBox").innerHTML=`<svg class="img" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Galeri konumunu gösteren temsili harita">
-<rect width="600" height="340" fill="#E9EBE7"/>
-<g fill="#D8DCD6">${[[30,30,110,70],[170,20,120,90],[330,30,120,60],[480,20,100,80],[30,140,100,60],[360,120,100,60],[480,130,110,50],[40,270,140,60],[420,270,160,60]].map(r=>`<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="6"/>`).join("")}</g>
-<rect x="165" y="130" width="155" height="70" rx="8" fill="#F3DCDB"/>
-<g stroke="#fff" stroke-width="12"><line x1="0" y1="112" x2="600" y2="104"/><line x1="148" y1="0" x2="160" y2="340"/><line x1="335" y1="0" x2="340" y2="340"/></g>
+  $("#mapBox").innerHTML=S.mapQuery?`<iframe title="${esc(S.name)} konumu" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${encodeURIComponent(S.mapQuery)}&z=15&output=embed"></iframe>`:`<svg class="img" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Galeri konumunu gösteren temsili harita">
+<rect width="600" height="360" fill="#E9EBE7"/>
+<g fill="#D8DCD6">${[[30,30,110,70],[170,20,120,90],[330,30,120,60],[480,20,100,80],[30,140,100,60],[360,120,100,60],[480,130,110,50],[40,270,140,70],[420,270,160,70]].map(r=>`<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="6"/>`).join("")}</g>
+<rect x="165" y="130" width="155" height="70" rx="8" fill="#DCE5F7"/>
+<g stroke="#fff" stroke-width="12"><line x1="0" y1="112" x2="600" y2="104"/><line x1="148" y1="0" x2="160" y2="360"/><line x1="335" y1="0" x2="340" y2="360"/></g>
 <path d="M0 232 L600 240" stroke="#F4C66A" stroke-width="18"/>
-<circle cx="250" cy="150" r="30" fill="#1D4FB8" opacity=".16"/><path d="M250 154 l-15 -21 a17 17 0 1 1 30 0z" fill="#1D4FB8"/><circle cx="250" cy="122" r="6" fill="#fff"/>
+<circle cx="250" cy="150" r="34" fill="#1D4FB8" opacity=".16"/><path d="M250 154 l-15 -21 a17 17 0 1 1 30 0z" fill="#1D4FB8"/><circle cx="250" cy="122" r="6" fill="#fff"/>
 <rect x="272" y="100" width="${Math.max(120,S.name.length*8.6+26)}" height="32" rx="8" fill="#fff"/><text x="284" y="121" font-family="Manrope,sans-serif" font-size="13" font-weight="700" fill="#11161C">${esc(S.name)}</text></svg>`;
+  // Arama motorları için işletme bilgisi (sadece gerçek bilgiler eklenir)
+  const ld={"@context":"https://schema.org","@type":"AutoDealer",name:S.name,description:S.about,url:location.origin+location.pathname};
+  if(!isPlaceholder(S.phone))ld.telephone=S.phone;
+  if(!isPlaceholder(S.address1)&&!isPlaceholder(S.address2))ld.address=`${S.address1}, ${S.address2}`;
+  if(S.instagram)ld.sameAs=[S.instagram];
+  const s=document.createElement("script");s.type="application/ld+json";s.textContent=JSON.stringify(ld);document.head.appendChild(s);
 }
+
+/* ======================= MENÜ VE ÜST ÇUBUK ======================= */
+function headState(){document.body.classList.toggle("over",!$("#home").hidden&&scrollY<40&&!document.body.classList.contains("menu-open"))}
+addEventListener("scroll",headState,{passive:true});
+function closeMenu(){document.body.classList.remove("menu-open");$("#menuBtn").setAttribute("aria-expanded","false");headState()}
+$("#menuBtn").onclick=()=>{const open=!document.body.classList.contains("menu-open");document.body.classList.toggle("menu-open",open);$("#menuBtn").setAttribute("aria-expanded",open);$("#nav").style.top=$("header.top").getBoundingClientRect().bottom+"px";headState()};
+$("#nav").addEventListener("click",e=>{if(e.target.closest("a"))closeMenu()});
+
+/* Kaydırınca beliren bölümler ve sayaçlar */
+document.documentElement.classList.add("anim");
+function countUp(el){const to=+el.dataset.to||0;if(matchMedia("(prefers-reduced-motion:reduce)").matches||!to){el.textContent=fmt(to);return}const t0=performance.now();const f=t=>{const p=Math.min(1,(t-t0)/1200),e=1-Math.pow(1-p,3);el.textContent=fmt(to*e);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+const io="IntersectionObserver" in window?new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add("in");if(e.target.id==="stats")e.target.querySelectorAll("[data-count]").forEach(countUp);io.unobserve(e.target)}),{rootMargin:"0px 0px -8% 0px"}):null;
+$$("[data-reveal]").forEach(el=>io?io.observe(el):el.classList.add("in"));
 
 /* ======================= ANA SAYFA ======================= */
 let markalar=[];
+const liveCars=()=>C.filter(c=>!c.sold);
+function silhouette(kasa){
+  const b=BODY[kasa];
+  return `<svg viewBox="0 -236 640 300" preserveAspectRatio="xMinYMax meet" aria-hidden="true"><path d="${b.body}" fill="currentColor"/><path d="${b.win}" style="fill:var(--surface)" opacity=".55"/>${b.wh.map(x=>`<circle cx="${x}" cy="${b.wy}" r="${b.r*.62}" style="fill:var(--surface)"/><circle cx="${x}" cy="${b.wy}" r="${b.r*.3}" fill="currentColor"/>`).join("")}</svg>`;
+}
 function refreshHome(){
-  const live=C.filter(c=>!c.sold),feat=live[0];
+  const live=liveCars(),feat=live[0];
   const hv=feat||prep(JSON.parse(JSON.stringify(DEFAULTS[0])));
-  $("#heroBg").innerHTML=hv.photos.length?`<img class="img" src="${esc(hv.photos[0])}" alt="${esc(title(hv))}">`:`<svg class="img" viewBox="0 0 1400 600" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Showroomda bir araç">${showroom("hero",hv,{w:1400,h:600,gy:520,cx:990,tw:700,dark:true})}</svg>`;
-  if(feat){$("#heroBadge").hidden=false;$("#heroBadge").href=`#arac-${feat.id}`;$("#heroBadge").innerHTML=`<span>Haftanın aracı</span><b>${esc(title(feat))}</b><span class="num">${tl(feat.fiyat)} · ${fmt(feat.km)} km</span>`}
-  else $("#heroBadge").hidden=true;
-  $("#stockNote").textContent=LOADED?`Stokta ${live.length} araç · tamamı ekspertizli`:"";
-  markalar=[...new Set(C.map(c=>c.marka))].sort((a,b)=>a.localeCompare(b,"tr"));
+  const heroSrc=S.heroImage||hv.photos[0];
+  $("#heroBg").innerHTML=heroSrc?`<img src="${esc(heroSrc)}" alt="" fetchpriority="high">`:`<svg viewBox="0 0 1400 600" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Showroomda bir araç">${showroom("hero",hv,{w:1400,h:600,gy:520,cx:990,tw:700,dark:true})}</svg>`;
+  const hb=$("#heroBadge");
+  if(feat){hb.hidden=false;hb.href=`#arac-${feat.id}`;hb.innerHTML=`<span class="k">Haftanın aracı</span><b>${esc(title(feat))}</b><span class="s">${esc(feat.paket)} · ${fmt(feat.km)} km</span><span class="p num">${tl(feat.fiyat)}</span><span class="go">İlanı incele ${I.arrow}</span>`}
+  else hb.hidden=true;
+  $("#stockNote").innerHTML=LOADED?`<i></i>Stokta ${live.length} araç · tamamı ekspertizli`:"";
+  markalar=[...new Set(C.map(c=>c.marka))].sort(trSort);
   const sel=$("#fMarka"),cur=sel.value;sel.length=1;markalar.forEach(m=>sel.add(new Option(m)));sel.value=markalar.includes(cur)?cur:"Tümü";
+  syncModels();
+  // Kategori kutuları
+  const cnt=(f,v)=>live.filter(c=>c[f]===v).length;
+  $("#cats").innerHTML=[["SUV","Kasa","SUV",silhouette("SUV"),cnt("kasa","SUV")],["Sedan","Kasa","Sedan",silhouette("Sedan"),cnt("kasa","Sedan")],["Hatchback","Kasa","Hatchback",silhouette("Hatchback"),cnt("kasa","Hatchback")],
+    ["Otomatik vites","Vites","Otomatik",`<svg viewBox="0 0 24 24" preserveAspectRatio="xMinYMax meet" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><path d="M5 7v10M12 7v10M19 7v5H5"/></svg>`,cnt("vites","Otomatik")],
+    ["Hibrit","Yakit","Hibrit",`<svg viewBox="0 0 24 24" preserveAspectRatio="xMinYMax meet" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>`,cnt("yakit","Hibrit")]]
+    .map(([n,f,v,svg,k])=>`<a class="cat" href="#araclar" data-quick="${f}|${v}"><span class="n num">${k}</span><b>${n}</b><span>${k?`${k} araç stokta`:"Yakında"}</span>${svg}</a>`).join("");
+  // Neden biz görseli
+  const wv=live[1]||hv;
+  $("#whyMedia").innerHTML=(S.showroomImage?`<img class="img" src="${esc(S.showroomImage)}" alt="${esc(S.name)} showroom" loading="lazy">`:`<svg class="img" viewBox="0 0 800 680" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Showroom">${showroom("why",wv,{w:800,h:680,gy:560,tw:620,dark:true})}</svg>`)+`<div class="tag"><b>${esc(S.name)} showroom</b><span>${esc(S.hoursShort)}</span></div>`;
+  // Sayaçlar
+  const st=$("#stats");
+  st.querySelector('[data-count="stock"]').dataset.to=live.length;
+  st.querySelector('[data-count="brands"]').dataset.to=new Set(live.map(c=>c.marka)).size;
+  if(st.classList.contains("in")||!io)st.querySelectorAll("[data-count]").forEach(el=>el.textContent=fmt(+el.dataset.to||0));
+}
+function syncModels(){
+  const m=$("#fMarka").value,sel=$("#fModel"),cur=sel.value;
+  const ms=[...new Set(C.filter(c=>m==="Tümü"||c.marka===m).map(c=>c.model))].sort(trSort);
+  sel.length=1;ms.forEach(x=>sel.add(new Option(x)));sel.value=ms.includes(cur)?cur:"Tümü";
 }
 function brandChips(){
   if(!C.length){$("#brands").innerHTML="";return}
   const cur=$("#fMarka").value;
   $("#brands").innerHTML=[["Tümü",C.length],...markalar.map(m=>[m,C.filter(c=>c.marka===m).length])].map(([m,n])=>`<button type="button" class="brand" data-brand="${esc(m)}" aria-pressed="${cur===m}">${m==="Tümü"?"Tüm markalar":esc(m)}<span>${n}</span></button>`).join("");
 }
-$("#brands").onclick=e=>{const b=e.target.closest("[data-brand]");if(!b)return;$("#fMarka").value=b.dataset.brand;render()};
+$("#brands").onclick=e=>{const b=e.target.closest("[data-brand]");if(!b)return;$("#fMarka").value=b.dataset.brand;syncModels();render()};
 
 const favs=new Set();try{JSON.parse(localStorage.getItem("galeriFav")||"[]").forEach(x=>favs.add(x))}catch(e){}
 const saveFav=()=>{try{localStorage.setItem("galeriFav",JSON.stringify([...favs]))}catch(e){}};
 
-["fMarka","fKasa","fYakit","fVites","sort"].forEach(id=>$("#"+id).onchange=render);
+$("#fMarka").onchange=()=>{syncModels();render()};
+["fModel","fKasa","fYakit","fVites","sort"].forEach(id=>$("#"+id).onchange=render);
 ["fMax","fKm"].forEach(id=>$("#"+id).oninput=render);
 $("#search").onsubmit=e=>{e.preventDefault();render();go("araclar")};
-$("#clear").onclick=()=>{["fMarka","fKasa","fYakit","fVites"].forEach(id=>$("#"+id).value="Tümü");$("#fMax").value="";$("#fKm").value="";render()};
+$("#clear").onclick=()=>{["fMarka","fModel","fKasa","fYakit","fVites"].forEach(id=>$("#"+id).value="Tümü");$("#fMax").value="";$("#fKm").value="";syncModels();render()};
 document.addEventListener("click",e=>{const q=e.target.closest("[data-quick]");if(!q)return;e.preventDefault();const[f,v]=q.dataset.quick.split("|");$("#clear").click();$("#f"+f).value=v;render();if($("#home").hidden)location.hash="araclar";else go("araclar")});
 
 function card(c){
-  return `<a class="card ${c.sold?"sold":""}" href="#arac-${c.id}">
-    <div class="ph">${scene(c,c.sc[0])}
-      <div class="pills">${c.sold?'<span class="pill sold">Satıldı</span>':`${c.hatasiz?'<span class="pill ok">Hatasız</span>':""}${c.gun<=3?'<span class="pill new">Yeni geldi</span>':""}`}<span class="pill">${esc(c.kasa)}</span></div>
-      <span class="pcount">${I.cam}${c.sc.length}</span>
+  const n=Math.min(c.photos.length,6);
+  return `<article class="card ${c.sold?"sold":""}" data-card="${c.id}">
+    <a class="card-link" href="#arac-${c.id}" aria-label="${esc(title(c))}, ${c.sold?"satıldı":tl(c.fiyat)}"></a>
+    <div class="ph"${n>1?` data-hov="${c.id}"`:""}>${scene(c,c.sc[0])}
+      <div class="pills">${c.sold?'<span class="pill sold">Satıldı</span>':`${c.hatasiz?'<span class="pill ok">Hatasız</span>':""}${c.gun<=3?'<span class="pill new">Yeni geldi</span>':""}`}</div>
+      <div class="tools"><button class="tbtn" type="button" data-cmp="${c.id}" aria-pressed="${cmp.has(c.id)}" aria-label="Karşılaştırmaya ekle" title="Karşılaştır">${I.cmp}</button><button class="tbtn" type="button" data-fav="${c.id}" aria-label="Favorilere ekle" aria-pressed="${favs.has(c.id)}" title="Favori">${I.heart}</button></div>
+      ${n>1?`<div class="segs">${Array.from({length:n},(_,i)=>`<i class="${i?"":"on"}"></i>`).join("")}</div>`:""}
+      <span class="pcount${n>1?" has":""}">${I.cam}${c.sc.length}</span>
     </div>
     <div class="cbody">
-      <div class="cprice num">${tl(c.fiyat)}</div>
-      <div class="ctitle">${esc(title(c))}</div>
+      <div class="ctitle">${esc(c.marka)} ${esc(c.model)}</div>
       <div class="csub">${esc(c.paket)}</div>
-      <div class="cspec"><span><small>Yıl</small><b>${c.yil}</b></span><span><small>KM</small><b>${fmt(c.km)}</b></span><span><small>Yakıt</small><b>${esc(c.yakit.replace("Benzin & LPG","LPG"))}</b></span><span><small>Vites</small><b>${esc(c.vites)}</b></span></div>
+      <div class="cspec"><span>${I.cal}${c.yil}</span><span class="num">${I.road}${fmt(c.km)} km</span><span>${I.fuel}${esc(c.yakit.replace("Benzin & LPG","LPG"))}</span><span>${I.gear}${esc(c.vites)}</span></div>
+      <div class="cprice-row"><div class="cprice num">${tl(c.fiyat)}</div><div class="ctram ${c.tramer?"":"zero"}">${c.sold?"Satıldı":c.tramer?"Tramer "+tl(c.tramer):"Tramer kaydı yok"}</div></div>
     </div>
-    <div class="cfoot"><span>İlan no #${c.id}</span><span>${c.tramer?"Tramer "+tl(c.tramer):"Tramer kaydı yok"}</span></div>
-    <button class="fav" type="button" data-fav="${c.id}" aria-label="Favorilere ekle" aria-pressed="${favs.has(c.id)}">${I.heart}</button>
-  </a>`;
+    <div class="cfoot"><span>İlan no #${c.id}</span><span>${ago(c.gun)}</span></div>
+  </article>`;
+}
+/* Fareyle kartın üzerinde gezinince fotoğraflar arasında geçiş */
+document.addEventListener("pointermove",e=>{
+  if(e.pointerType==="touch")return;
+  const cd=e.target.closest("[data-card]"),ph=cd&&cd.querySelector("[data-hov]");if(!ph)return;
+  const r=ph.getBoundingClientRect();if(e.clientY>r.bottom)return resetHov(ph);
+  const c=C.find(x=>x.id===+ph.dataset.hov);if(!c)return;
+  const n=Math.min(c.photos.length,6),i=Math.max(0,Math.min(n-1,Math.floor((e.clientX-r.left)/r.width*n)));
+  if(+ph.dataset.i===i)return;ph.dataset.i=i;
+  const img=ph.querySelector("img.img");if(img)img.src=c.photos[i];
+  ph.querySelectorAll(".segs i").forEach((s,j)=>s.classList.toggle("on",j===i));
+});
+function resetHov(ph){if(!ph||!+ph.dataset.i)return;const c=C.find(x=>x.id===+ph.dataset.hov);ph.dataset.i=0;const img=ph.querySelector("img.img");if(img&&c)img.src=c.photos[0];ph.querySelectorAll(".segs i").forEach((s,j)=>s.classList.toggle("on",!j))}
+document.addEventListener("pointerout",e=>{const cd=e.target.closest("[data-card]");if(cd&&!cd.contains(e.relatedTarget))resetHov(cd.querySelector("[data-hov]"))});
+
+function filtered(){
+  const m=$("#fMarka").value,md=$("#fModel").value,k=$("#fKasa").value,y=$("#fYakit").value,v=$("#fVites").value,mx=+$("#fMax").value||Infinity,km=+$("#fKm").value||Infinity;
+  return C.filter(c=>(m==="Tümü"||c.marka===m)&&(md==="Tümü"||c.model===md)&&(k==="Tümü"||c.kasa===k)&&(y==="Tümü"||c.yakit===y)&&(v==="Tümü"||c.vites===v)&&c.fiyat<=mx&&c.km<=km);
 }
 function render(){
   if(!LOADED){$("#grid").innerHTML=`<div class="loading">Araçlar yükleniyor…</div>`;$("#count").textContent="";return}
   if(!C.length){$("#grid").innerHTML=`<div class="empty">${LOADERR?`Araçlar şu an yüklenemedi. Sayfayı yenileyin ya da bizi arayın.`:`Yeni araçlarımız çok yakında burada. Stoktaki araçları sormak için <a href="${wa(S.whatsapp||S.phone,"Merhaba, stoktaki araçları öğrenmek istiyorum.")}" target="_blank" rel="noopener">WhatsApp'tan yazın</a>.`}</div>`;$("#count").textContent="";brandChips();return}
-  const m=$("#fMarka").value,k=$("#fKasa").value,y=$("#fYakit").value,v=$("#fVites").value,mx=+$("#fMax").value||Infinity,km=+$("#fKm").value||Infinity,sort=$("#sort").value;
-  const r=C.filter(c=>(m==="Tümü"||c.marka===m)&&(k==="Tümü"||c.kasa===k)&&(y==="Tümü"||c.yakit===y)&&(v==="Tümü"||c.vites===v)&&c.fiyat<=mx&&c.km<=km);
+  const sort=$("#sort").value,r=filtered();
   const so={asc:(a,b)=>a.fiyat-b.fiyat,desc:(a,b)=>b.fiyat-a.fiyat,km:(a,b)=>a.km-b.km,yil:(a,b)=>b.yil-a.yil,new:(a,b)=>a.gun-b.gun||b.id-a.id};
   r.sort((a,b)=>(a.sold-b.sold)||so[sort](a,b));
   $("#count").textContent=`${r.length} araç listeleniyor`;
-  $("#grid").innerHTML=r.length?r.map(card).join(""):`<div class="empty">Bu kriterlere uygun araç şu an stokta yok. Bizi arayın, aradığınız aracı sizin için bulalım.</div>`;
+  $("#fGo span").textContent=r.length?`${r.length} aracı göster`:"Araç bulunamadı";
+  $("#grid").innerHTML=r.length?r.map(card).join(""):`<div class="empty">Bu kriterlere uygun araç şu an stokta yok. <a href="${wa(S.whatsapp||S.phone,"Merhaba, aradığım bir araç var:")}" target="_blank" rel="noopener">Bize yazın</a>, aradığınız aracı sizin için bulalım.</div>`;
   brandChips();
 }
-document.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(!f)return;e.preventDefault();e.stopPropagation();const id=+f.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFav();document.querySelectorAll(`[data-fav="${id}"]`).forEach(b=>b.setAttribute("aria-pressed",favs.has(id)))},true);
+document.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(!f)return;e.preventDefault();e.stopPropagation();const id=+f.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFav();$$(`[data-fav="${id}"]`).forEach(b=>b.setAttribute("aria-pressed",favs.has(id)));toast(favs.has(id)?"Favorilere eklendi":"Favorilerden çıkarıldı")},true);
+
+/* ======================= KARŞILAŞTIRMA ======================= */
+const cmp=new Set();try{JSON.parse(sessionStorage.getItem("galeriCmp")||"[]").forEach(x=>cmp.add(x))}catch(e){}
+const saveCmp=()=>{try{sessionStorage.setItem("galeriCmp",JSON.stringify([...cmp]))}catch(e){}};
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-cmp]");if(!b)return;e.preventDefault();e.stopPropagation();
+  const id=+b.dataset.cmp;
+  if(cmp.has(id))cmp.delete(id);else{if(cmp.size>=3){toast("En fazla 3 aracı karşılaştırabilirsiniz");return}cmp.add(id);if(cmp.size===1)toast("Bir araç daha seçin, yan yana karşılaştıralım")}
+  saveCmp();$$(`[data-cmp="${id}"]`).forEach(x=>x.setAttribute("aria-pressed",cmp.has(id)));cmpBar();
+},true);
+document.addEventListener("click",e=>{if(!e.target.closest("[data-cmpclear]"))return;cmp.clear();saveCmp();$$("[data-cmp]").forEach(x=>x.setAttribute("aria-pressed","false"));cmpBar();if(location.hash==="#karsilastir")route()});
+const cmpList=()=>[...cmp].map(id=>C.find(c=>c.id===id)).filter(Boolean);
+function cmpBar(){
+  const el=$("#cmpbar"),list=cmpList();
+  if(!list.length||location.hash==="#karsilastir"||location.hash==="#yonetim"){el.hidden=true;return}
+  el.hidden=false;
+  el.innerHTML=`<b>${list.length} araç seçildi</b><a class="btn btn-primary" href="#karsilastir">${I.cmp} Karşılaştır (${list.length})</a><button class="x" type="button" data-cmpclear>Temizle</button>`;
+}
+function compareHTML(){
+  const list=cmpList();
+  if(!list.length)return `<div class="wrap"><div class="empty" style="margin-top:48px">Karşılaştırmak için araç kartlarındaki ${I.cmp} simgesine dokunun. <a href="#araclar">Araçlara dön</a></div></div>`;
+  const R=[["Fiyat",c=>`<b class="num">${c.sold?"Satıldı":tl(c.fiyat)}</b>`,"min",c=>c.sold?Infinity:c.fiyat],["Model yılı",c=>c.yil,"max",c=>c.yil],["Kilometre",c=>fmt(c.km)+" km","min",c=>c.km],["Yakıt",c=>esc(c.yakit)],["Vites",c=>esc(c.vites)],["Kasa tipi",c=>esc(c.kasa)],["Motor",c=>esc(c.motor)],["Çekiş",c=>esc(c.cekis)],["Renk",c=>esc(c.renk)],
+    ["Tramer kaydı",c=>c.tramer?tl(c.tramer):"Yok","min",c=>c.tramer],["Boyalı / değişen",c=>{const n=Object.keys(c.exp).length;return n?`${n} parça`:"Yok, hatasız"},"min",c=>Object.keys(c.exp).length],["Donanım",c=>`${c.don.length} özellik`,"max",c=>c.don.length]];
+  const best=(dir,f)=>{if(list.length<2||!dir)return null;const vals=list.map(f).filter(v=>v!==Infinity);if(!vals.length)return null;const b=dir==="min"?Math.min(...vals):Math.max(...vals);return vals.every(v=>v===b)?null:b};
+  return `<div class="wrap" style="padding-block:28px 40px">
+    <nav class="crumbs" aria-label="Sayfa yolu"><a href="#anasayfa">Ana sayfa</a><span>/</span><a href="#araclar">Araçlar</a><span>/</span><span>Karşılaştır</span></nav>
+    <div class="sec-head" style="margin-bottom:22px"><div><div class="eyebrow">Yan yana</div><h2>Araç karşılaştırma</h2></div><div class="toolbar"><a class="btn btn-ghost" href="#araclar">+ Araç ekle</a><button class="btn btn-ghost" type="button" data-cmpclear>Temizle</button></div></div>
+    <div class="cmp"><table>
+      <tr><th></th>${list.map(c=>`<td><a class="th" href="#arac-${c.id}">${scene(c,c.sc[0])}</a><b>${esc(title(c))}</b><div class="muted" style="font-size:14px">${esc(c.paket)}</div></td>`).join("")}</tr>
+      ${R.map(([k,f,dir,val])=>{const b=best(dir,val);return `<tr><th>${k}</th>${list.map(c=>`<td class="${b!==null&&val(c)===b?"best":""}">${f(c)}</td>`).join("")}</tr>`}).join("")}
+      <tr><th></th>${list.map(c=>`<td><a class="btn btn-primary btn-block" href="#arac-${c.id}">İlanı incele</a></td>`).join("")}</tr>
+    </table></div>
+    <p class="note" style="margin-top:12px">Yeşil değerler, seçilen araçlar arasında en avantajlı olanı gösterir.</p>
+  </div>`;
+}
 
 /* Araç alım formu */
 $("#sellForm").onsubmit=async e=>{
@@ -358,33 +483,63 @@ $("#sellForm").onsubmit=async e=>{
   }catch(err){btn.disabled=false;btn.textContent="Ön teklif iste";toast(errMsg(err))}
 };
 
+/* ======================= FOTOĞRAF GÖRÜNTÜLEYİCİ ======================= */
+const LB={c:null,i:0,back:null};
+function openLB(c,i){LB.c=c;LB.i=i;LB.back=document.activeElement;$("#lb").hidden=false;document.body.style.overflow="hidden";paintLB();$("#lb .lb-x").focus()}
+function closeLB(){if($("#lb").hidden)return;$("#lb").hidden=true;document.body.style.overflow="";if(LB.back&&LB.back.focus)LB.back.focus()}
+function stepLB(d){const n=LB.c.sc.length;LB.i=(LB.i+d+n)%n;paintLB()}
+function paintLB(){
+  const c=LB.c,n=c.sc.length,i=LB.i,el=$("#lb");
+  el.innerHTML=`<div class="lb-top"><span>${esc(title(c))} · <span class="num">${i+1} / ${n}</span> · ${labelOf(c.sc[i])}</span><button class="lb-x" type="button" aria-label="Kapat">${I.x}</button></div>
+    <div class="lb-stage"><div>${scene(c,c.sc[i])}</div><button class="gnav p" type="button" aria-label="Önceki">${I.l}</button><button class="gnav n" type="button" aria-label="Sonraki">${I.r}</button></div>
+    <div class="lb-thumbs">${c.sc.map((k,j)=>`<button type="button" data-lbi="${j}" aria-current="${j===i}" aria-label="${labelOf(k)}">${scene(c,k)}</button>`).join("")}</div>`;
+  el.querySelector(".lb-x").onclick=closeLB;
+  el.querySelector(".gnav.p").onclick=()=>stepLB(-1);el.querySelector(".gnav.n").onclick=()=>stepLB(1);
+  el.querySelectorAll("[data-lbi]").forEach(b=>b.onclick=()=>{LB.i=+b.dataset.lbi;paintLB()});
+  const cur=el.querySelector('[aria-current="true"]');if(cur)cur.scrollIntoView({block:"nearest",inline:"center"});
+  let x0=null;const st=el.querySelector(".lb-stage");
+  st.onpointerdown=e=>{x0=e.clientX};st.onpointerup=e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>50)stepLB(dx<0?1:-1)};
+}
+document.addEventListener("keydown",e=>{if($("#lb").hidden)return;if(e.key==="Escape")closeLB();if(e.key==="ArrowLeft")stepLB(-1);if(e.key==="ArrowRight")stepLB(1)});
+
 /* ======================= ARAÇ DETAY ======================= */
+function share(c){
+  const url=location.href,t=`${title(c)} · ${tl(c.fiyat)}`;
+  if(navigator.share){navigator.share({title:t,url}).catch(()=>{});return}
+  try{navigator.clipboard.writeText(url).then(()=>toast("İlan bağlantısı kopyalandı"),()=>toast(url))}catch(e){toast(url)}
+}
 function detail(c){
   const a=AGENTS[c.ag]||AGENTS[0]||{ad:S.name,rol:"",tel:S.phone,c:"#24364F"};
-  const rows=[["İlan no",`#${c.id}`],["İlan tarihi",dateOf(c.gun)],["Marka",c.marka],["Model",c.model],["Paket",c.paket],["Model yılı",c.yil],["Kilometre",fmt(c.km)+" km"],["Yakıt",c.yakit],["Vites",c.vites],["Kasa tipi",c.kasa],["Motor",c.motor],["Çekiş",c.cekis],["Renk",c.renk],["Ağır hasar kaydı","Yok"],["Takasa uygun","Evet"],["Kimden","Galeriden"]];
+  const tel=a.tel||S.phone;
+  document.title=`${title(c)} ${c.paket} · ${c.sold?"Satıldı":tl(c.fiyat)} | ${S.name}`;
+  const rows=[["İlan no",`#${c.id}`],["İlan tarihi",dateOf(c.gun)],["Marka",c.marka],["Model",c.model],["Paket",c.paket],["Model yılı",c.yil],["Kilometre",fmt(c.km)+" km"],["Yakıt",c.yakit],["Vites",c.vites],["Kasa tipi",c.kasa],["Motor",c.motor],["Çekiş",c.cekis],["Renk",c.renk],["Ağır hasar kaydı",c.agirHasar],["Takasa uygun",c.takas?"Evet":"Hayır"],["Kimden","Galeriden"]];
   const ex=Object.entries(c.exp);
   const sim=C.filter(x=>x.id!==c.id&&!x.sold&&(x.kasa===c.kasa||Math.abs(x.fiyat-c.fiyat)<500000)).slice(0,3);
   const msg=`Merhaba, #${c.id} numaralı ${title(c)} ilanı hakkında bilgi almak istiyorum.`;
+  const n=c.sc.length;
   $("#detail").innerHTML=`<div class="wrap">
-    <nav class="crumbs" aria-label="Sayfa yolu"><a href="#anasayfa">Ana sayfa</a><span>/</span><a href="#araclar">${esc(c.marka)}</a><span>/</span><span>${esc(c.model)}</span></nav>
+    <nav class="crumbs" aria-label="Sayfa yolu"><a href="#anasayfa">Ana sayfa</a><span>/</span><a href="#araclar">Araçlar</a><span>/</span><a href="#araclar" data-brandlink="${esc(c.marka)}">${esc(c.marka)}</a><span>/</span><span>${esc(c.model)}</span></nav>
     <div class="dhead">
-      <div><span class="eyebrow">İlan no #${c.id} · ${dateOf(c.gun)}</span><h1 style="margin-top:8px">${esc(title(c))}</h1><div class="muted" style="margin-top:6px;font-weight:600">${esc(c.paket)}</div></div>
-      <div class="dprice num">${c.sold?'<span style="color:var(--muted)">Satıldı</span>':tl(c.fiyat)}</div>
+      <div><span class="eyebrow">İlan no #${c.id} · ${dateOf(c.gun)}</span><h1>${esc(title(c))}</h1><div class="muted" style="margin-top:8px;font-weight:600;font-size:18px">${esc(c.paket)}</div>
+        <div class="badges">${c.sold?'<span>Satıldı</span>':""}${c.hatasiz?'<span class="ok">Hatasız · boyasız</span>':""}<span class="${c.tramer?"":"ok"}">${c.tramer?"Tramer "+tl(c.tramer):"Tramer kaydı yok"}</span><span>Bağımsız ekspertizli</span>${c.takas?"<span>Takasa uygun</span>":""}</div></div>
+      <div class="dprice num">${c.sold?'<span style="color:var(--muted)">Satıldı</span>':tl(c.fiyat)}<small>${c.sold?"Benzer araçlar için bize yazın":"Takas ve kredi seçenekleriyle"}</small></div>
     </div>
-    <div class="gallery"><div class="gmain" id="gMain"></div>
-      <div class="gthumbs">${c.sc.slice(0,4).map((k,i)=>`<button type="button" data-g="${i}" aria-current="${i===0}" aria-label="${labelOf(k)}">${scene(c,k)}<span class="lbl">${labelOf(k)}</span></button>`).join("")}</div></div>
+    <div class="gallery">
+      <div class="gmain" id="gMain"></div>
+      <div class="gside">${[1,2].filter(i=>i<n).map(i=>`<button type="button" data-g="${i}" aria-label="${labelOf(c.sc[i])}">${scene(c,c.sc[i])}${i===2&&n>3?`<span class="more">+${n-3} fotoğraf</span>`:""}</button>`).join("")}</div>
+    </div>
     <div class="dgrid">
       <div>
         <div class="panel">
-          <div class="keyrow">${[["Model yılı",c.yil],["Kilometre",fmt(c.km)],["Yakıt",c.yakit],["Vites",c.vites]].map(([k,v])=>`<div><span>${k}</span><b class="num">${esc(v)}</b></div>`).join("")}</div>
-          <h2>Açıklama</h2><div class="desc">${c.acik.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+          <div class="keyrow">${[[I.cal,"Model yılı",c.yil],[I.road,"Kilometre",fmt(c.km)+" km"],[I.fuel,"Yakıt",c.yakit],[I.gear,"Vites",c.vites],[I.car,"Kasa tipi",c.kasa],[I.engine,"Motor",c.motor]].map(([ic,k,v])=>`<div>${ic}<span>${k}</span><b class="num">${esc(v)}</b></div>`).join("")}</div>
+          <h2 style="margin-top:28px">Açıklama</h2><div class="desc">${c.acik.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
         </div>
         <div class="panel"><h2>Ekspertiz ve hasar kaydı</h2>
           <div class="exp">
             <div><div class="diag">${scene(c,"ekspertiz")}</div></div>
             <div style="display:grid;gap:14px">
               <div class="tramer ${c.tramer?"some":"zero"}"><span class="note" style="color:inherit;font-weight:600">Tramer kaydı</span><b class="num">${c.tramer?tl(c.tramer):"Kayıt yok"}</b></div>
-              <dl class="exlist" style="margin:0">${ex.length?ex.map(([k,s])=>`<div><dt>${PARTS[k]}</dt><dd>${ST[s][0]}</dd></div>`).join(""):`<div><dt>Boyalı / değişen parça</dt><dd style="color:var(--ok)">Yok, hatasız</dd></div>`}
+              <dl class="exlist">${ex.length?ex.map(([k,s])=>`<div><dt>${PARTS[k]}</dt><dd>${ST[s][0]}</dd></div>`).join(""):`<div><dt>Boyalı / değişen parça</dt><dd style="color:var(--ok)">Yok, hatasız</dd></div>`}
                 <div><dt>Diğer parçalar</dt><dd>Orijinal</dd></div></dl>
               <p class="note">Bağımsız ekspertiz firmasının raporu galeride incelenebilir. Raporla uyuşmayan bir durum çıkarsa aracı geri alıyoruz.</p>
             </div>
@@ -394,11 +549,14 @@ function detail(c){
         <div class="panel"><h2>Donanım</h2><div class="chips">${c.don.map(x=>`<span>${I.check}${esc(x)}</span>`).join("")}</div></div>
       </div>
       <aside class="side">
-        <div class="panel">
-          <div class="agent"><div class="avatar" style="background:${esc(a.c||"#24364F")}">${esc(initials(a.ad))}</div><div><b>${esc(a.ad)}</b><span>${esc(a.rol)}</span></div></div>
+        <div class="panel pricecard">
+          <div class="eyebrow">${c.sold?"Bu araç satıldı":"Satış fiyatı"}</div>
+          <div class="p num" style="margin-top:8px">${c.sold?"Satıldı":tl(c.fiyat)}</div>
+          <div class="agent"><div class="avatar" style="background:${esc(a.c||"#1D4FB8")}">${esc(initials(a.ad))}</div><div><b>${esc(a.ad)}</b><span>${esc(a.rol||"Satış")}</span></div></div>
           <div class="sidebtns">
-            <a class="btn btn-wa" target="_blank" rel="noopener" href="${wa(a.tel,msg)}">WhatsApp'tan sor</a>
-            <a class="btn btn-ghost num" href="${telHref(a.tel)}">Ara: ${esc(a.tel)}</a>
+            <a class="btn btn-wa btn-lg" target="_blank" rel="noopener" href="${wa(S.whatsapp||tel,msg)}">${I.wa} WhatsApp'tan sor</a>
+            <a class="btn btn-ghost btn-lg num" href="${telHref(tel)}">${I.phone} ${esc(tel)}</a>
+            <button class="sharebtn" type="button" id="dShare">${I.share} İlanı paylaş</button>
           </div>
         </div>
         ${c.sold?"":`<div class="panel"><h2>Test sürüşü</h2>
@@ -421,14 +579,20 @@ function detail(c){
           <p class="note">Faiz oranı örnektir. Taşıt kredisinde vade ve kredi oranı, aracın fiyatına göre yasal sınırlara tabidir.</p></div></div>`}
       </aside>
     </div>
-    ${sim.length?`<section style="padding-block:56px 0"><div class="sec-head"><div><div class="eyebrow">Benzer araçlar</div><h2>Bunlara da göz atın</h2></div></div><div class="grid">${sim.map(card).join("")}</div></section>`:""}
+    ${sim.length?`<section style="padding-block:72px 0"><div class="sec-head"><div><div class="eyebrow">Benzer araçlar</div><h2>Bunlara da göz atın</h2></div></div><div class="grid">${sim.map(card).join("")}</div></section>`:""}
+    <div class="mbar"><div class="p num">${c.sold?"Satıldı":tl(c.fiyat)}<small>İlan no #${c.id}</small></div><a class="btn btn-ghost" href="${telHref(tel)}" aria-label="Ara">${I.phone}</a><a class="btn btn-wa" target="_blank" rel="noopener" href="${wa(S.whatsapp||tel,msg)}">${I.wa} WhatsApp</a></div>
   </div>`;
   let gi=0;const gm=$("#gMain");
-  const show=i=>{gi=(i+c.sc.length)%c.sc.length;gm.innerHTML=scene(c,c.sc[gi])+`<button class="gnav p" type="button" aria-label="Önceki fotoğraf">${I.l}</button><button class="gnav n" type="button" aria-label="Sonraki fotoğraf">${I.r}</button><span class="gcount num">${gi+1} / ${c.sc.length} · ${labelOf(c.sc[gi])}</span>`;
-    gm.querySelector(".p").onclick=()=>show(gi-1);gm.querySelector(".n").onclick=()=>show(gi+1);
-    document.querySelectorAll("[data-g]").forEach(b=>b.setAttribute("aria-current",+b.dataset.g===gi))};
-  document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>show(+b.dataset.g));
+  const show=i=>{gi=(i+n)%n;gm.innerHTML=scene(c,c.sc[gi])+`<button class="gnav p" type="button" aria-label="Önceki fotoğraf">${I.l}</button><button class="gnav n" type="button" aria-label="Sonraki fotoğraf">${I.r}</button><span class="gcount num">${gi+1} / ${n} · ${labelOf(c.sc[gi])}</span><button class="gall" type="button">${I.grid} Tüm fotoğraflar</button>`;
+    gm.querySelector(".p").onclick=e=>{e.stopPropagation();show(gi-1)};gm.querySelector(".n").onclick=e=>{e.stopPropagation();show(gi+1)};
+    gm.querySelector(".gall").onclick=e=>{e.stopPropagation();openLB(c,gi)}};
+  let x0=null,swiped=false;
+  gm.onclick=()=>{if(swiped){swiped=false;return}openLB(c,gi)};
+  gm.onpointerdown=e=>{x0=e.clientX;swiped=false};gm.onpointerup=e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>50){swiped=true;show(gi+(dx<0?1:-1))}};
+  $$("[data-g]").forEach(b=>b.onclick=()=>openLB(c,+b.dataset.g));
   show(0);
+  $("#dShare").onclick=()=>share(c);
+  $$("[data-brandlink]").forEach(l=>l.onclick=e=>{e.preventDefault();$("#clear").click();$("#fMarka").value=l.dataset.brandlink;syncModels();render();location.hash="araclar"});
   if(c.sold)return;
   $("#randevu").onsubmit=async e=>{
     e.preventDefault();const btn=e.target.querySelector("button[type=submit]");
@@ -438,11 +602,11 @@ function detail(c){
     try{
       await API.addLead({type:"Test sürüşü",name,phone,details:{arac:`#${c.id} ${title(c)}`,gun}});
       btn.textContent="Talep alındı ✓";
-      $("#rOk").innerHTML=`Talebiniz alındı, randevuyu onaylamak için sizi arayacağız. İsterseniz <a href="${wa(a.tel,`${msg} ${gun} günü test sürüşü yapmak istiyorum.`)}" target="_blank" rel="noopener">WhatsApp'tan da yazabilirsiniz</a>.`;
+      $("#rOk").innerHTML=`Talebiniz alındı, randevuyu onaylamak için sizi arayacağız. İsterseniz <a href="${wa(S.whatsapp||tel,`${msg} ${gun} günü test sürüşü yapmak istiyorum.`)}" target="_blank" rel="noopener">WhatsApp'tan da yazabilirsiniz</a>.`;
       $("#rOk").hidden=false;
     }catch(err){btn.disabled=false;btn.textContent="Randevu talep et";toast(errMsg(err))}
   };
-  const calc=()=>{const P=Math.min(c.fiyat,Math.max(0,+$("#kPes").value||0)),n=+$("#kVade").value,r=(+$("#kFaiz").value||0)/100,K=c.fiyat-P,t=r?K*r/(1-Math.pow(1+r,-n)):K/n;$("#kTak").textContent=tl(t);$("#kKre").textContent=tl(K);$("#kTop").textContent=tl(t*n)};
+  const calc=()=>{const P=Math.min(c.fiyat,Math.max(0,+$("#kPes").value||0)),nn=+$("#kVade").value,r=(+$("#kFaiz").value||0)/100,K=c.fiyat-P,t=r?K*r/(1-Math.pow(1+r,-nn)):K/nn;$("#kTak").textContent=tl(t);$("#kKre").textContent=tl(K);$("#kTop").textContent=tl(t*nn)};
   ["kPes","kFaiz"].forEach(id=>$("#"+id).oninput=calc);$("#kVade").onchange=calc;calc();
 }
 
@@ -497,7 +661,7 @@ function admTop(){
 }
 function wireTop(el){el.querySelectorAll("[data-nav]").forEach(b=>b.onclick=async()=>{
   const n=b.dataset.nav;ADM.arm=null;
-  if(n==="new"){Object.assign(ADM,{tab:"form",edit:null,photos:[]});admin();scrollTo(0,0)}
+  if(n==="new"){Object.assign(ADM,{tab:"form",edit:null,photos:[]});admin();scrollTo({top:0,behavior:"instant"})}
   else if(n==="out"){await API.logout().catch(()=>{});Object.assign(ADM,{authed:false,leads:null,tab:"cars"});location.hash="anasayfa"}
   else if(n==="leads"){ADM.tab="leads";try{ADM.leads=await API.leads()}catch(e){toast(errMsg(e))}admin()}
   else{ADM.tab=n;admin()}
@@ -533,7 +697,7 @@ function listView(el){
   const qi=$("#aQ");if(qi)qi.oninput=e=>{ADM.q=e.target.value;const p=e.target.selectionStart;listView(el);const i=$("#aQ");i.focus();i.setSelectionRange(p,p)};
   el.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{
     const a=b.dataset.a,id=+b.dataset.id,c=C.find(x=>x.id===id);
-    if(a==="edit"){Object.assign(ADM,{tab:"form",edit:id,photos:c.photos.map(u=>({src:u})),arm:null});admin();scrollTo(0,0);return}
+    if(a==="edit"){Object.assign(ADM,{tab:"form",edit:id,photos:c.photos.map(u=>({src:u})),arm:null});admin();scrollTo({top:0,behavior:"instant"});return}
     if(a==="sold"){ADM.arm=null;b.disabled=true;return act(()=>API.update({...c,sold:!c.sold}),c.sold?"Araç yeniden yayında":"Araç satıldı olarak işaretlendi")}
     if(a==="del"){if(ADM.arm!==id){ADM.arm=id;return listView(el)}ADM.arm=null;b.disabled=true;b.textContent="Siliniyor…";return act(()=>API.remove(c),"Araç silindi")}
     if(a==="seed"){b.disabled=true;b.textContent="Ekleniyor…";return act(()=>API.createMany(seedList()),"Örnek araçlar eklendi")}
@@ -566,7 +730,7 @@ function leadsView(el){
 }
 function formView(el){
   const c=ADM.edit?C.find(x=>x.id===ADM.edit):null;
-  const v=c||{marka:"",model:"",paket:"",yil:new Date().getFullYear()-4,km:"",fiyat:"",yakit:"Benzin",vites:"Manuel",kasa:"Sedan",renk:"Beyaz",motor:"",cekis:"Önden çekiş",tramer:0,exp:{},don:[],acik:[],ag:0};
+  const v=c||{marka:"",model:"",paket:"",yil:new Date().getFullYear()-4,km:"",fiyat:"",yakit:"Benzin",vites:"Manuel",kasa:"Sedan",renk:"Beyaz",motor:"",cekis:"Önden çekiş",tramer:0,exp:{},don:[],acik:[],ag:0,takas:true,agirHasar:"Yok"};
   const opt=(arr,sel)=>arr.map(o=>`<option ${String(o)===String(sel)?"selected":""}>${esc(o)}</option>`).join("");
   const F=(label,id,html,cls)=>`<div class="field ${cls||""}"><label for="${id}">${label}</label>${html}</div>`;
   el.innerHTML=`<div class="wrap adm"><form id="carF" novalidate>
@@ -589,6 +753,8 @@ function formView(el){
       ${F("Renk","e_rk",`<select id="e_rk">${opt(Object.keys(COL),v.renk)}</select>`)}
       ${F("Motor","e_mt",`<input id="e_mt" value="${esc(v.motor==="—"?"":v.motor)}" placeholder="Örn. 1.598 cc · 120 hp">`)}
       ${F("Çekiş","e_ck",`<select id="e_ck">${opt(["Önden çekiş","Arkadan itiş","4x4"],v.cekis)}</select>`)}
+      ${F("Takasa uygun","e_tk",`<select id="e_tk">${opt(["Evet","Hayır"],v.takas===false?"Hayır":"Evet")}</select>`)}
+      ${F("Ağır hasar kaydı","e_ah",`<select id="e_ah">${opt(["Yok","Var"],v.agirHasar||"Yok")}</select>`)}
       ${F("İlgilenen danışman","e_ag",`<select id="e_ag">${AGENTS.map((a,i)=>`<option value="${i}" ${i===v.ag?"selected":""}>${esc(a.ad)}</option>`).join("")}</select>`,"wide")}
     </div></div>
     <div class="fsec"><h2>Ekspertiz</h2>
@@ -602,7 +768,7 @@ function formView(el){
     <p class="err" id="fErr" hidden>Yıldızlı alanları doldurun: marka, model, model yılı, kilometre ve fiyat.</p>
     <div class="savebar"><button class="btn btn-ghost" type="button" id="fCancel">Vazgeç</button><button class="btn btn-primary" type="submit" id="fSave">${c?"Değişiklikleri kaydet":"Kaydet ve yayınla"}</button></div>
   </form></div>`;
-  const back=()=>{ADM.photos.forEach(p=>{if(p.blob)URL.revokeObjectURL(p.src)});Object.assign(ADM,{tab:"cars",edit:null,photos:[]});admin();scrollTo(0,0)};
+  const back=()=>{ADM.photos.forEach(p=>{if(p.blob)URL.revokeObjectURL(p.src)});Object.assign(ADM,{tab:"cars",edit:null,photos:[]});admin();scrollTo({top:0,behavior:"instant"})};
   $("#fBack").onclick=back;$("#fCancel").onclick=back;
   const paintExp=s=>{s.style.borderLeftColor=ST[s.value][1]};
   el.querySelectorAll("[data-exp]").forEach(s=>{paintExp(s);s.onchange=()=>paintExp(s)});
@@ -627,7 +793,7 @@ function formView(el){
     if(miss||+g("e_fy")<=0){$("#fErr").hidden=false;$("#"+(miss||"e_fy")).focus();return}
     const exp={};Object.keys(PARTS).forEach(k=>{const s=g("x_"+k);if(s!=="o")exp[k]=s});
     const obj={marka:clean(g("e_mk")),model:clean(g("e_md")),paket:clean(g("e_pk"))||"—",yil:+g("e_yl"),km:+g("e_km"),fiyat:+g("e_fy"),
-      yakit:g("e_yk"),vites:g("e_vt"),kasa:g("e_ks"),renk:g("e_rk"),motor:clean(g("e_mt"))||"—",cekis:g("e_ck"),ag:+g("e_ag"),tramer:+g("e_tr")||0,exp,
+      yakit:g("e_yk"),vites:g("e_vt"),kasa:g("e_ks"),renk:g("e_rk"),motor:clean(g("e_mt"))||"—",cekis:g("e_ck"),takas:g("e_tk")==="Evet",agirHasar:g("e_ah"),ag:+g("e_ag"),tramer:+g("e_tr")||0,exp,
       don:g("e_dn").split("\n").map(clean).filter(Boolean),acik:g("e_ac").split(/\n\s*\n/).map(clean).filter(Boolean),kokpit:c?c.kokpit:"siyah"};
     if(!obj.acik.length)obj.acik=["Aracın detayları için bizi arayın ya da WhatsApp'tan yazın."];
     if(!obj.don.length)obj.don=["Detaylı donanım listesi için bizi arayın"];
@@ -641,25 +807,31 @@ function formView(el){
       ADM.photos.forEach(p=>{if(p.blob)URL.revokeObjectURL(p.src)});
       C=await API.list();refreshHome();render();
       Object.assign(ADM,{tab:"cars",edit:null,photos:[]});
-      toast(c?"Değişiklikler kaydedildi":"Araç sitede yayınlandı");admin();scrollTo(0,0);
+      toast(c?"Değişiklikler kaydedildi":"Araç sitede yayınlandı");admin();scrollTo({top:0,behavior:"instant"});
     }catch(err){toast(errMsg(err));btn.disabled=false;btn.textContent=label}
   };
 }
 
 /* ======================= YÖNLENDİRME ======================= */
-function go(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth"})}
+function go(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})}
 function route(){
   const h=decodeURIComponent(location.hash.slice(1)),m=h.match(/^arac-(\d+)$/),wasAway=$("#home").hidden;
+  closeMenu();closeLB();
   ["#admin","#detail","#page"].forEach(s=>$(s).hidden=true);
-  if(h==="yonetim"){$("#home").hidden=true;$("#admin").hidden=false;admin();scrollTo(0,0);return}
-  if(h==="kvkk"){$("#home").hidden=true;$("#page").hidden=false;$("#page").innerHTML=kvkkHTML();scrollTo(0,0);return}
-  if(m){
-    $("#home").hidden=true;$("#detail").hidden=false;const c=C.find(x=>x.id===+m[1]);
+  document.body.classList.remove("on-detail");
+  document.title=`${S.name} | ${S.seoTitle||"İkinci el araç"}`;
+  const away=()=>{$("#home").hidden=true;scrollTo({top:0,behavior:"instant"})};
+  if(h==="yonetim"){away();$("#admin").hidden=false;admin()}
+  else if(h==="kvkk"){away();$("#page").hidden=false;$("#page").innerHTML=kvkkHTML()}
+  else if(h==="karsilastir"){away();$("#page").hidden=false;$("#page").innerHTML=compareHTML()}
+  else if(m){
+    away();$("#detail").hidden=false;document.body.classList.add("on-detail");const c=C.find(x=>x.id===+m[1]);
     if(c)detail(c);else $("#detail").innerHTML=`<div class="wrap"><div class="empty" style="margin-top:40px">${LOADED?`Bu ilan yayından kaldırılmış olabilir. <a href="#araclar">Tüm araçlara göz atın</a>.`:"İlan yükleniyor…"}</div></div>`;
-    scrollTo(0,0);return;
+  }else{
+    $("#home").hidden=false;
+    if(h&&h!=="anasayfa")requestAnimationFrame(()=>go(h));else if(wasAway||h==="anasayfa")scrollTo({top:0,behavior:"instant"});
   }
-  $("#home").hidden=false;
-  if(h&&h!=="anasayfa")requestAnimationFrame(()=>go(h));else if(wasAway||h==="anasayfa")scrollTo(0,0);
+  cmpBar();headState();
 }
 window.addEventListener("hashchange",route);
 
@@ -668,6 +840,7 @@ bindSite();refreshHome();render();route();
 (async()=>{
   try{C=await API.list()}catch(e){console.error(e);LOADERR=errMsg(e);C=[]}
   LOADED=true;refreshHome();render();
-  if(!$("#detail").hidden)route();
+  if(!$("#detail").hidden||location.hash==="#karsilastir")route();
   else if(!$("#admin").hidden&&ADM.authed)admin();
+  cmpBar();
 })();

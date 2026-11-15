@@ -11,7 +11,7 @@ window.SITE = {
   legalName: "Can Auto",           // KVKK metninde geçecek resmi unvan
   seoTitle: "Ekspertizli ikinci el araç alım, satım ve takas",
   heroEyebrow: "İkinci el araç alım · satım · takas",
-  founded: 0,                        // Kuruluş yılı (tecrübe yılı buradan hesaplanır)
+  founded: 0,                        // Kuruluş yılı (tecrübe yılı buradan hesaplanır, 0 ise kutu gizlenir)
 
   phone: "0 5XX XXX XX XX",              // Sitede görünen telefon
   whatsapp: "",           // WhatsApp numarası
@@ -21,11 +21,17 @@ window.SITE = {
   hoursShort: "Pzt–Cmt 09.00–20.00 · Pazar 11.00–18.00",
   hoursLong: "Pazartesi–Cumartesi 09.00–20.00 · Pazar 11.00–18.00",
   mapsUrl: "https://www.google.com/maps",
+  mapQuery: "",                         // Doluysa iletişim bölümünde gerçek Google haritası çıkar. Örn. "Can Auto, Ataşehir, İstanbul"
   instagram: "",                        // Örn. "https://instagram.com/galeriadi" (boşsa buton gizlenir)
+  ilanUrl: "",                          // Sahibinden / Arabam.com galeri sayfası (boşsa buton gizlenir)
+  ilanLabel: "Tüm ilanlarımız",         // O butonun üzerindeki yazı
   about: "Ekspertizli ikinci el araç alım, satım ve takas.",
 
-  // Satış danışmanları (c = profil rengi)
-  agents: [],                          // Galeri sahibinden alınacak: ad, görev, telefon
+  heroImage: "",                        // Kapak görseli. Boşsa vitrindeki ilk aracın fotoğrafı kullanılır. Örn. "img/kapak.jpg"
+  showroomImage: "",                    // "Neden biz" bölümündeki galeri görseli. Örn. "img/galeri.jpg"
+
+  // Satış danışmanları (c = profil rengi). Boş bırakılırsa "Ekibimiz" bölümü gizlenir.
+  agents: [],                          // Örn. {ad:"Ad Soyad", rol:"Satış danışmanı", tel:"0 5XX XXX XX XX", c:"#1D4FB8"}
 
   demoNotice: true,      // true: "örnek tasarım" notları görünür. Gerçek müşteride false yapın.
   demoPassword: "canauto2026" // Sadece veritabanı bağlı değilken (demo modu) kullanılan panel şifresi
