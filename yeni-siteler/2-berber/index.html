@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perdah Berber — Online randevu</title>
+<meta name="description" content="Perdah Berber: saç, sakal, ustura tıraşı. Hizmetini, ustanı ve saatini seç; randevu mesajın WhatsApp'ta hazır olsun. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#0E1714">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E1714'/%3E%3Cpath d='M-4 12 12-4M-4 28 28-4M4 36 36 4M20 36 36 20' stroke='%23E4472B' stroke-width='5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<a class="atla" href="#randevu">Randevuya geç</a>
+<div class="direk" aria-hidden="true"></div>
+
+<header class="ust">
+  <a class="marka" href="#top">PERDAH<span>berber</span></a>
+  <nav aria-label="Bölümler"><a href="#fiyat">Fiyatlar</a><a href="#ustalar">Ustalar</a><a href="#dukkan">Dükkân</a></nav>
+  <a class="dugme kucuk" href="#randevu">Randevu al</a>
+</header>
+
+<main id="top">
+<section class="giris" data-foto>
+  <img class="foto" src="gorseller/kapak.webp" alt="">
+  <div class="kopuk-alan" id="kopukAlan">
+    <h1>TIRAŞ<br class="m"> OL<i>.</i><br>KENDİNE<br class="m"> GEL<i>.</i></h1>
+    <canvas id="kopuk" aria-hidden="true"></canvas>
+  </div>
+  <p class="ipucu" id="ipucu" aria-hidden="true"><span>Köpüğü parmağınla sil</span></p>
+  <div class="giris-alt">
+    <p class="giris-yazi">Saç, sakal ve usturayla perdah. Sıra bekleme yok: saatini seç, gel, koltuğa otur.</p>
+    <p class="ilk-bos" id="ilkBos"></p>
+    <div class="giris-dugme"><a class="dugme" href="#randevu">Randevu al</a><a class="yazi-bag" href="#fiyat">Fiyatlara bak</a></div>
+  </div>
+</section>
+
+<section class="fiyat" id="fiyat" aria-labelledby="fiyatB">
+  <h2 id="fiyatB">FİYATLAR</h2>
+  <ol class="fiyat-liste" id="fiyatListe"></ol>
+  <p class="kucuk-not">Fiyatlara KDV dahildir. Ekstralar randevu sırasında eklenebilir.</p>
+</section>
+
+<section class="randevu" id="randevu" aria-labelledby="randevuB">
+  <div class="randevu-bas"><h2 id="randevuB">RANDEVU</h2><p>Dört seçim, bir mesaj. Onay WhatsApp'tan gelir.</p></div>
+  <form id="rForm" novalidate>
+    <div class="adimlar">
+      <fieldset class="adim" id="a1"><legend><b>1</b>Ne yaptıracaksın?</legend>
+        <div class="sec-liste" id="hizmetSec"></div>
+        <p class="alt-baslik">İstersen ekle</p>
+        <div class="sec-liste ekstra" id="ekstraSec"></div>
+      </fieldset>
+      <fieldset class="adim" id="a2"><legend><b>2</b>Hangi usta?</legend>
+        <div class="usta-sec" id="ustaSec"></div>
+      </fieldset>
+      <fieldset class="adim" id="a3"><legend><b>3</b>Hangi gün?</legend>
+        <div class="gun-sec" id="gunSec"></div>
+      </fieldset>
+      <fieldset class="adim" id="a4"><legend><b>4</b>Saat kaçta?</legend>
+        <p class="bekle" id="saatBekle">Önce hizmet ve gün seç; boş saatler burada çıkar.</p>
+        <div class="saat-sec" id="saatSec"></div>
+        <p class="kucuk-not" id="saatNot" hidden>Üstü çizili saatler dolu. Bu örnek sitede doluluk rastgele üretilir, gerçek takvime bağlı değildir.</p>
+      </fieldset>
+      <fieldset class="adim" id="a5"><legend><b>5</b>Kime yazalım?</legend>
+        <div class="alanlar">
+          <label class="alan"><span>Adın</span><input name="ad" autocomplete="name" required></label>
+          <label class="alan"><span>Telefonun</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="05XX XXX XX XX" required></label>
+        </div>
+      </fieldset>
+    </div>
+    <aside class="fis" aria-label="Randevu özeti">
+      <div class="fis-kagit">
+        <p class="fis-bas">PERDAH BERBER<span>RANDEVU FİŞİ</span></p>
+        <dl id="fisIc"></dl>
+        <p class="fis-toplam"><span>TOPLAM</span><strong id="fisToplam">— ₺</strong></p>
+        <button class="dugme genis" type="submit">WhatsApp mesajını hazırla</button>
+        <p class="hata" id="rHata" role="alert" hidden></p>
+        <div class="sonuc" id="rSonuc" role="status" hidden></div>
+        <p class="fis-dip">Ödeme dükkânda. İptal için en geç 2 saat önce haber ver.</p>
+      </div>
+    </aside>
+  </form>
+</section>
+
+<section class="ustalar" id="ustalar" aria-labelledby="ustaB">
+  <h2 id="ustaB">USTALAR</h2>
+  <ul class="usta-liste" id="ustaListe"></ul>
+</section>
+
+<section class="dukkan" id="dukkan" aria-labelledby="dukkanB" data-foto>
+  <img class="foto" src="gorseller/dukkan.webp" alt="" loading="lazy" decoding="async">
+  <div class="dukkan-ic">
+    <h2 id="dukkanB">DÜKKÂN</h2>
+    <div class="dukkan-kol">
+      <div>
+        <h3>Adres</h3>
+        <address>Örnek Mahallesi, Fener Sokak No: 9<br>Kadıköy, İstanbul (hayali adres)<br><a href="tel:+905000000000">0 5XX XXX XX XX</a></address>
+        <h3>Saatler</h3>
+        <table><tbody id="saatTablo"></tbody></table>
+      </div>
+      <div class="kural" data-foto>
+        <img class="foto" src="gorseller/alet.webp" alt="" loading="lazy" decoding="async">
+        <h3>Dükkân usulü</h3>
+        <ol>
+          <li>Randevuna on dakikadan fazla geç kalırsan sıran bir sonrakine geçer.</li>
+          <li>Çay, kahve bizden. Telefonla uzun konuşma dışarıda.</li>
+          <li>Beğenmediysen koltuktan kalkmadan söyle. Düzeltiriz.</li>
+          <li>Çocuklar için sabır bizde, çizgi film tabletinde.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p class="dip-marka">PERDAH</p>
+  <p>Bu site hayali bir işletme için hazırlanmış örnektir. Ustalar, adres, telefon ve fiyatlar gerçek değildir.</p>
+</footer>
+<a class="yuzen" id="yuzen" href="#randevu">Randevu al</a>
+
+<script src="uygulama.js"></script>
+</body>
+</html>
