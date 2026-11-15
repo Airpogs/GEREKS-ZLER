@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eşik Gayrimenkul — İzmir'de satılık ve kiralık evler, planıyla</title>
+<meta name="description" content="Eşik Gayrimenkul: İzmir'de her ilan kat planıyla yayınlanır. Satılık ve kiralık ilanlar, kredi hesaplayıcı, evinizi satalım formu. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#E9E7DF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E9E7DF'/%3E%3Cpath d='M6 26V6h20v20H18v-9h-5v9z' fill='none' stroke='%23141B24' stroke-width='2.5'/%3E%3Cpath d='M13 26h5' stroke='%23C8432B' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<a class="atla" href="#vitrin">İlanlara geç</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="tarama" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v7" stroke="#4F7355" stroke-width="1.4"/></pattern>
+  <pattern id="nokta" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#141B24" opacity=".35"/></pattern>
+</defs></svg>
+
+<header class="ust">
+  <a class="marka" href="#top" aria-label="Eşik Gayrimenkul">
+    <svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true"><path d="M5 29V5h24v24H19V18h-6v11z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M13 29h6" stroke="#C8432B" stroke-width="2.4"/></svg>
+    <span>Eşik</span>
+  </a>
+  <nav aria-label="Bölümler"><a href="#vitrin">İlanlar</a><a href="#satalim">Evinizi satalım</a><a href="#kredi">Kredi hesabı</a><a href="#ofis">Ofis</a></nav>
+  <a class="dugme cizgili" href="https://wa.me/905000000000?text=Merhaba%2C%20bir%20ilan%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp</a>
+</header>
+
+<main id="top">
+<section class="giris">
+  <div class="giris-yazi">
+    <h1>Kapıdan girmeden <em>evin planını</em> görün.</h1>
+    <p>Eşik'te her ilan, ölçülüp çizilmiş kat planıyla yayınlanır. Geniş açılı fotoğraf odayı büyütür; plan büyütmez.</p>
+  </div>
+  <figure class="giris-plan" id="girisPlan"></figure>
+  <form class="hizli" id="hizli" aria-label="Hızlı arama">
+    <div class="ikili" role="radiogroup" aria-label="İşlem">
+      <label><input type="radio" name="islem" value="satilik" checked><span>Satılık</span></label>
+      <label><input type="radio" name="islem" value="kiralik"><span>Kiralık</span></label>
+    </div>
+    <label class="hizli-alan"><span>İlçe</span><select name="ilce" id="hizliIlce"><option value="">Tüm İzmir</option></select></label>
+    <label class="hizli-alan"><span>Oda</span><select name="oda"><option value="">Fark etmez</option><option>1+0</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1</option></select></label>
+    <button class="dugme" type="submit">İlanları göster</button>
+  </form>
+</section>
+
+<section class="vitrin" id="vitrin" aria-labelledby="vitrinB">
+  <div class="vitrin-bas">
+    <h2 id="vitrinB">İlanlar</h2>
+    <p id="sayac" aria-live="polite"></p>
+  </div>
+  <form class="suzgec" id="suzgec" aria-label="İlan süzgeçleri">
+    <label><span>İşlem</span><select name="islem"><option value="">Hepsi</option><option value="satilik">Satılık</option><option value="kiralik">Kiralık</option></select></label>
+    <label><span>İlçe</span><select name="ilce" id="sIlce"><option value="">Tüm İzmir</option></select></label>
+    <label><span>Tür</span><select name="tur"><option value="">Hepsi</option><option>Daire</option><option>Müstakil</option><option>İş yeri</option></select></label>
+    <label><span>Oda</span><select name="oda"><option value="">Fark etmez</option><option>1+0</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1</option></select></label>
+    <label><span>En az net m²</span><select name="m2"><option value="0">Fark etmez</option><option>50</option><option>80</option><option>100</option><option>120</option></select></label>
+    <label><span>Sırala</span><select name="sira"><option value="yeni">En yeni</option><option value="artan">Fiyat: düşükten yükseğe</option><option value="azalan">Fiyat: yüksekten düşüğe</option><option value="m2">Metrekare: büyükten küçüğe</option></select></label>
+    <button type="reset" class="yazi-dugme">Süzgeçleri temizle</button>
+  </form>
+  <ul class="paftalar" id="paftalar"></ul>
+  <p class="bos" id="bos" hidden>Bu ölçülere uyan ilanımız şu an yok. Süzgeçleri gevşetin ya da bize yazın; aradığınız evi biz arayalım.</p>
+</section>
+
+<section class="usul" data-foto>
+  <img class="foto" src="gorseller/korfez.webp" alt="" loading="lazy" decoding="async">
+  <ol>
+    <li><span>Önce ölçeriz.</span> Her eve lazer metreyle gider, oda oda ölçü alırız. İlandaki metrekare tapudaki değil, ayak bastığınız metrekaredir.</li>
+    <li><span>Sonra çizeriz.</span> Planı ilana koyarız. Koltuk sığar mı, çocuk odası yeter mi; görüşmeye gelmeden bilirsiniz.</li>
+    <li><span>Kusuru da yazarız.</span> Eski tesisat, kuzey cephe, yüksek aidat. Sonradan öğrenilen her şey güveni bozar; biz baştan söyleriz.</li>
+  </ol>
+</section>
+
+<section class="satalim" id="satalim" aria-labelledby="satB">
+  <div class="sat-yazi">
+    <h2 id="satB">Evinizi <em>satalım.</em></h2>
+    <p>Birkaç bilgi bırakın. Sizi arar, evi ücretsiz ölçer ve planını çizeriz. Satmaktan vazgeçseniz de plan sizde kalır.</p>
+  </div>
+  <form id="satForm" novalidate>
+    <fieldset><legend>Ev</legend>
+      <div class="ikili" role="radiogroup" aria-label="Ne yapmak istiyorsunuz">
+        <label><input type="radio" name="niyet" value="Satmak" checked><span>Satmak istiyorum</span></label>
+        <label><input type="radio" name="niyet" value="Kiraya vermek"><span>Kiraya vermek istiyorum</span></label>
+      </div>
+      <div class="alanlar">
+        <label class="alan"><span>İlçe</span><select name="ilce" id="satIlce" required><option value="">Seçin</option></select></label>
+        <label class="alan"><span>Oda sayısı</span><select name="oda"><option>1+0</option><option>1+1</option><option selected>2+1</option><option>3+1</option><option>4+1</option><option>Diğer</option></select></label>
+        <label class="alan"><span>Yaklaşık m²</span><input name="m2" type="number" inputmode="numeric" min="10" max="2000" placeholder="110"></label>
+        <label class="alan"><span>Bina yaşı</span><input name="yas" type="number" inputmode="numeric" min="0" max="150" placeholder="15"></label>
+      </div>
+    </fieldset>
+    <fieldset><legend>Siz</legend>
+      <div class="alanlar">
+        <label class="alan"><span>Adınız</span><input name="ad" autocomplete="name" required></label>
+        <label class="alan"><span>Telefonunuz</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="05XX XXX XX XX" required></label>
+        <label class="alan gen"><span>Eklemek istediğiniz (isteğe bağlı)</span><textarea name="not" rows="2" maxlength="300"></textarea></label>
+      </div>
+      <label class="onay"><input type="checkbox" name="onay" required><span>Bilgilerimin yalnızca bana dönüş yapılması için kullanılmasını kabul ediyorum.</span></label>
+    </fieldset>
+    <button class="dugme" type="submit">Mesajı hazırla</button>
+    <p class="hata" id="satHata" role="alert" hidden></p>
+    <div class="sonuc" id="satSonuc" role="status" hidden></div>
+  </form>
+</section>
+
+<section class="kredi" id="kredi" aria-labelledby="krediB">
+  <h2 id="krediB">Kredi hesabı</h2>
+  <div class="kredi-ic">
+    <form id="krediForm" aria-label="Kredi hesaplayıcı">
+      <label class="alan"><span>Evin fiyatı</span><div class="tl"><input name="fiyat" id="kFiyat" inputmode="numeric" value="8.900.000" autocomplete="off"><i>₺</i></div></label>
+      <label class="alan"><span>Peşinat: <output id="kPesinO"></output></span><input type="range" name="pesin" id="kPesin" min="10" max="90" step="5" value="40"></label>
+      <label class="alan"><span>Vade: <output id="kVadeO"></output></span><input type="range" name="vade" id="kVade" min="12" max="120" step="12" value="120"></label>
+      <label class="alan"><span>Aylık faiz oranı (%)</span><input name="faiz" id="kFaiz" inputmode="decimal" value="2,79" autocomplete="off"></label>
+    </form>
+    <div class="kredi-sonuc" aria-live="polite">
+      <p class="k-etiket">Aylık taksit</p>
+      <p class="k-taksit" id="kTaksit">—</p>
+      <div class="k-cubuk" role="img" id="kCubuk" aria-label=""><span id="kAna"></span><span id="kFz"></span></div>
+      <dl>
+        <div><dt><i class="ana"></i>Kredi tutarı</dt><dd id="kKredi"></dd></div>
+        <div><dt><i class="fz"></i>Toplam faiz</dt><dd id="kToplamFaiz"></dd></div>
+        <div><dt>Toplam geri ödeme</dt><dd id="kToplam"></dd></div>
+      </dl>
+      <p class="kucuk">Hesap bilgi içindir. Oran örnektir; güncel oranı ve kullanabileceğiniz en yüksek kredi tutarını bankanızdan öğrenin. Dosya masrafı ve sigortalar dahil değildir.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ofis" id="ofis" aria-labelledby="ofisB" data-foto>
+  <img class="foto" src="gorseller/ofis.webp" alt="" loading="lazy" decoding="async">
+  <div class="ofis-ic">
+    <h2 id="ofisB">Kahve bizden,<br><em>soru sizden.</em></h2>
+    <div class="ofis-kol">
+      <address><b>Ofis</b>Örnek Mahallesi, İskele Sokak No: 4/A<br>Karşıyaka, İzmir (hayali adres)</address>
+      <p><b>Saatler</b>Hafta içi 09:30 – 19:00<br>Cumartesi 10:00 – 16:00</p>
+      <p><b>Telefon</b><a href="tel:+905000000000">0 5XX XXX XX XX</a><br><a href="https://wa.me/905000000000" target="_blank" rel="noopener">WhatsApp'tan yazın</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p>Eşik Gayrimenkul</p>
+  <p>Bu site hayali bir işletme için hazırlanmış örnektir. İlanlar, fiyatlar, adres ve telefon gerçek değildir.</p>
+</footer>
+
+<dialog id="detay" aria-labelledby="dBaslik"><div class="detay-ic" id="detayIc"></div></dialog>
+
+<script src="veri.js"></script>
+<script src="uygulama.js"></script>
+</body>
+</html>
