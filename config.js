@@ -27,8 +27,8 @@ window.SITE = {
   ilanLabel: "Tüm ilanlarımız",         // O butonun üzerindeki yazı
   about: "Ekspertizli ikinci el araç alım, satım ve takas.",
 
-  heroImage: "",                        // Kapak görseli. Boşsa vitrindeki ilk aracın fotoğrafı kullanılır. Örn. "img/kapak.jpg"
-  showroomImage: "",                    // "Neden biz" bölümündeki galeri görseli. Örn. "img/galeri.jpg"
+  heroImage: "img/kapak.jpg",                        // Kapak görseli. Boşsa vitrindeki ilk aracın fotoğrafı kullanılır. Örn. "img/kapak.jpg"
+  showroomImage: "img/galeri.jpg",                    // "Neden biz" bölümündeki galeri görseli. Örn. "img/galeri.jpg"
 
   // Satış danışmanları (c = profil rengi). Boş bırakılırsa "Ekibimiz" bölümü gizlenir.
   agents: [],                          // Örn. {ad:"Ad Soyad", rol:"Satış danışmanı", tel:"0 5XX XXX XX XX", c:"#1D4FB8"}

@@ -14,7 +14,7 @@ const ST={o:["Orijinal","#D9DDE1"],l:["Lokal boyalı","#F5D77E"],b:["Boyalı","#
 const DEFAULTS=[
  {id:3009,marka:"Mercedes-Benz",model:"C 200",paket:"1.5 AMG Line",yil:2022,km:38500,yakit:"Benzin",vites:"Otomatik",kasa:"Sedan",renk:"Siyah",motor:"1.496 cc · 204 hp",cekis:"Arkadan itiş",fiyat:4375000,tramer:0,exp:{},gun:1,kokpit:"siyah",
   acik:["Türkiye bayi çıkışlı, tek sahibinden C 200 AMG Line. Tüm bakımları yetkili serviste yapılmış, servis kayıtları mevcuttur.","48V hafif hibrit destekli 1.5 turbo motor. Hatasız, boyasız, tramer kaydı yoktur. Kış lastikleriyle birlikte teslim edilir."],
-  don:["AMG Line dış paket","12,3\" dijital gösterge","11,9\" multimedya ekranı","64 renk ambiyans aydınlatma","Geri görüş kamerası","Elektrikli bagaj kapağı","Kablosuz şarj","Apple CarPlay & Android Auto"],photos:[]},
+  don:["AMG Line dış paket","12,3\" dijital gösterge","11,9\" multimedya ekranı","64 renk ambiyans aydınlatma","Geri görüş kamerası","Elektrikli bagaj kapağı","Kablosuz şarj","Apple CarPlay & Android Auto"],photos:["img/araclar/3009-1.jpg","img/araclar/3009-2.jpg","img/araclar/3009-3.jpg"]},
  {id:3008,marka:"BMW",model:"320i",paket:"1.6 M Sport",yil:2020,km:68400,yakit:"Benzin",vites:"Otomatik",kasa:"Sedan",renk:"Mavi",motor:"1.597 cc · 170 hp",cekis:"Arkadan itiş",fiyat:2950000,tramer:0,exp:{},gun:2,kokpit:"siyah",
   acik:["Tek sahibinden, tüm bakımları yetkili serviste yapılmış. Bakım geçmişi ve faturaları mevcuttur.","M Sport paket, deri koltuk, geri görüş kamerası ve adaptif LED farlar. Hatasız, boyasız, tramer kaydı yoktur."],
   don:["M Sport paket","Deri koltuk","Hafızalı sürücü koltuğu","Geri görüş kamerası","Adaptif LED far","Navigasyon","Apple CarPlay","Park sensörü"],photos:[]},
@@ -250,7 +250,7 @@ const DbAPI={
 };
 
 const IDB={
-  open(){return new Promise((res,rej)=>{try{const r=indexedDB.open("canAutoDemo2",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
+  open(){return new Promise((res,rej)=>{try{const r=indexedDB.open("canAutoDemo3",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
   async get(k){try{const d=await IDB.open();return await new Promise(res=>{const q=d.transaction("kv").objectStore("kv").get(k);q.onsuccess=()=>res(q.result??null);q.onerror=()=>res(null)})}catch(e){return null}},
   async set(k,v){try{const d=await IDB.open();await new Promise((res,rej)=>{const t=d.transaction("kv","readwrite");t.objectStore("kv").put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)})}catch(e){console.warn(e)}}
 };
@@ -340,7 +340,7 @@ function refreshHome(){
   const heroSrc=S.heroImage||hv.photos[0];
   $("#heroBg").innerHTML=heroSrc?`<img src="${esc(heroSrc)}" alt="" fetchpriority="high">`:`<svg viewBox="0 0 1400 600" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Showroomda bir araç">${showroom("hero",hv,{w:1400,h:600,gy:520,cx:990,tw:700,dark:true})}</svg>`;
   const hb=$("#heroBadge");
-  if(feat){hb.hidden=false;hb.href=`#arac-${feat.id}`;hb.innerHTML=`<span class="k">Haftanın aracı</span><b>${esc(title(feat))}</b><span class="s">${esc(feat.paket)} · ${fmt(feat.km)} km</span><span class="p num">${tl(feat.fiyat)}</span><span class="go">İlanı incele ${I.arrow}</span>`}
+  if(feat){hb.hidden=false;hb.href=`#arac-${feat.id}`;hb.innerHTML=`<span><span class="k">Haftanın aracı</span><b>${esc(title(feat))}</b><span class="s">${esc(feat.paket)} · ${fmt(feat.km)} km</span></span><span class="p num">${tl(feat.fiyat)}</span><span class="go" aria-hidden="true">${I.arrow}</span>`;hb.setAttribute("aria-label",`Haftanın aracı: ${title(feat)}, ${tl(feat.fiyat)}`)}
   else hb.hidden=true;
   $("#stockNote").innerHTML=LOADED?`<i></i>Stokta ${live.length} araç · tamamı ekspertizli`:"";
   markalar=[...new Set(C.map(c=>c.marka))].sort(trSort);
@@ -408,6 +408,7 @@ document.addEventListener("pointermove",e=>{
   const cd=e.target.closest("[data-card]"),ph=cd&&cd.querySelector("[data-hov]");if(!ph)return;
   const r=ph.getBoundingClientRect();if(e.clientY>r.bottom)return resetHov(ph);
   const c=C.find(x=>x.id===+ph.dataset.hov);if(!c)return;
+  if(!ph.dataset.pre){ph.dataset.pre=1;c.photos.slice(1,6).forEach(u=>{const im=new Image();im.src=u})}
   const n=Math.min(c.photos.length,6),i=Math.max(0,Math.min(n-1,Math.floor((e.clientX-r.left)/r.width*n)));
   if(+ph.dataset.i===i)return;ph.dataset.i=i;
   const img=ph.querySelector("img.img");if(img)img.src=c.photos[i];
