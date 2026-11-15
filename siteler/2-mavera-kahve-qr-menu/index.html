@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mavera Kahve | QR Menü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sage:#DDE3D3; --sage-2:#CBD4BE; --espresso:#2B2118; --muted:#5E5547;
+  --saffron:#E0A526; --tile:#2E5E8C; --white:#FBFCF8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--sage);color:var(--espresso);font-size:17px;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--tile);outline-offset:2px;border-radius:4px}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+
+header.top{padding:28px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{flex:none}
+.brand h1{font-family:"Young Serif",serif;font-weight:400;font-size:28px;line-height:1}
+.brand p{font-size:14px;color:var(--muted)}
+.lang{display:flex;border:1.5px solid var(--espresso);border-radius:999px;overflow:hidden}
+.lang button{border:0;background:none;font:inherit;font-size:14px;font-weight:600;padding:6px 12px;cursor:pointer;color:var(--espresso)}
+.lang button[aria-pressed="true"]{background:var(--espresso);color:var(--sage)}
+
+.status{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:15px;color:var(--muted);padding-bottom:18px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:1px}
+
+nav.cats{position:sticky;top:0;z-index:5;background:var(--sage);border-bottom:1.5px solid var(--sage-2)}
+nav.cats .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.cats a{flex:none;text-decoration:none;font-weight:500;font-size:15px;padding:7px 14px;border-radius:999px;background:var(--white);white-space:nowrap}
+nav.cats a.on{background:var(--tile);color:var(--white)}
+
+.search{margin:18px 0 6px;position:relative}
+.search input{width:100%;font:inherit;padding:12px 14px 12px 42px;border-radius:12px;border:1.5px solid var(--sage-2);background:var(--white);color:var(--espresso)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.filters label{font-size:14px;display:flex;align-items:center;gap:6px;background:var(--white);padding:6px 12px;border-radius:999px;cursor:pointer}
+
+section.cat{padding:26px 0 6px}
+section.cat h2{font-family:"Young Serif",serif;font-weight:400;font-size:30px;margin-bottom:4px}
+section.cat > p{color:var(--muted);font-size:15px;margin-bottom:12px}
+.item{padding:14px 0;border-bottom:1px dashed #A9B39A;display:grid;grid-template-columns:1fr auto;gap:2px 16px}
+.item:last-child{border-bottom:0}
+.item h3{font-size:18px;font-weight:600}
+.item .price{font-family:"Young Serif",serif;font-size:19px;white-space:nowrap}
+.item .desc{grid-column:1/-1;color:var(--muted);font-size:15px}
+.tags{grid-column:1/-1;display:flex;gap:6px;margin-top:4px}
+.tag{font-size:12.5px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--sage-2)}
+.tag.v{background:#C9DDB0}.tag.s{background:#F3D9A0}.tag.n{background:#CFE0EF}
+.empty{padding:30px 0;color:var(--muted);display:none}
+
+.fav{background:var(--espresso);color:var(--sage);border-radius:20px;padding:22px;margin:22px 0 4px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.fav h2{font-family:"Young Serif",serif;font-weight:400;font-size:24px;color:var(--saffron)}
+.fav p{font-size:15px;opacity:.9}
+
+.info{background:var(--white);border-radius:20px;padding:24px;margin:34px 0}
+.info h2{font-family:"Young Serif",serif;font-weight:400;font-size:26px;margin-bottom:12px}
+.hours{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:16px}
+.hours td{padding:6px 0;border-bottom:1px solid #E4E8DC}
+.hours td:last-child{text-align:right}
+.hours tr.today td{font-weight:600;color:var(--tile)}
+form.res{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+form.res label{font-size:14px;font-weight:500;display:flex;flex-direction:column;gap:4px}
+form.res input,form.res select{font:inherit;padding:10px;border-radius:10px;border:1.5px solid var(--sage-2);background:#fff;color:var(--espresso)}
+form.res .full{grid-column:1/-1}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;border:0;font:inherit;font-weight:600;padding:13px 18px;border-radius:12px;background:var(--tile);color:#fff;cursor:pointer;text-decoration:none}
+.note{font-size:14px;color:var(--muted);margin-top:8px}
+.result{display:none;margin-top:12px;padding:14px;border-radius:12px;background:var(--sage);font-size:15px}
+.result a{font-weight:600}
+footer{font-size:13px;color:var(--muted);padding:10px 0 40px;text-align:center}
+.demo{background:var(--saffron);color:var(--espresso);text-align:center;font-size:13.5px;font-weight:500;padding:7px 12px}
+@media (max-width:520px){form.res{grid-template-columns:1fr}.fav{grid-template-columns:1fr}.brand h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="demo" data-tr="Bu sayfa örnek bir işletme için hazırlanmış demodur." data-en="This page is a demo made for a fictional business."></div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+        <circle cx="23" cy="23" r="22" fill="#2B2118"/>
+        <path d="M13 20h17v6a8.5 8.5 0 0 1-17 0z" fill="#E0A526"/>
+        <path d="M30 22h2.5a3.5 3.5 0 0 1 0 7H29" stroke="#E0A526" stroke-width="2.2" fill="none"/>
+        <path d="M17 11c-2 2 2 3 0 6M22 10c-2 2 2 3 0 7M27 11c-2 2 2 3 0 6" stroke="#DDE3D3" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>Mavera Kahve</h1>
+        <p data-tr="Kahve, kahvaltı ve ev yemekleri" data-en="Coffee, breakfast and home cooking"></p>
+      </div>
+    </div>
+    <div class="lang" role="group" aria-label="Dil">
+      <button type="button" data-lang="tr" aria-pressed="true">TR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+  <div class="status" id="status"></div>
+</div>
+
+<nav class="cats" aria-label="Menü kategorileri"><div class="wrap" id="catnav"></div></nav>
+
+<main class="wrap">
+  <div class="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7" stroke="#5E5547" stroke-width="2.2" fill="none"/><path d="M16 16l5 5" stroke="#5E5547" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <input id="q" type="search" autocomplete="off">
+  </div>
+  <div class="filters">
+    <label><input type="checkbox" id="fV"> <span data-tr="Vejetaryen" data-en="Vegetarian"></span></label>
+    <label><input type="checkbox" id="fG"> <span data-tr="Glutensiz" data-en="Gluten-free"></span></label>
+  </div>
+
+  <div class="fav">
+    <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#E0A526"/><path d="M20 30h24l-3 16H23z" fill="#2B2118"/><ellipse cx="32" cy="30" rx="12" ry="3" fill="#7A4E2A"/><path d="M27 22c-2 2 2 3 0 5M33 20c-2 2 2 3 0 6" stroke="#2B2118" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    <div>
+      <h2 data-tr="Bugünün önerisi: Sütlü Türk kahvesi" data-en="Today's pick: Turkish coffee with milk"></h2>
+      <p data-tr="Bakır cezvede, sütle yavaş pişiyor. Yanında ev yapımı lokum geliyor." data-en="Slow-brewed with milk in a copper pot, served with homemade Turkish delight."></p>
+    </div>
+  </div>
+
+  <div id="menu"></div>
+  <p class="empty" id="empty" data-tr="Bu aramaya uyan ürün yok. Filtreleri kaldırmayı ya da başka bir kelime yazmayı dene." data-en="Nothing matches this search. Try removing filters or another word."></p>
+
+  <section class="info" id="iletisim">
+    <h2 data-tr="Saatler ve rezervasyon" data-en="Hours and booking"></h2>
+    <table class="hours" id="hours"></table>
+    <p style="font-size:15px;margin-bottom:6px"><span data-tr="Adres:" data-en="Address:"></span> Örnek Mah. Çınar Sok. No: 7</p>
+    <p style="font-size:15px;margin-bottom:14px"><span data-tr="Telefon:" data-en="Phone:"></span> 0 5XX XXX XX XX</p>
+    <form class="res" id="res">
+      <label><span data-tr="Adın" data-en="Your name"></span><input name="ad" required autocomplete="name"></label>
+      <label><span data-tr="Kişi sayısı" data-en="Guests"></span>
+        <select name="kisi"><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select></label>
+      <label><span data-tr="Gün" data-en="Date"></span><input type="date" name="gun" required></label>
+      <label><span data-tr="Saat" data-en="Time"></span>
+        <select name="saat"><option>09:00</option><option>10:00</option><option>11:00</option><option>12:30</option><option>14:00</option><option>17:00</option><option>19:00</option><option>20:30</option></select></label>
+      <div class="full"><button class="btn" type="submit" data-tr="WhatsApp mesajını hazırla" data-en="Prepare WhatsApp message"></button></div>
+    </form>
+    <div class="result" id="resOut" role="status"></div>
+    <p class="note" data-tr="Rezervasyon WhatsApp üzerinden işletmeye iletilir, onayı işletme verir." data-en="Your request goes to the café on WhatsApp; the café confirms it."></p>
+  </section>
+</main>
+<footer data-tr="Fiyatlara KDV dahildir. Alerjen bilgisi için personele danışın." data-en="Prices include VAT. Ask our staff about allergens."></footer>
+
+<script>
+const MENU=[
+ {id:"kahvalti",tr:"Kahvaltı",en:"Breakfast",ntr:"Saat 13:00'e kadar",nen:"Until 1 pm",items:[
+  {tr:"Serpme kahvaltı (2 kişilik)",en:"Village breakfast spread (for 2)",dtr:"Peynir tabağı, bal-kaymak, zeytin, sıcaklar, sınırsız çay",den:"Cheese plate, honey & clotted cream, olives, hot dishes, bottomless tea",p:780,v:1},
+  {tr:"Menemen",en:"Menemen",dtr:"Domates, biber, köy yumurtası. İsteğe göre soğanlı",den:"Tomato, pepper, free-range eggs. Onion on request",p:210,v:1,g:1},
+  {tr:"Sucuklu yumurta",en:"Eggs with sucuk",dtr:"Bakır sahanda, ekmekle",den:"In a copper pan, with bread",p:240},
+  {tr:"Avokadolu ekşi maya tost",en:"Avocado sourdough toast",dtr:"Poşe yumurta, pul biber, limon",den:"Poached egg, chili flakes, lemon",p:260,v:1,s:1}
+ ]},
+ {id:"sicak",tr:"Sıcak kahveler",en:"Hot coffee",ntr:"Çekirdeklerimiz haftalık kavruluyor",nen:"Beans roasted weekly",items:[
+  {tr:"Türk kahvesi",en:"Turkish coffee",dtr:"Lokum ile",den:"With Turkish delight",p:90,v:1,g:1},
+  {tr:"Sütlü Türk kahvesi",en:"Turkish coffee with milk",dtr:"Bugünün önerisi",den:"Today's pick",p:105,v:1,g:1,s:1},
+  {tr:"Espresso",en:"Espresso",dtr:"Tek ya da çift shot",den:"Single or double",p:85,v:1,g:1},
+  {tr:"Flat white",en:"Flat white",dtr:"Çift shot, ipeksi süt",den:"Double shot, silky milk",p:125,v:1,g:1},
+  {tr:"Filtre kahve",en:"Filter coffee",dtr:"Günün çekirdeği",den:"Bean of the day",p:110,v:1,g:1}
+ ]},
+ {id:"soguk",tr:"Soğuk içecekler",en:"Cold drinks",ntr:"",nen:"",items:[
+  {tr:"Iced latte",en:"Iced latte",dtr:"Bitki sütü seçeneğiyle",den:"Plant milk available",p:135,v:1,g:1},
+  {tr:"Ev yapımı limonata",en:"Homemade lemonade",dtr:"Taze nane ile",den:"With fresh mint",p:95,v:1,g:1},
+  {tr:"Cold brew",en:"Cold brew",dtr:"18 saat demlenir",den:"Steeped for 18 hours",p:130,v:1,g:1,n:1}
+ ]},
+ {id:"yemek",tr:"Ev yemekleri",en:"Home cooking",ntr:"12:00–16:00 arası, günlük değişir",nen:"12–4 pm, changes daily",items:[
+  {tr:"Günün çorbası",en:"Soup of the day",dtr:"Ekmekle",den:"With bread",p:120,v:1},
+  {tr:"Fırın köfte",en:"Oven-baked meatballs",dtr:"Patates, biber, pilav",den:"Potatoes, peppers, rice",p:320},
+  {tr:"Zeytinyağlı taze fasulye",en:"Green beans in olive oil",dtr:"Soğuk servis, yoğurtla",den:"Served cold, with yogurt",p:190,v:1,g:1}
+ ]},
+ {id:"tatli",tr:"Tatlılar",en:"Desserts",ntr:"",nen:"",items:[
+  {tr:"San Sebastian cheesecake",en:"San Sebastian cheesecake",dtr:"Dilim",den:"Slice",p:185,v:1,s:1},
+  {tr:"Fırın sütlaç",en:"Baked rice pudding",dtr:"Tarçın isteğe bağlı",den:"Cinnamon optional",p:140,v:1,g:1},
+  {tr:"Havuçlu kek",en:"Carrot cake",dtr:"Ceviz içerir",den:"Contains walnuts",p:150,v:1,n:1}
+ ]}
+];
+const T={
+ tr:{q:"Menüde ara: latte, menemen…",open:"Şu an açık",closed:"Şu an kapalı",closes:"Kapanış",opens:"Açılış",veg:"Vejetaryen",gf:"Glutensiz",fav:"Öneri",nut:"Kuruyemiş",days:["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"],req:"Rezervasyon isteği",msgReady:"Mesaj hazır:",send:"WhatsApp'ta aç",demoNote:"Demo sayfada mesaj örnek bir numaraya gider."},
+ en:{q:"Search the menu: latte, eggs…",open:"Open now",closed:"Closed now",closes:"Closes",opens:"Opens",veg:"Vegetarian",gf:"Gluten-free",fav:"Pick",nut:"Nuts",days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],req:"Booking request",msgReady:"Message ready:",send:"Open in WhatsApp",demoNote:"On this demo page the message goes to a sample number."}
+};
+const HOURS=[[9,22],[8,22],[8,22],[8,22],[8,22],[8,23],[9,23]]; // Sun..Sat
+let lang="tr";
+try{lang=localStorage.getItem("mavera-lang")||"tr"}catch(e){}
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString("tr-TR")+" ₺";
+
+function renderStatic(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-tr]").forEach(el=>el.textContent=el.dataset[lang]);
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
+  $("#q").placeholder=T[lang].q;
+  $("#catnav").innerHTML=MENU.map((c,i)=>`<a href="#${c.id}"${i===0?' class="on"':''}>${c[lang]}</a>`).join("");
+  const now=new Date(),d=now.getDay(),h=now.getHours()+now.getMinutes()/60,[o,cl]=HOURS[d],isOpen=h>=o&&h<cl;
+  $("#status").innerHTML=`<span><span class="dot" style="background:${isOpen?'#3E8E41':'#B3261E'}"></span>${isOpen?T[lang].open:T[lang].closed}</span><span>${isOpen?T[lang].closes+" "+cl+":00":T[lang].opens+" "+(h<o?o:HOURS[(d+1)%7][0])+":00"}</span>`;
+  $("#hours").innerHTML=[1,2,3,4,5,6,0].map(i=>`<tr class="${i===d?'today':''}"><td>${T[lang].days[i]}</td><td>${String(HOURS[i][0]).padStart(2,"0")}:00 – ${HOURS[i][1]}:00</td></tr>`).join("");
+}
+function renderMenu(){
+  const q=$("#q").value.trim().toLocaleLowerCase("tr"),fv=$("#fV").checked,fg=$("#fG").checked;
+  let total=0;
+  $("#menu").innerHTML=MENU.map(c=>{
+    const items=c.items.filter(it=>{
+      if(fv&&!it.v)return false; if(fg&&!it.g)return false;
+      if(!q)return true;
+      return (it.tr+" "+it.en+" "+it.dtr+" "+it.den).toLocaleLowerCase("tr").includes(q);
+    });
+    total+=items.length;
+    if(!items.length)return "";
+    return `<section class="cat" id="${c.id}"><h2>${c[lang]}</h2>${c["n"+lang]?`<p>${c["n"+lang]}</p>`:""}
+      ${items.map(it=>`<div class="item"><h3>${it[lang]}</h3><span class="price">${fmt(it.p)}</span><span class="desc">${lang==="tr"?it.dtr:it.den}</span>
+      ${(it.v||it.g||it.s||it.n)?`<span class="tags">${it.s?`<span class="tag s">${T[lang].fav}</span>`:""}${it.v?`<span class="tag v">${T[lang].veg}</span>`:""}${it.g?`<span class="tag">${T[lang].gf}</span>`:""}${it.n?`<span class="tag n">${T[lang].nut}</span>`:""}</span>`:""}</div>`).join("")}</section>`;
+  }).join("");
+  $("#empty").style.display=total?"none":"block";
+  observe();
+}
+let io;
+function observe(){
+  if(io)io.disconnect();
+  io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll("#catnav a").forEach(a=>{const on=a.getAttribute("href")==="#"+e.target.id;a.classList.toggle("on",on);if(on)a.scrollIntoView({block:"nearest",inline:"center"})})}})},{rootMargin:"-30% 0px -60% 0px"});
+  document.querySelectorAll("section.cat").forEach(s=>io.observe(s));
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{lang=b.dataset.lang;try{localStorage.setItem("mavera-lang",lang)}catch(e){};renderStatic();renderMenu()}));
+["input","change"].forEach(ev=>{$("#q").addEventListener(ev,renderMenu);$("#fV").addEventListener(ev,renderMenu);$("#fG").addEventListener(ev,renderMenu)});
+const di=$("#res [name=gun]");di.min=new Date().toISOString().slice(0,10);
+$("#res").addEventListener("submit",e=>{
+  e.preventDefault();const f=new FormData(e.target);
+  const msg=`${T[lang].req} — ${f.get("ad")}, ${f.get("kisi")} ${lang==="tr"?"kişi":"guests"}, ${f.get("gun")} ${f.get("saat")}`;
+  const out=$("#resOut");out.style.display="block";
+  out.innerHTML=`<strong>${T[lang].msgReady}</strong> “${msg.replace(/</g,"&lt;")}”<br><a href="https://wa.me/905000000000?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${T[lang].send}</a><br><small>${T[lang].demoNote}</small>`;
+});
+renderStatic();renderMenu();
+</script>
+</body>
+</html>

@@ -1,0 +1,802 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Avlu Gayrimenkul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: kurumsal emlak ofisi sitesi — fotoğraf ağırlıklı hero + arama, filtreli ilan vitrini, ayrı ilan detay sayfası (galeri, özellik tablosu, danışman kartı) */
+:root{
+  --bg:#F5F5F2; --surface:#FFFFFF; --sunk:#EEEEEA; --ink:#121A20; --muted:#5C6670; --line:#E1E0DA;
+  --accent:#0F5C55; --accent-ink:#FFFFFF; --accent-soft:#E2EEEB; --brass:#A9813F; --ok:#2E7A4E;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:12px; --shadow:0 18px 40px -26px rgba(15,30,35,.45);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1316; --surface:#161D21; --sunk:#11181B; --ink:#E8ECEE; --muted:#9AA6AD; --line:#263038;
+  --accent:#4FB3A6; --accent-ink:#06120F; --accent-soft:#12302C; --brass:#D2AE6C; --ok:#5CC48A;
+  --shadow:0 18px 40px -26px rgba(0,0,0,.8); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1316; --surface:#161D21; --sunk:#11181B; --ink:#E8ECEE; --muted:#9AA6AD; --line:#263038;
+  --accent:#4FB3A6; --accent-ink:#06120F; --accent-soft:#12302C; --brass:#D2AE6C; --ok:#5CC48A;
+  --shadow:0 18px 40px -26px rgba(0,0,0,.8); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:1220px;margin:0 auto;padding-inline:20px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0;letter-spacing:-.015em}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+svg.img{display:block;width:100%;height:100%}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.ico{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Top bar + header */
+.util{background:var(--ink);color:var(--bg);font-size:13px}
+.util .wrap{display:flex;gap:22px;align-items:center;height:36px;overflow:hidden}
+.util span{display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+.util .r{margin-left:auto}
+@media (max-width:700px){.util .hide-s{display:none}}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo b{font-family:var(--display);font-size:23px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.logo small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-top:3px}
+nav.links{display:flex;gap:26px;margin-left:auto;font-weight:600;font-size:15px}
+nav.links a{text-decoration:none;color:var(--muted);transition:color .15s}
+nav.links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:12px 20px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .15s,background .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.btn-wa{background:#1E8E57;color:#fff}
+@media (max-width:900px){nav.links{display:none}.top .btn{margin-left:auto}}
+
+/* Hero */
+.hero{position:relative;margin-top:22px;border-radius:22px;overflow:hidden;min-height:540px;display:flex;align-items:flex-end;background:#2b3a44}
+.hero .bg{position:absolute;inset:0}
+.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,16,20,.78) 0%,rgba(8,16,20,.45) 45%,rgba(8,16,20,0) 75%),linear-gradient(0deg,rgba(8,16,20,.55),rgba(8,16,20,0) 45%)}
+.hero .copy{position:relative;padding:56px 48px 150px;max-width:640px;color:#fff}
+.hero .eyebrow{color:#E8D2A6}
+.hero h1{font-size:clamp(36px,5.2vw,64px);font-weight:800;margin-top:14px}
+.hero p{font-size:18px;color:rgba(255,255,255,.82);max-width:48ch;margin:18px 0 0}
+.hero .badge{position:absolute;right:28px;top:28px;background:rgba(255,255,255,.92);color:#121A20;border-radius:12px;padding:12px 16px;display:grid;gap:2px;font-size:13px;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
+.hero .badge b{font-family:var(--display);font-size:20px}
+@media (max-width:760px){.hero{min-height:520px}.hero .copy{padding:32px 22px 210px}.hero .badge{display:none}}
+
+/* Search */
+.search{position:relative;z-index:2;margin:-104px 32px 0;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);display:grid;gap:14px}
+.seg{display:inline-flex;background:var(--sunk);border-radius:10px;padding:4px;justify-self:start}
+.seg button{border:0;background:transparent;padding:8px 18px;border-radius:8px;font-weight:600;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.srow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) auto;gap:10px;align-items:end}
+.field{display:grid;gap:5px;min-width:0}
+.field label{font-size:12px;font-weight:600;color:var(--muted)}
+.field select,.field input,.field textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 12px}
+@media (max-width:1000px){.srow{grid-template-columns:repeat(3,minmax(0,1fr))}.srow .btn{grid-column:1/-1}}
+@media (max-width:760px){.search{margin:-190px 12px 0}}
+@media (max-width:520px){.srow{grid-template-columns:1fr 1fr}}
+
+section{padding-block:72px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.sec-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;margin-top:8px}
+.sec-head p{color:var(--muted);max-width:48ch;margin:0}
+
+/* Category tiles */
+.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
+.cat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;transition:border-color .15s}
+.cat:hover{border-color:var(--accent)}
+.cat b{display:block;font-weight:700}
+.cat span{font-size:13px;color:var(--muted)}
+.cat .n{font-family:var(--display);font-size:24px;font-weight:700;color:var(--accent)}
+@media (max-width:1000px){.cats{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.cats{grid-template-columns:1fr 1fr}}
+
+/* Listing cards */
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.toolbar select{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px}
+.count{font-size:14px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.ph{position:relative;aspect-ratio:800/520;max-width:100%;overflow:hidden;background:var(--sunk)}
+.ph svg{transition:transform .5s}
+.card:hover .ph svg{transform:scale(1.04)}
+.pills{position:absolute;top:12px;left:12px;display:flex;gap:6px}
+.pill{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.95);color:#121A20}
+.pill.kira{background:#0F5C55;color:#fff}
+.pill.yeni{background:#A9813F;color:#fff}
+.pcount{position:absolute;bottom:10px;right:10px;font-size:12px;font-weight:600;background:rgba(10,16,20,.7);color:#fff;padding:4px 9px;border-radius:8px;display:inline-flex;gap:5px;align-items:center}
+.fav{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.95);color:#121A20;display:grid;place-items:center;cursor:pointer;z-index:2}
+.fav[aria-pressed="true"] svg{fill:#C2413A;stroke:#C2413A}
+.cbody{padding:18px 18px 16px;display:grid;gap:8px;flex:1}
+.cprice{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.01em}
+.cprice small{font-family:var(--body);font-size:14px;font-weight:500;color:var(--muted)}
+.ctitle{font-size:16px;font-weight:600;line-height:1.35}
+.cloc{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--muted)}
+.cspec{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.cspec span{display:inline-flex;gap:6px;align-items:center}
+.cfoot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);padding:10px 18px;background:var(--sunk)}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:48px;border:1px dashed var(--line);border-radius:16px}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:grid;gap:10px;align-content:start}
+.svc .ic{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.svc .ic svg{width:22px;height:22px}
+.svc h3{font-size:19px}
+.svc p{margin:0;color:var(--muted);font-size:15px}
+@media (max-width:1000px){.services{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.services{grid-template-columns:1fr}}
+
+/* Valuation band */
+.band{background:var(--ink);color:var(--bg);border-radius:24px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.band .l{padding:48px}
+.band .eyebrow{color:var(--brass)}
+.band h2{font-size:clamp(28px,3.4vw,42px);margin:10px 0 14px}
+.band p{color:color-mix(in srgb,var(--bg) 72%,var(--ink));margin:0}
+.steps{display:grid;gap:14px;margin-top:26px}
+.steps div{display:flex;gap:14px;align-items:flex-start}
+.steps i{font-style:normal;font-family:var(--mono);font-size:12px;width:28px;height:28px;border-radius:50%;border:1px solid color-mix(in srgb,var(--bg) 35%,var(--ink));display:grid;place-items:center;flex:none}
+.form{padding:48px;background:color-mix(in srgb,var(--bg) 6%,var(--ink));display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:center}
+.form .full{grid-column:1/-1}
+.form label{font-size:12px;font-weight:600;display:grid;gap:6px;color:color-mix(in srgb,var(--bg) 78%,var(--ink))}
+.form input,.form select{border:1px solid color-mix(in srgb,var(--bg) 22%,var(--ink));background:color-mix(in srgb,var(--bg) 10%,var(--ink));color:var(--bg);border-radius:10px;padding:12px;width:100%}
+.form .btn{background:var(--brass);color:#16110a}
+.ok{grid-column:1/-1;font-size:14px;color:var(--brass);margin:0}
+@media (max-width:900px){.band{grid-template-columns:1fr}.band .l,.form{padding:28px}}
+@media (max-width:460px){.form{grid-template-columns:1fr}}
+
+/* Stats + team + guides */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats div{padding:28px 20px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--display);font-size:clamp(30px,3.6vw,44px);font-weight:700}
+.stats span{color:var(--muted);font-size:14px}
+@media (max-width:760px){.stats{grid-template-columns:1fr 1fr}.stats div:nth-child(2){border-right:0}.stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.person{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;gap:16px;align-items:center}
+.avatar{width:64px;height:64px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:22px;color:#fff}
+.person b{display:block;font-size:17px}
+.person span{font-size:14px;color:var(--muted)}
+.person .ph-n{font-family:var(--mono);font-size:12px;color:var(--ink);margin-top:4px;display:block}
+@media (max-width:900px){.team{grid-template-columns:1fr}}
+.guides{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.guide{border-top:2px solid var(--ink);padding-top:18px;display:grid;gap:8px;align-content:start}
+.guide .eyebrow{color:var(--muted)}
+.guide h3{font-size:20px}
+.guide p{margin:0;color:var(--muted);font-size:15px}
+@media (max-width:900px){.guides{grid-template-columns:1fr}}
+
+/* Contact + footer */
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:22px}
+.cbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;display:grid;gap:18px;align-content:start}
+.cbox dl{margin:0;display:grid;gap:14px}
+.cbox dt{font-size:12px;color:var(--muted);font-weight:600}
+.cbox dd{margin:2px 0 0;font-weight:600}
+.copyable{font-family:var(--mono);user-select:all;background:var(--sunk);padding:6px 10px;border-radius:8px;display:inline-block}
+.mapbox{border-radius:16px;overflow:hidden;border:1px solid var(--line);min-height:320px;position:relative}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+footer{background:var(--ink);color:var(--bg);margin-top:72px}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px;padding-block:52px 34px}
+footer h4{font-size:14px;font-family:var(--body);font-weight:700;margin-bottom:12px;color:color-mix(in srgb,var(--bg) 60%,var(--ink));text-transform:uppercase;letter-spacing:.08em}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
+footer a{text-decoration:none;color:color-mix(in srgb,var(--bg) 85%,var(--ink))}
+footer .legal{border-top:1px solid color-mix(in srgb,var(--bg) 16%,var(--ink));padding-block:18px;font-size:13px;color:color-mix(in srgb,var(--bg) 60%,var(--ink));display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:860px){footer .cols{grid-template-columns:1fr 1fr}}
+
+/* Detail page */
+.crumbs{display:flex;gap:8px;flex-wrap:wrap;font-size:14px;color:var(--muted);padding-block:22px 14px}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.dhead h1{font-size:clamp(26px,3.4vw,40px);font-weight:700}
+.dhead .cloc{margin-top:8px}
+.dprice{font-family:var(--display);font-size:clamp(28px,3.4vw,40px);font-weight:800;color:var(--accent)}
+.dprice small{font-size:16px;font-weight:500;color:var(--muted);font-family:var(--body)}
+.gallery{display:grid;grid-template-columns:3fr 1fr;gap:10px}
+.gmain{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:800/520;max-width:100%;background:var(--sunk)}
+.gthumbs{display:grid;gap:10px;grid-auto-rows:minmax(0,1fr)}
+.gthumbs button svg{position:absolute;inset:0}
+.gthumbs button{border:2px solid transparent;border-radius:12px;overflow:hidden;padding:0;cursor:pointer;background:var(--sunk);position:relative;min-height:0}
+.gthumbs button[aria-current="true"]{border-color:var(--accent)}
+.gthumbs .lbl{position:absolute;left:8px;bottom:8px;font-size:11px;font-weight:700;background:rgba(10,16,20,.7);color:#fff;padding:3px 8px;border-radius:6px}
+.gnav{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#121A20;cursor:pointer;display:grid;place-items:center}
+.gnav.p{left:14px}.gnav.n{right:14px}
+.gcount{position:absolute;bottom:14px;left:14px;font-size:13px;font-weight:600;background:rgba(10,16,20,.7);color:#fff;padding:5px 10px;border-radius:8px}
+@media (max-width:760px){.gallery{grid-template-columns:1fr}.gthumbs{grid-template-columns:repeat(4,1fr);grid-auto-rows:auto}.gthumbs button{aspect-ratio:800/520}.gthumbs .lbl{display:none}}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;margin-top:28px;align-items:start}
+@media (max-width:980px){.dgrid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px}
+.panel+.panel{margin-top:20px}
+.panel h2{font-size:22px;margin-bottom:16px}
+.keyrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.keyrow div{background:var(--sunk);border-radius:12px;padding:14px;display:grid;gap:2px}
+.keyrow span{font-size:12px;color:var(--muted)}
+.keyrow b{font-size:17px}
+@media (max-width:560px){.keyrow{grid-template-columns:1fr 1fr}}
+.ftable{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
+.ftable div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.ftable dt{color:var(--muted)}
+.ftable dd{margin:0;font-weight:600;text-align:right}
+@media (max-width:620px){.ftable{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{display:inline-flex;gap:6px;align-items:center;font-size:14px;padding:7px 12px;border-radius:999px;background:var(--accent-soft);color:var(--ink)}
+.chips svg{color:var(--accent)}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);display:grid;gap:20px}
+.agent{display:flex;gap:14px;align-items:center}
+.agent b{display:block}
+.agent span{font-size:14px;color:var(--muted)}
+.sidebtns{display:grid;gap:10px;margin-top:18px}
+.mini{display:grid;gap:10px}
+.mini .r{display:flex;justify-content:space-between;font-size:15px;padding-top:8px;border-top:1px solid var(--line)}
+.mini .big{font-family:var(--display);font-size:30px;font-weight:800;color:var(--accent)}
+.note{font-size:12px;color:var(--muted);margin:0}
+.desc p{margin:0 0 12px;max-width:68ch}
+.okline{color:var(--ok);font-weight:600;font-size:14px;margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="util"><div class="wrap">
+  <span><svg class="ico" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>0222 555 04 18</span>
+  <span class="hide-s"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Hafta içi 09.00–19.00 · Cmt 10.00–17.00</span>
+  <span class="r hide-s">Yetki Belge No: 2600000 (örnek)</span>
+</div></div>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="#anasayfa">
+    <svg width="38" height="38" viewBox="0 0 38 38" aria-hidden="true"><rect width="38" height="38" rx="10" fill="var(--accent)"/><path d="M10 28V16.5L19 9l9 7.5V28h-6v-7h-6v7z" fill="var(--accent-ink)"/><rect x="16.5" y="21" width="5" height="7" fill="var(--accent)"/></svg>
+    <span><b>Avlu</b><small>Gayrimenkul</small></span>
+  </a>
+  <nav class="links"><a href="#ilanlar">İlanlar</a><a href="#hizmetler">Hizmetler</a><a href="#degerleme">Evinizi Satalım</a><a href="#ekip">Ekibimiz</a><a href="#iletisim">İletişim</a></nav>
+  <a class="btn btn-primary" href="#degerleme">Ücretsiz Değerleme</a>
+</div></header>
+
+<main>
+<!-- ================= ANA SAYFA ================= -->
+<div id="home">
+  <div class="wrap">
+    <div class="hero">
+      <div class="bg" id="heroBg"></div>
+      <div class="copy">
+        <div class="eyebrow">Eskişehir · 2014'ten beri</div>
+        <h1>Eskişehir'de aradığınız ev, tek adreste.</h1>
+        <p>Odunpazarı ve Tepebaşı'nda satılık ve kiralık konut, arsa ve işyeri. Portföyümüzdeki her mülkü yerinde gördük, tapu ve imar durumunu kontrol ettik.</p>
+      </div>
+      <div class="badge"><span>Haftanın ilanı</span><b>Kumlubel · 5+1 Villa</b><span class="num">18.750.000 ₺</span></div>
+    </div>
+
+    <form class="search" id="search" aria-label="İlan ara">
+      <div class="seg" role="group" aria-label="İlan durumu">
+        <button type="button" data-d="Tümü" aria-pressed="true">Tümü</button>
+        <button type="button" data-d="Satılık" aria-pressed="false">Satılık</button>
+        <button type="button" data-d="Kiralık" aria-pressed="false">Kiralık</button>
+      </div>
+      <div class="srow">
+        <div class="field"><label for="fTur">Emlak tipi</label><select id="fTur"><option>Tümü</option><option>Daire</option><option>Villa</option><option>Arsa</option><option>İşyeri</option></select></div>
+        <div class="field"><label for="fOda">Oda sayısı</label><select id="fOda"><option>Tümü</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1 ve üzeri</option></select></div>
+        <div class="field"><label for="fSemt">Mahalle</label><select id="fSemt"><option>Tümü</option></select></div>
+        <div class="field"><label for="fMin">En az fiyat (₺)</label><input id="fMin" type="number" inputmode="numeric" placeholder="0" min="0"></div>
+        <div class="field"><label for="fMax">En çok fiyat (₺)</label><input id="fMax" type="number" inputmode="numeric" placeholder="Sınırsız" min="0"></div>
+        <button class="btn btn-primary" type="submit"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>İlanları Göster</button>
+      </div>
+    </form>
+
+    <div class="cats" id="cats"></div>
+  </div>
+
+  <section id="ilanlar">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Portföy</div><h2>Güncel ilanlarımız</h2></div>
+        <div class="toolbar">
+          <span class="count num" id="count"></span>
+          <select id="sort" aria-label="Sıralama"><option value="new">En yeni ilanlar</option><option value="asc">Fiyat: düşükten yükseğe</option><option value="desc">Fiyat: yüksekten düşüğe</option><option value="m2">m²: büyükten küçüğe</option></select>
+          <button class="btn btn-ghost" type="button" id="clear">Filtreleri temizle</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="hizmetler" style="padding-top:8px">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Hizmetlerimiz</div><h2>Alımdan tapuya kadar yanınızdayız</h2></div><p>İlk görüşmeden anahtar teslimine kadar tüm süreci tek bir danışman takip eder.</p></div>
+      <div class="services">
+        <div class="svc"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg></div><h3>Satılık & kiralık</h3><p>İhtiyacınızı dinler, bütçenize uygun mülkleri tek tek gezdiririz.</p></div>
+        <div class="svc"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg></div><h3>Değerleme</h3><p>Bölgedeki gerçekleşen satışlara göre evinizin piyasa değerini çıkarırız.</p></div>
+        <div class="svc"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div><h3>Kredi desteği</h3><p>Konut kredisi başvurusunu ve ekspertiz randevusunu sizin yerinize takip ederiz.</p></div>
+        <div class="svc"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div><h3>Tapu işlemleri</h3><p>Evrakları hazırlar, tapu müdürlüğünde işlem bitene kadar yanınızda oluruz.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="degerleme" style="padding-top:8px">
+    <div class="wrap">
+      <div class="band">
+        <div class="l">
+          <div class="eyebrow">Ev sahipleri için</div>
+          <h2>Evinizi doğru fiyata, hızlıca satalım.</h2>
+          <p>Bilgilerinizi bırakın, 48 saat içinde bölgedeki son satışlara dayanan ücretsiz bir değer raporuyla size dönelim.</p>
+          <div class="steps">
+            <div><i>1</i><span>Formu doldurursunuz, aynı gün arayıp randevu alırız.</span></div>
+            <div><i>2</i><span>Evi yerinde görür, profesyonel fotoğraflarını çekeriz.</span></div>
+            <div><i>3</i><span>Değer raporunu ve satış planını birlikte konuşuruz.</span></div>
+          </div>
+        </div>
+        <form class="form" id="valForm">
+          <label>Ad soyad<input id="vAd" required autocomplete="name"></label>
+          <label>Telefon<input id="vTel" required inputmode="tel" placeholder="05xx xxx xx xx"></label>
+          <label>Mahalle<select id="vSemt"></select></label>
+          <label>Oda sayısı<select id="vOda"><option>1+1</option><option>2+1</option><option selected>3+1</option><option>4+1</option><option>5+1 ve üzeri</option></select></label>
+          <label>Brüt m²<input id="vM2" type="number" min="20" placeholder="Örn. 130"></label>
+          <label>Bina yaşı<input id="vYas" type="number" min="0" placeholder="Örn. 10"></label>
+          <button class="btn full" type="submit">Ücretsiz değerleme iste</button>
+          <p class="ok" id="vOk" hidden>Talebiniz alındı. Bu bir örnek site olduğu için bilgileriniz hiçbir yere gönderilmedi.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats">
+      <div><b class="num">12</b><span>yıllık tecrübe</span></div>
+      <div><b class="num">340+</b><span>tamamlanan satış</span></div>
+      <div><b class="num">1.100+</b><span>kiralama sözleşmesi</span></div>
+      <div><b class="num">4,9</b><span>Google puanı</span></div>
+    </div>
+  </div>
+
+  <section id="ekip">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Ekibimiz</div><h2>Gayrimenkul danışmanlarımız</h2></div><p>Hepsi Eskişehirli, hepsi yetki belgeli. Mahalleyi, binayı, hatta komşuları tanırlar.</p></div>
+      <div class="team" id="team"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Rehber</div><h2>Ev alırken bilmeniz gerekenler</h2></div></div>
+      <div class="guides">
+        <div class="guide"><span class="eyebrow">Tapu</span><h3>Tapu harcını kim öder?</h3><p>Tapu harcı satış bedelinin %4'üdür ve genellikle alıcı ile satıcı arasında yarı yarıya paylaşılır. Sözleşmede kimin ne ödeyeceğini önceden yazın.</p></div>
+        <div class="guide"><span class="eyebrow">Sigorta</span><h3>DASK olmadan tapu yapılmaz</h3><p>Zorunlu deprem sigortası (DASK) poliçesi olmayan konutun tapu devri yapılamaz. Poliçeyi satıştan önce kontrol etmek işinizi hızlandırır.</p></div>
+        <div class="guide"><span class="eyebrow">Kontrol listesi</span><h3>İlk ziyarette nelere bakılır?</h3><p>Tapu türü, iskân durumu, aidat ve borç bilgisi, bina yaşı ve ısınma tipi. Danışmanımız bu bilgileri ziyaretten önce size iletir.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="iletisim" style="padding-top:8px">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">İletişim</div><h2>Ofisimize bekleriz</h2></div></div>
+      <div class="contact">
+        <div class="cbox">
+          <dl>
+            <div><dt>Adres</dt><dd>Hoşnudiye Mah. İsmet İnönü Cad. No: 48/A<br>Tepebaşı / Eskişehir</dd></div>
+            <div><dt>Telefon ve WhatsApp</dt><dd><span class="copyable num">0222 555 04 18</span></dd></div>
+            <div><dt>E-posta</dt><dd><span class="copyable">bilgi@avlugayrimenkul.com</span></dd></div>
+            <div><dt>Çalışma saatleri</dt><dd>Hafta içi 09.00–19.00 · Cumartesi 10.00–17.00</dd></div>
+          </dl>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn btn-wa" href="https://wa.me/902225550418" target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/search/H%C3%B6%C5%9Fnudiye+Eski%C5%9Fehir" target="_blank" rel="noopener">Yol tarifi al</a>
+          </div>
+        </div>
+        <div class="mapbox" id="mapBox"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= İLAN DETAY ================= -->
+<div id="detail" hidden></div>
+</main>
+
+<footer><div class="wrap">
+  <div class="cols">
+    <div><a class="logo" href="#anasayfa" style="color:inherit"><svg width="34" height="34" viewBox="0 0 38 38" aria-hidden="true"><rect width="38" height="38" rx="10" fill="var(--accent)"/><path d="M10 28V16.5L19 9l9 7.5V28h-6v-7h-6v7z" fill="var(--accent-ink)"/></svg><span><b>Avlu</b></span></a>
+      <p style="font-size:15px;color:color-mix(in srgb,var(--bg) 70%,var(--ink));max-width:34ch;margin:14px 0 0">Eskişehir'de 2014'ten beri satılık ve kiralık konut, arsa ve işyeri danışmanlığı.</p></div>
+    <div><h4>İlanlar</h4><ul><li><a href="#ilanlar" data-quick="Satılık|Daire">Satılık daireler</a></li><li><a href="#ilanlar" data-quick="Kiralık|Daire">Kiralık daireler</a></li><li><a href="#ilanlar" data-quick="Satılık|Villa">Villalar</a></li><li><a href="#ilanlar" data-quick="Tümü|Arsa">Arsalar</a></li></ul></div>
+    <div><h4>Kurumsal</h4><ul><li><a href="#hizmetler">Hizmetler</a></li><li><a href="#ekip">Ekibimiz</a></li><li><a href="#degerleme">Evinizi satalım</a></li><li><a href="#iletisim">İletişim</a></li></ul></div>
+    <div><h4>İletişim</h4><ul><li>0222 555 04 18</li><li>bilgi@avlugayrimenkul.com</li><li>Hoşnudiye, Tepebaşı</li></ul></div>
+  </div>
+  <div class="legal"><span>© 2026 Avlu Gayrimenkul · KVKK Aydınlatma Metni · Çerez Politikası</span><span>Bu site, Avlu Gayrimenkul adlı hayali bir marka için hazırlanmış örnek tasarımdır. İlanlar ve kişiler gerçek değildir.</span></div>
+</div></footer>
+
+<script>
+/* ======================= VERİ ======================= */
+const AGENTS=[
+  {ad:"Zeynep Kaya",rol:"Kurucu · Satış danışmanı",tel:"0532 555 11 04",c:"#0F5C55"},
+  {ad:"Emre Aslan",rol:"Kiralık konut ve işyeri",tel:"0533 555 27 18",c:"#7A5A3A"},
+  {ad:"Selin Doğan",rol:"Arsa ve yatırım danışmanı",tel:"0535 555 63 40",c:"#3E5878"}
+];
+const KONUT=["ext","salon","mutfak","yatak"];
+const L=[
+ {id:1042,d:"Satılık",t:"Villa",oda:"5+1",semt:"Kumlubel",ilce:"Tepebaşı",brut:340,net:300,kat:"Müstakil",katS:"3",yas:1,banyo:3,isinma:"Yerden ısıtma",aidat:0,fiyat:18750000,gun:1,art:"villa",pal:1,sky:"gold",ag:0,
+  baslik:"Havuzlu, akıllı ev sistemli yeni villa",
+  acik:["2025 yapımı, 720 m² arsa üzerinde müstakil villa. Zemin katta açık mutfaklı salon ve misafir odası, üst katta ebeveyn banyolu iki yatak odası ve çalışma odası bulunuyor.","Bahçede 8×4 m havuz, kapalı garaj ve bahçe aydınlatması mevcut. Akıllı ev sistemi ile ısıtma, aydınlatma ve kamera telefondan yönetilebiliyor."],
+  ic:["Ebeveyn banyosu","Giyinme odası","Akıllı ev sistemi","Ankastre mutfak","Şömine","Çelik kapı"],dis:["Havuz","Kapalı garaj","Bahçe","Güvenlik kamerası","Isı yalıtımı"],sc:KONUT},
+ {id:1041,d:"Satılık",t:"Daire",oda:"3+1",semt:"Çamlıca",ilce:"Tepebaşı",brut:145,net:130,kat:"4",katS:"7",yas:8,banyo:2,isinma:"Kombi (doğalgaz)",aidat:1200,fiyat:6450000,gun:2,art:"apt",floors:7,pal:0,sky:"day",ag:0,
+  baslik:"Site içinde asansörlü, güney cepheli 3+1",
+  acik:["Güney cepheli, gün boyu güneş alan, ebeveyn banyolu 3+1 daire. Salon ve mutfak ayrı, mutfak ankastre ve geniş.","Site içinde kapalı otopark, çocuk oyun alanı ve 7/24 güvenlik var. Tramvay durağına ve okullara yürüme mesafesinde."],
+  ic:["Ebeveyn banyosu","Ankastre mutfak","Laminat parke","Çelik kapı","Vestiyer","Kartonpiyer"],dis:["Asansör","Kapalı otopark","Güvenlik","Çocuk oyun alanı","Isı yalıtımı"],sc:KONUT},
+ {id:1040,d:"Kiralık",t:"Daire",oda:"2+1",semt:"Vişnelik",ilce:"Odunpazarı",brut:95,net:85,kat:"2",katS:"5",yas:12,banyo:1,isinma:"Kombi (doğalgaz)",aidat:450,fiyat:22000,gun:2,art:"apt",floors:5,pal:2,sky:"gold",ag:1,
+  baslik:"Vişnelik'te bakımlı, yeni boyalı 2+1",
+  acik:["Yeni boyanmış, mutfak dolapları yenilenmiş 2+1 daire. Çekirdek aile veya çalışan çifte uygundur.","Depozito iki kira bedelidir. Kira sözleşmesi bir yıllık yapılır."],
+  ic:["Laminat parke","PVC doğrama","Çelik kapı","Duşakabin"],dis:["Otopark","Isı yalıtımı","Kapıcı"],sc:KONUT},
+ {id:1039,d:"Satılık",t:"Daire",oda:"4+1",semt:"Kumlubel",ilce:"Tepebaşı",brut:210,net:185,kat:"5–6 (Dubleks)",katS:"6",yas:2,banyo:2,isinma:"Yerden ısıtma",aidat:1800,fiyat:9200000,gun:4,art:"duplex",floors:6,pal:1,sky:"day",ag:0,
+  baslik:"40 m² teraslı, şehir manzaralı dubleks",
+  acik:["Alt katta salon, mutfak ve misafir odası; üst katta iki yatak odası ve 40 m² teras bulunan dubleks daire. Terastan şehir manzarası görülüyor.","Havuzlu sitede, kapalı otoparklı ve 7/24 güvenlikli. Krediye uygundur."],
+  ic:["Teras","Giyinme odası","Ebeveyn banyosu","Ankastre mutfak","Akıllı ev sistemi"],dis:["Havuz","Asansör","Kapalı otopark","Güvenlik","Spor salonu"],sc:KONUT},
+ {id:1038,d:"Satılık",t:"Arsa",oda:"—",semt:"Emek",ilce:"Odunpazarı",brut:620,net:620,kat:"—",katS:"4 kat imarlı",yas:0,banyo:0,isinma:"—",aidat:0,fiyat:3100000,gun:5,art:"arsa",pal:3,sky:"day",ag:2,
+  baslik:"Konut imarlı köşe parsel, altyapı hazır",
+  acik:["KAKS 1,20 ve 4 kat konut imarlı köşe parsel. Yolu açık, elektrik, su ve doğalgaz altyapısı parsel sınırına kadar gelmiş.","Hisseli değildir, tek tapu. Kat karşılığı müteahhit görüşmelerine de açıktır."],
+  ic:[],dis:["Köşe parsel","Yolu açık","Elektrik","Su","Doğalgaz altyapısı"],sc:["arsa","plan"]},
+ {id:1037,d:"Kiralık",t:"İşyeri",oda:"—",semt:"Hoşnudiye",ilce:"Tepebaşı",brut:120,net:110,kat:"Zemin",katS:"5",yas:15,banyo:1,isinma:"Klima",aidat:900,fiyat:45000,gun:6,art:"shop",floors:5,pal:0,sky:"gold",ag:1,
+  baslik:"Cadde üzeri 8 m vitrinli dükkan",
+  acik:["Yoğun yaya trafiğine sahip cadde üzerinde, 8 metre vitrin cepheli dükkan. Arka bölümde 20 m² depo ve WC mevcut.","Kafe, mağaza, eczane veya ofis kullanımına uygundur."],
+  ic:["Asma tavan","Spot aydınlatma","Klima","Depo"],dis:["Cadde cephesi","Vitrin","Tramvaya yakın"],sc:["ext","bos"]},
+ {id:1036,d:"Satılık",t:"Daire",oda:"1+1",semt:"Batıkent",ilce:"Odunpazarı",brut:60,net:52,kat:"3",katS:"6",yas:3,banyo:1,isinma:"Kombi (doğalgaz)",aidat:650,fiyat:2750000,gun:8,art:"apt",floors:6,pal:3,sky:"day",ag:2,
+  baslik:"Üniversiteye yakın, kiracılı yatırımlık 1+1",
+  acik:["Eşyalı ve kiracılı teslim edilecek 1+1 daire. Aylık kira getirisi 13.500 ₺.","Kampüse 10 dakika, otobüs durağı binanın önünde."],
+  ic:["Eşyalı","Amerikan mutfak","Laminat parke"],dis:["Asansör","Otopark","Isı yalıtımı"],sc:KONUT},
+ {id:1035,d:"Kiralık",t:"Daire",oda:"3+1",semt:"Bahçelievler",ilce:"Tepebaşı",brut:135,net:120,kat:"1",katS:"4",yas:20,banyo:1,isinma:"Merkezi",aidat:1100,fiyat:28000,gun:9,art:"apt",floors:4,pal:2,sky:"day",ag:1,
+  baslik:"Ağaçlı sokakta iki balkonlu geniş 3+1",
+  acik:["Ağaçlı ve sakin bir sokakta, iki balkonlu geniş daire. Merkezi ısıtma aidata dahildir.","Evcil hayvan kabul edilir."],
+  ic:["İki balkon","Ahşap parke","Kiler"],dis:["Kapıcı","Bahçe","Otopark"],sc:KONUT},
+ {id:1034,d:"Satılık",t:"Daire",oda:"2+1",semt:"Şirintepe",ilce:"Tepebaşı",brut:110,net:98,kat:"2",katS:"4",yas:6,banyo:1,isinma:"Kombi (doğalgaz)",aidat:600,fiyat:4350000,gun:11,art:"apt",floors:4,pal:0,sky:"gold",ag:0,
+  baslik:"Az katlı binada ferah 2+1",
+  acik:["4 katlı binada, bakımlı ve aydınlık 2+1 daire. Salonu geniş, mutfağı kapalı.","Krediye uygundur, tapusu kat mülkiyetlidir."],
+  ic:["Laminat parke","Ankastre mutfak","Çelik kapı"],dis:["Otopark","Isı yalıtımı"],sc:KONUT},
+ {id:1033,d:"Kiralık",t:"Daire",oda:"1+1",semt:"Arifiye",ilce:"Odunpazarı",brut:55,net:48,kat:"4",katS:"5",yas:9,banyo:1,isinma:"Kombi (doğalgaz)",aidat:350,fiyat:15500,gun:13,art:"apt",floors:5,pal:1,sky:"day",ag:1,
+  baslik:"Merkezde eşyalı 1+1, öğrenciye uygun",
+  acik:["Eşyalı, beyaz eşyaları yeni 1+1 daire. Çarşıya ve tramvaya yürüme mesafesinde.","Öğrenci veya tek kişiye uygundur."],
+  ic:["Eşyalı","Beyaz eşya","Klima"],dis:["Asansör"],sc:KONUT},
+ {id:1032,d:"Satılık",t:"İşyeri",oda:"—",semt:"Sümer",ilce:"Tepebaşı",brut:85,net:78,kat:"Zemin",katS:"4",yas:10,banyo:1,isinma:"Kombi (doğalgaz)",aidat:500,fiyat:5600000,gun:15,art:"shop",floors:4,pal:3,sky:"day",ag:2,
+  baslik:"Kiracılı dükkan, düzenli kira getirisi",
+  acik:["Uzun süreli kiracısı bulunan zemin kat dükkan. Aylık kira getirisi 26.000 ₺.","Yatırımcılar için uygundur."],
+  ic:["Spot aydınlatma","WC"],dis:["Cadde cephesi","Vitrin"],sc:["ext","bos"]},
+ {id:1031,d:"Satılık",t:"Villa",oda:"4+1",semt:"Sultandere",ilce:"Odunpazarı",brut:280,net:240,kat:"Müstakil",katS:"2",yas:5,banyo:2,isinma:"Kombi (doğalgaz)",aidat:0,fiyat:14900000,gun:18,art:"villa",pal:2,sky:"day",ag:0,
+  baslik:"Meyve ağaçlı bahçe içinde 4+1 villa",
+  acik:["650 m² arsa içinde, meyve ağaçlı bahçeli müstakil villa. Şömineli salon ve geniş mutfak.","Çatı katında çalışma odası ve depo mevcut."],
+  ic:["Şömine","Ebeveyn banyosu","Kiler"],dis:["Bahçe","Garaj","Havuz"],sc:KONUT}
+];
+
+/* ======================= YARDIMCILAR ======================= */
+const $=s=>document.querySelector(s);
+const fmt=n=>Math.round(n).toLocaleString("tr-TR");
+const tl=n=>fmt(n)+" ₺";
+const today=new Date();
+const dateOf=g=>{const d=new Date(today);d.setDate(d.getDate()-g);return d.toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})};
+const priceHtml=l=>l.d==="Kiralık"?`${tl(l.fiyat)} <small>/ ay</small>`:tl(l.fiyat);
+const I={
+ pin:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+ bed:'<svg class="ico" viewBox="0 0 24 24"><path d="M3 18V7M3 13h18v5M21 13a3 3 0 0 0-3-3h-7v3"/><circle cx="7" cy="10.5" r="1.8"/></svg>',
+ area:'<svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 9h5V4M20 15h-5v5"/></svg>',
+ floor:'<svg class="ico" viewBox="0 0 24 24"><path d="M4 20h4v-4h4v-4h4V8h4"/></svg>',
+ cam:'<svg class="ico" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+ heart:'<svg class="ico" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+ check:'<svg class="ico" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m5 12 4.5 4.5L19 7"/></svg>',
+ l:'<svg class="ico" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>',
+ r:'<svg class="ico" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>'
+};
+
+/* ======================= GÖRSELLER (fotoğraf yerine render) ======================= */
+let UID=0;
+const PAL=[{f:["#F2EDE4","#DED5C7"],t:"#3B4046"},{f:["#F1F2F2","#D3D8DB"],t:"#2C343B"},{f:["#E6D6C0","#CDB797"],t:"#4A3B2E"},{f:["#EAE4D9","#D2C6B2"],t:"#30363A"}];
+const FAB=["#5E6F66","#8C7A66","#4C5F78","#A3876A"];
+const rnd=s=>()=>{s=(s*9301+49297)%233280;return s/233280};
+const P=a=>a.map(q=>q.map(v=>v.toFixed(1)).join(",")).join(" ");
+
+function defs(u,sky){
+  const c=sky==="gold"?["#4E6D96","#C7A88E","#F3D2A2"]:["#4A84C2","#A6CBE8","#EEF2EE"];
+  return `<defs>
+  <linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset=".62" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[2]}"/></linearGradient>
+  <radialGradient id="${u}sun" cx="${sky==="gold"?.86:.82}" cy="${sky==="gold"?.66:.1}" r=".55"><stop offset="0" stop-color="#FFF4DC" stop-opacity="${sky==="gold"?.95:.7}"/><stop offset="1" stop-color="#FFF4DC" stop-opacity="0"/></radialGradient>
+  <linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A9CBE2"/><stop offset=".42" stop-color="#47677F"/><stop offset=".58" stop-color="#2B435A"/><stop offset="1" stop-color="#7097B2"/></linearGradient>
+  <linearGradient id="${u}w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE2A8"/><stop offset="1" stop-color="#B8763A"/></linearGradient>
+  <radialGradient id="${u}t" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#86A86C"/><stop offset="1" stop-color="#2D4D2B"/></radialGradient>
+  <linearGradient id="${u}wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C99C6C"/><stop offset="1" stop-color="#94673F"/></linearGradient>
+  <linearGradient id="${u}pool" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ADBE8"/><stop offset="1" stop-color="#2685A6"/></linearGradient>
+  <linearGradient id="${u}lawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8DAE62"/><stop offset="1" stop-color="#4F7A3B"/></linearGradient>
+  <linearGradient id="${u}beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF6E2" stop-opacity=".55"/><stop offset="1" stop-color="#FFF6E2" stop-opacity="0"/></linearGradient>
+  </defs>`;
+}
+function skyBg(u,l){
+  const r=rnd(l.id); let s=`<rect width="800" height="520" fill="url(#${u}s)"/><rect width="800" height="520" fill="url(#${u}sun)"/>`;
+  if(l.sky==="day") s+=`<g fill="#fff" opacity=".55"><ellipse cx="${120+r()*120}" cy="70" rx="70" ry="16"/><ellipse cx="${160+r()*120}" cy="60" rx="40" ry="14"/><ellipse cx="${470+r()*120}" cy="110" rx="60" ry="12"/></g>`;
+  let x=-10; const col=l.sky==="gold"?"#8C7E86":"#8EA3B6";
+  while(x<820){const w=30+r()*50,h=40+r()*110; s+=`<rect x="${x.toFixed(0)}" y="${(400-h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="${col}" opacity=".38"/>`; x+=w+4+r()*10;}
+  return s;
+}
+function tree(u,x,y,s){return `<rect x="${x-3*s}" y="${y-62*s}" width="${6*s}" height="${62*s}" fill="#4A3A2C"/><ellipse cx="${x}" cy="${y-84*s}" rx="${40*s}" ry="${46*s}" fill="url(#${u}t)"/><ellipse cx="${x-24*s}" cy="${y-62*s}" rx="${25*s}" ry="${24*s}" fill="url(#${u}t)"/><ellipse cx="${x+24*s}" cy="${y-64*s}" rx="${27*s}" ry="${26*s}" fill="url(#${u}t)"/>`}
+function car(x,y,c){return `<rect x="${x}" y="${y+14}" width="150" height="28" rx="11" fill="${c}"/><polygon points="${x+30},${y+15} ${x+50},${y-6} ${x+104},${y-6} ${x+126},${y+15}" fill="${c}"/><polygon points="${x+38},${y+13} ${x+54},${y-1} ${x+76},${y-1} ${x+76},${y+13}" fill="#253646" opacity=".9"/><polygon points="${x+82},${y+13} ${x+82},${y-1} ${x+101},${y-1} ${x+117},${y+13}" fill="#253646" opacity=".9"/><circle cx="${x+34}" cy="${y+42}" r="13" fill="#1C1F22"/><circle cx="${x+118}" cy="${y+42}" r="13" fill="#1C1F22"/><circle cx="${x+34}" cy="${y+42}" r="5" fill="#9AA3AA"/><circle cx="${x+118}" cy="${y+42}" r="5" fill="#9AA3AA"/><rect x="${x+140}" y="${y+22}" width="8" height="5" rx="2" fill="#FFE3A0"/>`}
+function street(){
+  let s=`<rect y="402" width="800" height="28" fill="#D5D0C6"/><rect y="428" width="800" height="5" fill="#B7B1A6"/><rect y="433" width="800" height="87" fill="#575B60"/>`;
+  for(let i=0;i<7;i++)s+=`<rect x="${i*130+20}" y="476" width="62" height="5" fill="#E8E6E0" opacity=".75"/>`;
+  return s+`<ellipse cx="165" cy="497" rx="80" ry="8" fill="#000" opacity=".25"/>`+car(90,452,"#8E2E2E")+`<rect x="714" y="298" width="4" height="104" fill="#3A3F44"/><rect x="696" y="294" width="34" height="6" rx="3" fill="#3A3F44"/>`;
+}
+function aptScene(u,l){
+  const p=PAL[l.pal],n=l.floors||5,fh=n>6?30:34,base=402,top=base-n*fh-14,x0=250,x1=530,bx=624,dT=26,dB=8,shop=l.art==="shop";
+  const by=y=>top+dT+(y-top)*((base-dB-top-dT)/(base-top));
+  const pt=(a,y)=>[x1+(bx-x1)*a,y+(by(y)-y)*a];
+  let s=defs(u,l.sky)+skyBg(u,l)+street();
+  s+=`<polygon points="${x1},${base} ${bx},${base-dB} ${bx+170},${base+26} ${x1+110},${base+28}" fill="#000" opacity=".16"/>`;
+  s+=`<linearGradient id="${u}f" x1="0" x2="1"><stop offset="0" stop-color="${p.f[0]}"/><stop offset="1" stop-color="${p.f[1]}"/></linearGradient>`;
+  const sideP=P([pt(0,top),pt(1,top),pt(1,base),pt(0,base)]);
+  s+=`<polygon points="${sideP}" fill="${p.f[1]}"/><polygon points="${sideP}" fill="#17202B" opacity=".24"/>`;
+  s+=`<rect x="${x0}" y="${top}" width="${x1-x0}" height="${base-top}" fill="url(#${u}f)"/>`;
+  if(l.art==="duplex"){
+    s+=`<rect x="${x0+44}" y="${top-46}" width="${x1-x0-80}" height="46" fill="url(#${u}f)"/><rect x="${x0+58}" y="${top-38}" width="${x1-x0-108}" height="30" fill="url(#${u}g)" stroke="#FAFAF8" stroke-width="2"/><rect x="${x0+40}" y="${top-50}" width="${x1-x0-72}" height="6" fill="${p.t}"/>`;
+    for(let i=0;i<4;i++)s+=`<line x1="${x0+58+i*44}" x2="${x0+58+i*44}" y1="${top-38}" y2="${top-8}" stroke="#FAFAF8" stroke-width="1.5"/>`;
+    s+=`<rect x="${x0}" y="${top-16}" width="${x1-x0}" height="12" fill="#D6E4EC" opacity=".4" stroke="#F4F6F6"/>`+tree(u,x1-26,top-4,.35);
+  }
+  s+=`<rect x="${x0-5}" y="${top-6}" width="${x1-x0+5}" height="9" fill="${p.t}"/><polygon points="${P([pt(0,top-6),pt(1,top-6),pt(1,top+3),pt(0,top+3)])}" fill="${p.t}" opacity=".85"/>`;
+  for(let i=0;i<n;i++){
+    const y=top+14+i*fh;
+    if(i<n-1){
+      for(let c=0;c<4;c++){const wx=x0+22+c*65,ww=44,wy=y+6,wh=fh-14;
+        s+=`<rect x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="url(#${u}g)" stroke="#FAFAF8" stroke-width="2"/><line x1="${wx+ww/2}" x2="${wx+ww/2}" y1="${wy}" y2="${wy+wh}" stroke="#FAFAF8" stroke-width="1.5"/>`;
+        if(c===1||c===2)s+=`<rect x="${wx-8}" y="${wy+wh-12}" width="${ww+16}" height="12" fill="#D6E4EC" opacity=".42" stroke="#F4F6F6"/><rect x="${wx-9}" y="${wy+wh}" width="${ww+18}" height="4" fill="${p.t}"/>`;
+      }
+      for(const[a,b]of[[.14,.4],[.6,.86]]){const wy=y+6,wh=fh-14;s+=`<polygon points="${P([pt(a,wy),pt(b,wy),pt(b,wy+wh),pt(a,wy+wh)])}" fill="url(#${u}g)" opacity=".8"/>`}
+      s+=`<line x1="${x0}" x2="${x1}" y1="${y+fh}" y2="${y+fh}" stroke="${p.t}" stroke-opacity=".16"/>`;
+    }else{
+      const gh=base-y;
+      if(shop){
+        s+=`<rect x="${x0+10}" y="${y+10}" width="${x1-x0-20}" height="${gh-10}" fill="url(#${u}w)"/>`;
+        for(let k=1;k<4;k++)s+=`<line x1="${x0+10+k*65}" x2="${x0+10+k*65}" y1="${y+10}" y2="${base}" stroke="#2C2C2C" stroke-width="3"/>`;
+        s+=`<polygon points="${x0-6},${y+2} ${x1+6},${y+2} ${x1+14},${y+14} ${x0-14},${y+14}" fill="#1E4D45"/><rect x="${x0+96}" y="${y+16}" width="88" height="14" fill="#fff"/><text x="${x0+140}" y="${y+27}" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="700" font-size="10" fill="#C2413A">${l.d.toLocaleUpperCase("tr-TR")}</text>`;
+      }else{
+        const cx=(x0+x1)/2;
+        s+=`<rect x="${cx-24}" y="${y+6}" width="48" height="${gh-6}" fill="#22313D"/><rect x="${cx-34}" y="${y+2}" width="68" height="5" fill="${p.t}"/><rect x="${x0+20}" y="${y+8}" width="70" height="${gh-16}" fill="url(#${u}g)" stroke="#FAFAF8" stroke-width="2"/><rect x="${x1-90}" y="${y+8}" width="70" height="${gh-16}" fill="url(#${u}g)" stroke="#FAFAF8" stroke-width="2"/>`;
+      }
+    }
+  }
+  return s+tree(u,190,404,1)+tree(u,665,404,.85);
+}
+function villaScene(u,l){
+  const p=PAL[l.pal];
+  let s=defs(u,l.sky)+skyBg(u,l);
+  s+=`<path d="M0 360 Q 200 320 400 352 T 800 340 V 400 H0z" fill="#6E8A62" opacity=".55"/><rect y="380" width="800" height="140" fill="url(#${u}lawn)"/>`;
+  s+=`<polygon points="180,398 600,392 760,430 260,440" fill="#000" opacity=".14"/>`;
+  s+=`<rect x="180" y="280" width="330" height="120" fill="${p.f[0]}"/><polygon points="510,280 584,296 584,394 510,400" fill="${p.f[1]}"/><polygon points="510,280 584,296 584,394 510,400" fill="#17202B" opacity=".2"/>`;
+  s+=`<rect x="300" y="190" width="300" height="94" fill="${p.f[0]}"/><rect x="300" y="190" width="92" height="94" fill="url(#${u}wood)"/>`;
+  for(let i=1;i<9;i++)s+=`<line x1="${300+i*10.2}" x2="${300+i*10.2}" y1="190" y2="284" stroke="#5A3C25" stroke-opacity=".35"/>`;
+  s+=`<rect x="168" y="272" width="352" height="10" fill="#2B3035"/><rect x="290" y="181" width="322" height="10" fill="#2B3035"/>`;
+  const glow=l.sky==="gold"?`url(#${u}w)`:`url(#${u}g)`;
+  s+=`<rect x="330" y="296" width="170" height="104" fill="${glow}" stroke="#2B3035" stroke-width="3"/><rect x="410" y="204" width="180" height="70" fill="${glow}" stroke="#2B3035" stroke-width="3"/>`;
+  for(const x of[372,414,456])s+=`<line x1="${x}" x2="${x}" y1="296" y2="400" stroke="#2B3035" stroke-width="3"/>`;
+  for(const x of[470,530])s+=`<line x1="${x}" x2="${x}" y1="204" y2="274" stroke="#2B3035" stroke-width="3"/>`;
+  s+=`<rect x="200" y="300" width="60" height="50" fill="url(#${u}g)" stroke="#2B3035" stroke-width="3"/><rect x="274" y="318" width="38" height="82" fill="#3A2A1E"/>`;
+  s+=`<polygon points="150,420 560,420 610,476 100,476" fill="#EFEDE7"/><polygon points="165,426 548,426 590,470 118,470" fill="url(#${u}pool)"/><path d="M190 440 q20 -6 40 0 t40 0 M340 452 q20 -6 40 0 t40 0" stroke="#fff" stroke-opacity=".55" fill="none" stroke-width="2"/>`;
+  s+=`<rect x="30" y="372" width="140" height="30" rx="14" fill="#3E6B37"/><rect x="620" y="378" width="160" height="26" rx="13" fill="#3E6B37"/>`;
+  return s+tree(u,110,384,1.15)+tree(u,690,384,1)+tree(u,620,392,.6);
+}
+function arsaScene(u,l){
+  let s=defs(u,l.sky)+skyBg(u,l);
+  s+=`<path d="M0 340 Q 160 290 330 330 T 800 320 V 420 H0z" fill="#7F99A5" opacity=".7"/><path d="M0 370 Q 250 330 500 360 T 800 355 V 420 H0z" fill="#768F63"/>`;
+  s+=`<linearGradient id="${u}fld" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BDB277"/><stop offset="1" stop-color="#8B8447"/></linearGradient><rect y="372" width="800" height="148" fill="url(#${u}fld)"/>`;
+  for(let i=-6;i<=6;i++)s+=`<line x1="${400+i*40}" y1="372" x2="${400+i*150}" y2="520" stroke="#6E6A38" stroke-opacity=".28"/>`;
+  s+=`<polygon points="250,392 590,392 700,500 120,500" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-width="3" stroke-dasharray="12 9"/>`;
+  for(const[x,y]of[[250,392],[590,392],[700,500],[120,500]])s+=`<rect x="${x-3}" y="${y-22}" width="6" height="24" fill="#E9E5DA"/><rect x="${x-3}" y="${y-22}" width="6" height="7" fill="#C2413A"/>`;
+  s+=`<rect x="618" y="300" width="6" height="104" fill="#4A3A2C"/><rect x="560" y="256" width="140" height="78" rx="4" fill="#fff"/><rect x="560" y="256" width="140" height="26" rx="4" fill="#0F5C55"/><text x="630" y="274" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="700" font-size="14" fill="#fff">SATILIK ARSA</text><text x="630" y="304" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="700" font-size="15" fill="#121A20">620 m² · İmarlı</text><text x="630" y="323" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5C6670">0222 555 04 18</text>`;
+  return s+tree(u,90,378,.7)+tree(u,150,372,.5)+tree(u,760,370,.55);
+}
+function planScene(u){
+  let s=`<rect width="800" height="520" fill="#F4F2EC"/>`;
+  for(let x=0;x<=800;x+=40)s+=`<line x1="${x}" x2="${x}" y1="0" y2="520" stroke="#CFD6D2" stroke-width="1"/>`;
+  for(let y=0;y<=520;y+=40)s+=`<line y1="${y}" y2="${y}" x1="0" x2="800" stroke="#CFD6D2" stroke-width="1"/>`;
+  s+=`<rect x="0" y="380" width="800" height="70" fill="#DAD6CC"/><rect x="560" y="0" width="70" height="380" fill="#DAD6CC"/><text x="280" y="420" font-family="IBM Plex Mono,monospace" font-size="13" fill="#5C6670">12 m İMAR YOLU</text><text x="604" y="200" font-family="IBM Plex Mono,monospace" font-size="13" fill="#5C6670" transform="rotate(-90 604 200)">10 m YOL</text>`;
+  s+=`<pattern id="${u}h" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#0F5C55" stroke-opacity=".35" stroke-width="2"/></pattern>`;
+  s+=`<polygon points="300,120 545,110 545,365 290,365" fill="url(#${u}h)" stroke="#0F5C55" stroke-width="3"/><polygon points="80,130 290,120 290,365 70,365" fill="none" stroke="#8A9792" stroke-width="1.5"/><polygon points="300,20 545,15 545,100 300,110" fill="none" stroke="#8A9792" stroke-width="1.5"/>`;
+  s+=`<text x="418" y="240" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="22" fill="#121A20">620 m²</text><text x="418" y="262" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="12" fill="#5C6670">Ada 412 · Parsel 7 (örnek)</text>`;
+  s+=`<line x1="300" y1="96" x2="545" y2="88" stroke="#121A20"/><text x="420" y="84" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#121A20">24,6 m</text><line x1="560" y1="110" x2="560" y2="365" stroke="#121A20" opacity="0"/>`;
+  s+=`<g transform="translate(720 70)"><circle r="26" fill="#fff" stroke="#121A20"/><polygon points="0,-20 7,6 0,0 -7,6" fill="#121A20"/><text y="20" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="700" font-size="11" fill="#121A20">K</text></g>`;
+  s+=`<rect x="40" y="460" width="300" height="40" fill="#fff" stroke="#121A20"/><text x="54" y="485" font-family="IBM Plex Mono,monospace" font-size="12" fill="#121A20">KAKS 1,20 · Hmax 12,50 m · Konut</text>`;
+  return s;
+}
+function room(u,wall,floor){
+  return `<polygon points="0,0 800,0 680,60 120,60" fill="#F6F4F0"/><polygon points="0,0 120,60 120,330 0,520" fill="${wall}"/><polygon points="0,0 120,60 120,330 0,520" fill="#000" opacity=".08"/><polygon points="800,0 680,60 680,330 800,520" fill="${wall}"/><polygon points="800,0 680,60 680,330 800,520" fill="#000" opacity=".14"/><rect x="120" y="60" width="560" height="270" fill="${wall}"/>
+  <linearGradient id="${u}fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${floor[0]}"/><stop offset="1" stop-color="${floor[1]}"/></linearGradient>
+  <polygon points="120,330 680,330 800,520 0,520" fill="url(#${u}fl)"/>${[...Array(15)].map((_,i)=>`<line x1="${(400+(i-7)*38).toFixed(0)}" y1="330" x2="${(400+(i-7)*115).toFixed(0)}" y2="520" stroke="#000" stroke-opacity=".07"/>`).join("")}<line x1="120" y1="330" x2="680" y2="330" stroke="#fff" stroke-width="5" opacity=".7"/>`;
+}
+function windowB(u,x,y,w,h){
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#${u}s)"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#${u}sun)"/><path d="M${x} ${y+h*.75} q ${w*.3} -${h*.12} ${w*.6} -${h*.04} t ${w*.4} 0 V ${y+h} H ${x}z" fill="#7E9A84" opacity=".7"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#FBFBF9" stroke-width="8"/><line x1="${x+w/2}" x2="${x+w/2}" y1="${y}" y2="${y+h}" stroke="#FBFBF9" stroke-width="6"/><polygon points="${x+8},${y+h} ${x+w-8},${y+h} ${x+w+60},520 ${x-120},520" fill="url(#${u}beam)" opacity=".7"/>`;
+}
+function plant(x,y,s){return `<rect x="${x-16*s}" y="${y-36*s}" width="${32*s}" height="${36*s}" rx="${4*s}" fill="#D9D3C7"/><g fill="#4F7A45"><ellipse cx="${x}" cy="${y-70*s}" rx="${12*s}" ry="${36*s}"/><ellipse cx="${x-20*s}" cy="${y-60*s}" rx="${10*s}" ry="${30*s}" transform="rotate(-25 ${x-20*s} ${y-60*s})"/><ellipse cx="${x+20*s}" cy="${y-62*s}" rx="${10*s}" ry="${30*s}" transform="rotate(25 ${x+20*s} ${y-62*s})"/></g>`}
+function salonScene(u,l){
+  const f=FAB[l.pal]; let s=defs(u,l.sky)+room(u,"#ECE7DF",["#C99D6E","#93683F"]);
+  s+=windowB(u,400,96,240,200)+`<rect x="180" y="110" width="110" height="80" fill="#fff" stroke="#3A3F44" stroke-width="5"/><circle cx="215" cy="148" r="20" fill="#C9A26A"/><rect x="232" y="130" width="40" height="44" fill="${f}" opacity=".8"/>`;
+  s+=`<polygon points="220,410 600,410 670,490 150,490" fill="#E2DACB"/><polygon points="240,418 580,418 640,482 175,482" fill="none" stroke="#C9BCA6" stroke-width="2"/>`;
+  s+=`<rect x="170" y="300" width="300" height="56" rx="14" fill="${f}"/><rect x="160" y="340" width="320" height="56" rx="12" fill="${f}"/><rect x="160" y="340" width="320" height="56" rx="12" fill="#000" opacity=".1"/><rect x="150" y="318" width="40" height="80" rx="12" fill="${f}"/><rect x="450" y="318" width="40" height="80" rx="12" fill="${f}"/><rect x="200" y="312" width="70" height="40" rx="10" fill="#F1ECE2"/><rect x="370" y="312" width="70" height="40" rx="10" fill="#D7B98C"/>`;
+  s+=`<rect x="300" y="430" width="200" height="14" rx="4" fill="#5A3E2A"/><rect x="312" y="444" width="6" height="30" fill="#3A2A1E"/><rect x="482" y="444" width="6" height="30" fill="#3A2A1E"/><circle cx="360" cy="424" r="8" fill="#E8E2D6"/>`;
+  s+=`<line x1="110" y1="200" x2="110" y2="410" stroke="#2B3035" stroke-width="4"/><polygon points="88,200 132,200 122,170 98,170" fill="#F1E6CF"/><circle cx="110" cy="210" r="40" fill="#FFF0C8" opacity=".25"/>`;
+  return s+plant(620,420,1.2);
+}
+function mutfakScene(u,l){
+  const c=["#3E5348","#E9E6E0","#2F3F52","#8C7258"][l.pal]; let s=defs(u,l.sky)+room(u,"#F0EEEA",["#D9D4CB","#B5AEA2"]);
+  s+=`<rect x="140" y="190" width="520" height="60" fill="#E7E3DC"/>`;for(let x=140;x<660;x+=26)s+=`<line x1="${x}" x2="${x}" y1="190" y2="250" stroke="#CFC9BE"/>`;for(let y=203;y<250;y+=13)s+=`<line x1="140" x2="660" y1="${y}" y2="${y}" stroke="#CFC9BE"/>`;
+  s+=`<rect x="140" y="90" width="270" height="92" fill="${c}"/>`;for(let x=140;x<410;x+=67.5)s+=`<rect x="${x+4}" y="94" width="59" height="84" fill="none" stroke="#000" stroke-opacity=".15"/>`;
+  s+=windowB(u,440,90,200,96);
+  s+=`<rect x="134" y="244" width="532" height="9" fill="#2C2F33"/><rect x="140" y="253" width="520" height="77" fill="${c}"/>`;for(let x=140;x<660;x+=65)s+=`<rect x="${x+4}" y="258" width="57" height="68" fill="none" stroke="#000" stroke-opacity=".15"/>`;
+  s+=`<rect x="300" y="268" width="60" height="44" rx="3" fill="#1E2023"/>`;
+  s+=`<polygon points="230,382 570,382 600,404 200,404" fill="#ECEAE5"/><rect x="200" y="404" width="400" height="78" fill="${c}"/><rect x="200" y="404" width="400" height="78" fill="#000" opacity=".12"/>`;
+  for(const x of[260,400,540])s+=`<line x1="${x}" y1="60" x2="${x}" y2="200" stroke="#2B3035" stroke-width="2"/><path d="M${x-26} 222 Q ${x} 190 ${x+26} 222z" fill="#2B3035"/><ellipse cx="${x}" cy="240" rx="40" ry="16" fill="#FFF0C8" opacity=".35"/>`;
+  for(const x of[250,350,450,550])s+=`<rect x="${x-14}" y="460" width="28" height="8" rx="3" fill="#5A3E2A"/><line x1="${x}" y1="468" x2="${x}" y2="512" stroke="#2B3035" stroke-width="4"/>`;
+  return s+plant(660,382,.6);
+}
+function yatakScene(u,l){
+  const f=FAB[(l.pal+1)%4]; let s=defs(u,l.sky)+room(u,"#E6E1D8",["#C49A6C","#8E6440"]);
+  s+=windowB(u,500,100,150,180)+`<rect x="482" y="90" width="22" height="240" fill="#EDE6D9"/><rect x="646" y="90" width="22" height="240" fill="#EDE6D9"/>`;
+  s+=`<rect x="200" y="226" width="250" height="96" rx="8" fill="${f}"/><polygon points="190,320 460,320 520,420 130,420" fill="#F6F3EE"/><polygon points="170,350 480,350 525,440 125,440" fill="${f}" opacity=".85"/><rect x="125" y="440" width="400" height="22" fill="#5A3E2A"/><rect x="215" y="296" width="90" height="34" rx="12" fill="#fff"/><rect x="330" y="296" width="90" height="34" rx="12" fill="#fff"/>`;
+  s+=`<rect x="140" y="300" width="50" height="44" fill="#5A3E2A"/><rect x="460" y="300" width="50" height="44" fill="#5A3E2A"/><polygon points="152,270 178,270 172,250 158,250" fill="#F1E6CF"/><line x1="165" y1="270" x2="165" y2="300" stroke="#2B3035" stroke-width="3"/><circle cx="165" cy="268" r="30" fill="#FFF0C8" opacity=".3"/>`;
+  return s+plant(600,450,.9);
+}
+function bosScene(u,l){
+  let s=defs(u,l.sky)+room(u,"#F2F1EE",["#B9B8B4","#8D8C88"]);
+  s+=`<rect x="120" y="60" width="560" height="270" fill="url(#${u}g)" opacity=".35"/>`+windowB(u,150,96,500,220);
+  for(const x of[220,400,580])s+=`<circle cx="${x}" cy="30" r="9" fill="#FFF6DC"/><polygon points="${x-9},34 ${x+9},34 ${x+60},330 ${x-60},330" fill="#FFF6DC" opacity=".12"/>`;
+  return s+`<rect x="640" y="250" width="30" height="80" fill="#fff" opacity=".9"/><text x="400" y="430" text-anchor="middle" font-family="Figtree,sans-serif" font-size="15" font-weight="600" fill="#fff" opacity=".85">${l.net} m² kullanım alanı</text>`;
+}
+const SC={salon:salonScene,mutfak:mutfakScene,yatak:yatakScene,bos:bosScene,arsa:arsaScene,plan:planScene};
+const LABEL={ext:"Dış cephe",salon:"Salon",mutfak:"Mutfak",yatak:"Yatak odası",bos:"İç mekân",arsa:"Arsa",plan:"İmar planı"};
+function scene(l,kind,label){
+  const u="r"+(++UID);
+  let body;
+  if(kind==="ext")body=l.art==="villa"?villaScene(u,l):aptScene(u,l);
+  else body=SC[kind](u,l);
+  return `<svg class="img" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${label||LABEL[kind]}">${body}</svg>`;
+}
+
+/* ======================= ANA SAYFA ======================= */
+let durum="Tümü";
+const favs=new Set();try{JSON.parse(localStorage.getItem("avluFav")||"[]").forEach(x=>favs.add(x))}catch(e){}
+function saveFav(){try{localStorage.setItem("avluFav",JSON.stringify([...favs]))}catch(e){}}
+
+const semtler=[...new Set(L.map(l=>l.semt))].sort((a,b)=>a.localeCompare(b,"tr"));
+semtler.forEach(s=>{$("#fSemt").add(new Option(s));$("#vSemt").add(new Option(s))});
+
+$("#heroBg").innerHTML=scene({...L[0],sky:"gold"},"ext","Havuzlu modern villa");
+$("#cats").innerHTML=[["Satılık","Daire","Satılık daire"],["Kiralık","Daire","Kiralık daire"],["Tümü","Villa","Villa"],["Tümü","Arsa","Arsa"],["Tümü","İşyeri","İşyeri"]].map(([d,t,ad])=>{
+  const n=L.filter(l=>(d==="Tümü"||l.d===d)&&l.t===t).length;
+  return `<button class="cat" type="button" data-quick="${d}|${t}"><div><b>${ad}</b><span>Tüm ilanları gör</span></div><span class="n num">${n}</span></button>`}).join("");
+document.addEventListener("click",e=>{const q=e.target.closest("[data-quick]");if(!q)return;e.preventDefault();const[d,t]=q.dataset.quick.split("|");setDurum(d);$("#fTur").value=t;$("#fOda").value="Tümü";$("#fSemt").value="Tümü";render();go("ilanlar")});
+
+function setDurum(d){durum=d;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.d===d))}
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{setDurum(b.dataset.d);render()});
+["fTur","fOda","fSemt","sort"].forEach(id=>$("#"+id).onchange=render);
+["fMin","fMax"].forEach(id=>$("#"+id).oninput=render);
+$("#search").onsubmit=e=>{e.preventDefault();render();go("ilanlar")};
+$("#clear").onclick=()=>{setDurum("Tümü");["fTur","fOda","fSemt"].forEach(id=>$("#"+id).value="Tümü");$("#fMin").value="";$("#fMax").value="";render()};
+
+function card(l){
+  const specs=[];
+  if(l.oda!=="—")specs.push(I.bed+l.oda);
+  specs.push(I.area+`${l.brut} m²`);
+  if(l.t!=="Arsa")specs.push(I.floor+(/^\d+$/.test(l.kat)?`${l.kat}. kat`:l.kat));else specs.push(I.floor+l.katS);
+  return `<a class="card" href="#ilan-${l.id}">
+    <div class="ph">${scene(l,l.sc[0])}
+      <div class="pills"><span class="pill ${l.d==="Kiralık"?"kira":""}">${l.d}</span>${l.gun<=3?'<span class="pill yeni">Yeni</span>':""}</div>
+      <span class="pcount">${I.cam}${l.sc.length}</span>
+    </div>
+    <div class="cbody">
+      <div class="cprice num">${priceHtml(l)}</div>
+      <div class="ctitle">${l.baslik}</div>
+      <div class="cloc">${I.pin}${l.semt}, ${l.ilce} / Eskişehir</div>
+      <div class="cspec">${specs.map(x=>`<span>${x}</span>`).join("")}</div>
+    </div>
+    <div class="cfoot"><span>İlan no #${l.id}</span><span>${l.t}</span></div>
+    <button class="fav" type="button" data-fav="${l.id}" aria-label="Favorilere ekle" aria-pressed="${favs.has(l.id)}">${I.heart}</button>
+  </a>`;
+}
+function render(){
+  const tur=$("#fTur").value,oda=$("#fOda").value,semt=$("#fSemt").value,sort=$("#sort").value,mn=+$("#fMin").value||0,mx=+$("#fMax").value||Infinity;
+  let r=L.filter(l=>(durum==="Tümü"||l.d===durum)&&(tur==="Tümü"||l.t===tur)&&(semt==="Tümü"||l.semt===semt)&&l.fiyat>=mn&&l.fiyat<=mx&&
+    (oda==="Tümü"||(oda==="4+1 ve üzeri"?parseInt(l.oda)>=4:l.oda===oda)));
+  if(sort==="asc")r.sort((a,b)=>a.fiyat-b.fiyat);else if(sort==="desc")r.sort((a,b)=>b.fiyat-a.fiyat);else if(sort==="m2")r.sort((a,b)=>b.brut-a.brut);else r.sort((a,b)=>a.gun-b.gun);
+  $("#count").textContent=`${r.length} ilan listeleniyor`;
+  $("#grid").innerHTML=r.length?r.map(card).join(""):`<div class="empty">Bu kriterlere uygun ilan bulunamadı. Filtreleri genişletebilir ya da bizi arayabilirsiniz; uygun bir mülk portföye girdiğinde ilk size haber verelim.</div>`;
+}
+document.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(!f)return;e.preventDefault();e.stopPropagation();const id=+f.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFav();document.querySelectorAll(`[data-fav="${id}"]`).forEach(b=>b.setAttribute("aria-pressed",favs.has(id)))},true);
+
+$("#team").innerHTML=AGENTS.map(a=>`<div class="person"><div class="avatar" style="background:${a.c}">${a.ad.split(" ").map(x=>x[0]).join("")}</div><div><b>${a.ad}</b><span>${a.rol}</span><span class="ph-n num">${a.tel}</span></div></div>`).join("");
+
+$("#mapBox").innerHTML=`<svg class="img" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ofis konumunu gösteren temsili harita">
+<rect width="600" height="340" fill="#E9ECE6"/>
+<path d="M-10 250 C 120 200, 230 290, 360 236 S 540 180, 620 205" stroke="#9CC3D6" stroke-width="22" fill="none"/>
+<g fill="#D9DED6">${[[30,30,120,70],[170,20,110,90],[330,30,130,60],[490,20,100,80],[30,130,100,70],[350,110,110,60],[480,120,110,50],[40,270,140,60],[420,270,160,60]].map(r=>`<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="6"/>`).join("")}</g>
+<rect x="160" y="125" width="150" height="70" rx="8" fill="#CFE0C3"/><text x="235" y="165" text-anchor="middle" font-family="Figtree,sans-serif" font-size="12" fill="#5F7A56">Park</text>
+<g stroke="#fff" stroke-width="12"><line x1="0" y1="110" x2="600" y2="100"/><line x1="140" y1="0" x2="160" y2="340"/><line x1="320" y1="0" x2="330" y2="340"/><line x1="0" y1="215" x2="600" y2="225"/></g>
+<text x="540" y="96" text-anchor="end" font-family="Figtree,sans-serif" font-size="11" font-weight="600" fill="#5C6670">İsmet İnönü Cad.</text>
+<text x="300" y="262" font-family="IBM Plex Mono,monospace" font-size="10" fill="#4C7D93">PORSUK ÇAYI</text>
+<circle cx="330" cy="104" r="30" fill="#0F5C55" opacity=".16"/><path d="M330 108 l-15 -21 a17 17 0 1 1 30 0z" fill="#0F5C55"/><circle cx="330" cy="76" r="6" fill="#fff"/>
+<rect x="350" y="58" width="150" height="34" rx="8" fill="#fff"/><text x="362" y="80" font-family="Figtree,sans-serif" font-size="13" font-weight="700" fill="#121A20">Avlu Gayrimenkul</text></svg>`;
+
+$("#valForm").onsubmit=e=>{e.preventDefault();$("#vOk").hidden=false;e.target.querySelector("button").textContent="Talebiniz alındı ✓"};
+
+/* ======================= İLAN DETAY ======================= */
+function detail(l){
+  const a=AGENTS[l.ag];
+  const rows=[["İlan no",`#${l.id}`],["İlan tarihi",dateOf(l.gun)],["Emlak tipi",`${l.d} ${l.t}`],["m² (brüt)",l.brut],["m² (net)",l.net],["Oda sayısı",l.oda],
+    ["Bina yaşı",l.t==="Arsa"?"—":l.yas],["Bulunduğu kat",l.kat],["Kat sayısı / imar",l.katS],["Isıtma",l.isinma],["Banyo sayısı",l.banyo||"—"],["Aidat",l.aidat?tl(l.aidat):"—"],
+    ["Krediye uygun",l.d==="Satılık"&&l.t!=="İşyeri"?"Evet":"—"],["Tapu durumu",l.t==="Arsa"?"Müstakil tapu":"Kat mülkiyetli"],["Kimden","Emlak ofisinden"],["Takas","Hayır"]];
+  const key=l.t==="Arsa"?[["Alan",`${l.brut} m²`],["İmar","Konut"],["KAKS","1,20"],["Konum",l.semt]]:[["Oda",l.oda],["Brüt / net",`${l.brut} / ${l.net} m²`],["Kat",l.kat],["Bina yaşı",l.yas?`${l.yas} yıl`:"Sıfır"]];
+  const loan=l.d==="Satılık"?`<div class="panel"><h2>Kredi hesaplama</h2><div class="mini">
+    <div class="field"><label for="kPes">Peşinat (%)</label><input id="kPes" type="number" value="40" min="0" max="100"></div>
+    <div class="field"><label for="kVade">Vade (ay)</label><input id="kVade" type="number" value="120" min="12" max="240" step="12"></div>
+    <div class="field"><label for="kFaiz">Aylık faiz (%)</label><input id="kFaiz" type="number" value="2.49" step="0.01" min="0"></div>
+    <span class="note">Aylık taksit</span><div class="big num" id="kTak">—</div>
+    <div class="r"><span class="muted">Kredi tutarı</span><b class="num" id="kKre">—</b></div>
+    <div class="r"><span class="muted">Toplam geri ödeme</span><b class="num" id="kTop">—</b></div>
+    <p class="note">Faiz oranı örnektir. Kesin teklif için bankanızla görüşün.</p></div></div>`:"";
+  const similar=L.filter(x=>x.id!==l.id&&(x.t===l.t||x.d===l.d)).slice(0,3);
+  $("#detail").innerHTML=`<div class="wrap">
+    <nav class="crumbs" aria-label="Sayfa yolu"><a href="#anasayfa">Ana sayfa</a><span>/</span><a href="#ilanlar">${l.d} ${l.t}</a><span>/</span><span>${l.semt}</span></nav>
+    <div class="dhead">
+      <div><span class="eyebrow">İlan no #${l.id} · ${dateOf(l.gun)}</span><h1 style="margin-top:8px">${l.baslik}</h1><div class="cloc">${I.pin}${l.semt} Mah., ${l.ilce} / Eskişehir</div></div>
+      <div class="dprice num">${priceHtml(l)}</div>
+    </div>
+    <div class="gallery">
+      <div class="gmain" id="gMain"></div>
+      <div class="gthumbs">${l.sc.map((k,i)=>`<button type="button" data-g="${i}" aria-current="${i===0}" aria-label="${LABEL[k]}">${scene(l,k)}<span class="lbl">${LABEL[k]}</span></button>`).join("")}</div>
+    </div>
+    <div class="dgrid">
+      <div>
+        <div class="panel">
+          <div class="keyrow">${key.map(([k,v])=>`<div><span>${k}</span><b class="num">${v}</b></div>`).join("")}</div>
+          <h2>Açıklama</h2><div class="desc">${l.acik.map(p=>`<p>${p}</p>`).join("")}</div>
+        </div>
+        <div class="panel"><h2>İlan bilgileri</h2><dl class="ftable">${rows.map(([k,v])=>`<div><dt>${k}</dt><dd class="num">${v}</dd></div>`).join("")}</dl></div>
+        ${l.ic.length?`<div class="panel"><h2>İç özellikler</h2><div class="chips">${l.ic.map(x=>`<span>${I.check}${x}</span>`).join("")}</div></div>`:""}
+        <div class="panel"><h2>${l.t==="Arsa"?"Altyapı ve konum":"Dış özellikler"}</h2><div class="chips">${l.dis.map(x=>`<span>${I.check}${x}</span>`).join("")}</div></div>
+      </div>
+      <aside class="side">
+        <div class="panel">
+          <div class="agent"><div class="avatar" style="background:${a.c}">${a.ad.split(" ").map(x=>x[0]).join("")}</div><div><b>${a.ad}</b><span>${a.rol}</span></div></div>
+          <div class="sidebtns">
+            <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/90${a.tel.replace(/\D/g,"").slice(1)}?text=${encodeURIComponent(`Merhaba, #${l.id} numaralı "${l.baslik}" ilanı hakkında bilgi almak istiyorum.`)}">WhatsApp'tan sor</a>
+            <span class="copyable num" style="text-align:center">${a.tel}</span>
+          </div>
+        </div>
+        <div class="panel"><h2>Yerinde görmek ister misiniz?</h2>
+          <form class="mini" id="randevu">
+            <div class="field"><label for="rAd">Ad soyad</label><input id="rAd" required autocomplete="name"></div>
+            <div class="field"><label for="rTel">Telefon</label><input id="rTel" required inputmode="tel" placeholder="05xx xxx xx xx"></div>
+            <div class="field"><label for="rGun">Uygun gün</label><select id="rGun">${[1,2,3,4,5].map(i=>{const d=new Date(today);d.setDate(d.getDate()+i);return `<option>${d.toLocaleDateString("tr-TR",{weekday:"long",day:"numeric",month:"long"})}</option>`}).join("")}</select></div>
+            <button class="btn btn-primary" type="submit">Randevu talep et</button>
+            <p class="okline" id="rOk" hidden>Talebiniz alındı. (Örnek site, bilgi gönderilmedi.)</p>
+          </form>
+        </div>
+        ${loan}
+      </aside>
+    </div>
+    ${similar.length?`<section style="padding-block:56px 0"><div class="sec-head"><div><div class="eyebrow">Benzer ilanlar</div><h2>Bunlar da ilginizi çekebilir</h2></div></div><div class="grid">${similar.map(card).join("")}</div></section>`:""}
+  </div>`;
+  let gi=0;const gm=$("#gMain");
+  const show=i=>{gi=(i+l.sc.length)%l.sc.length;gm.innerHTML=scene(l,l.sc[gi])+`<button class="gnav p" type="button" aria-label="Önceki fotoğraf">${I.l}</button><button class="gnav n" type="button" aria-label="Sonraki fotoğraf">${I.r}</button><span class="gcount num">${gi+1} / ${l.sc.length} · ${LABEL[l.sc[gi]]}</span><div class="pills"><span class="pill ${l.d==="Kiralık"?"kira":""}">${l.d}</span></div>`;
+    gm.querySelector(".p").onclick=()=>show(gi-1);gm.querySelector(".n").onclick=()=>show(gi+1);
+    document.querySelectorAll("[data-g]").forEach(b=>b.setAttribute("aria-current",+b.dataset.g===gi))};
+  document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>show(+b.dataset.g));
+  show(0);
+  $("#randevu").onsubmit=e=>{e.preventDefault();$("#rOk").hidden=false;e.target.querySelector("button").textContent="Talep alındı ✓"};
+  if(l.d==="Satılık"){const calc=()=>{const p=Math.min(100,Math.max(0,+$("#kPes").value||0))/100,n=Math.max(1,+$("#kVade").value||1),r=(+$("#kFaiz").value||0)/100,K=l.fiyat*(1-p),t=r?K*r/(1-Math.pow(1+r,-n)):K/n;$("#kTak").textContent=tl(t);$("#kKre").textContent=tl(K);$("#kTop").textContent=tl(t*n)};["kPes","kVade","kFaiz"].forEach(id=>$("#"+id).oninput=calc);calc()}
+}
+
+/* ======================= YÖNLENDİRME ======================= */
+function go(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth"})}
+function route(){
+  const h=location.hash.slice(1),m=h.match(/^ilan-(\d+)$/);
+  if(m){const l=L.find(x=>x.id===+m[1]);if(l){$("#home").hidden=true;$("#detail").hidden=false;detail(l);window.scrollTo(0,0);return}}
+  const wasDetail=!$("#detail").hidden;
+  $("#detail").hidden=true;$("#home").hidden=false;
+  if(h&&h!=="anasayfa"){requestAnimationFrame(()=>go(h))}else if(wasDetail||h==="anasayfa"){window.scrollTo(0,0)}
+}
+window.addEventListener("hashchange",route);
+render();route();
+</script>
+
+</body></html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usta Makas Berber | Online randevu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1F2A44;--red:#B3261E;--paper:#F3F5F7;--steel:#9AA3AE;--line:#D9DEE4;--brass:#B8893B;--ink:#151B2B}
+*{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+body{font-family:Archivo,system-ui,sans-serif;font-stretch:100%;background:var(--paper);color:var(--ink);font-size:17px;line-height:1.5}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.demo{background:var(--navy);color:#fff;text-align:center;font-size:13.5px;padding:7px 12px}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-stretch:75%;font-variation-settings:"wdth" 75;font-size:24px;letter-spacing:.01em;text-decoration:none}
+nav a{margin-left:22px;text-decoration:none;font-weight:500;font-size:15px}
+nav a:hover{color:var(--red)}
+
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:start;padding:28px 0 64px}
+.hero h1{font-weight:900;font-stretch:62%;font-variation-settings:"wdth" 62;font-size:clamp(64px,10vw,132px);line-height:.86;letter-spacing:-.01em;color:var(--navy);text-transform:none}
+.pole{height:14px;margin:26px 0 22px;border-radius:7px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,#fff 14px 28px,var(--navy) 28px 42px,#fff 42px 56px);border:2px solid var(--navy);max-width:420px}
+.hero p.lead{font-size:19px;max-width:30em;color:#3A4358}
+.facts{display:flex;gap:28px;margin-top:26px;flex-wrap:wrap}
+.facts div{font-size:15px;color:#3A4358}
+.facts b{display:block;font-stretch:75%;font-weight:800;font-size:28px;color:var(--navy)}
+
+.book{background:#fff;border:2px solid var(--navy);border-radius:18px;padding:24px;box-shadow:8px 8px 0 var(--navy)}
+.book h2{font-stretch:75%;font-weight:800;font-size:28px;color:var(--navy);margin-bottom:4px}
+.book .sub{font-size:15px;color:#5A6377;margin-bottom:16px}
+.step{margin-bottom:18px}
+.step h3{font-size:15px;font-weight:600;margin-bottom:8px;color:var(--navy)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--paper);font:inherit;font-size:15px;padding:8px 12px;border-radius:10px;cursor:pointer;color:var(--ink);text-align:left}
+.chip small{display:block;font-size:12.5px;color:#5A6377}
+.chip[aria-pressed="true"]{border-color:var(--navy);background:var(--navy);color:#fff}
+.chip[aria-pressed="true"] small{color:#C9D0DC}
+.chip:disabled{opacity:.38;cursor:not-allowed;text-decoration:line-through}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.days .chip{text-align:center;padding:8px 2px}
+.days .chip small{font-size:12px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px}
+.slots .chip{text-align:center;padding:8px 0}
+.summary{border-top:2px dashed var(--line);padding-top:14px;margin-top:4px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.summary .what{font-size:15px}
+.summary .what b{font-size:18px}
+.btn{border:0;font:inherit;font-weight:700;background:var(--red);color:#fff;padding:13px 18px;border-radius:12px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:disabled{background:var(--steel);cursor:not-allowed}
+.done{display:none;margin-top:14px;padding:14px;border-radius:12px;background:#EEF3EA;font-size:15px}
+.done a{font-weight:700}
+.name{width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:12px}
+
+section.block{padding:64px 0;border-top:2px solid var(--navy)}
+section.block h2{font-weight:900;font-stretch:62%;font-variation-settings:"wdth" 62;font-size:clamp(44px,6vw,72px);line-height:.95;color:var(--navy);margin-bottom:28px}
+.price-list{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+.row{display:flex;align-items:baseline;gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row .n{font-weight:600;font-size:18px}
+.row .d{font-size:14px;color:#5A6377}
+.row .fill{flex:1;border-bottom:2px dotted var(--steel);transform:translateY(-4px)}
+.row .p{font-stretch:75%;font-weight:800;font-size:22px;color:var(--navy)}
+
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.person svg{width:100%;height:auto;border-radius:16px;display:block;background:#E3E8EE}
+.person h3{font-stretch:75%;font-weight:800;font-size:24px;margin-top:12px}
+.person p{font-size:15px;color:#5A6377}
+
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.visit table{width:100%;border-collapse:collapse;font-size:16px}
+.visit td{padding:9px 0;border-bottom:1px solid var(--line)}
+.visit td:last-child{text-align:right;font-weight:600}
+.map{border:2px solid var(--navy);border-radius:16px;overflow:hidden;background:#E3E8EE}
+footer{padding:30px 0 50px;font-size:14px;color:#5A6377}
+
+@media (max-width:900px){.hero,.visit{grid-template-columns:1fr}.price-list{grid-template-columns:1fr}.team{grid-template-columns:1fr 1fr}nav{display:none}}
+@media (max-width:520px){.team{grid-template-columns:1fr}.book{box-shadow:5px 5px 0 var(--navy);padding:18px}.days{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="demo">Bu sayfa hayali bir berber için hazırlanmış örnek sitedir.</div>
+<div class="wrap">
+<header>
+  <a class="logo" href="#">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="9" cy="25" r="5" fill="none" stroke="#1F2A44" stroke-width="2.5"/><circle cx="25" cy="25" r="5" fill="none" stroke="#1F2A44" stroke-width="2.5"/><path d="M12 21L27 3M22 21L7 3" stroke="#B3261E" stroke-width="2.8" stroke-linecap="round"/></svg>
+    Usta Makas
+  </a>
+  <nav><a href="#fiyatlar">Fiyatlar</a><a href="#ekip">Ekip</a><a href="#adres">Adres ve saatler</a></nav>
+</header>
+
+<div class="hero">
+  <div>
+    <h1>Sıra beklemeden tıraş ol.</h1>
+    <div class="pole" aria-hidden="true"></div>
+    <p class="lead">Saatini seç, ustanı seç, WhatsApp'tan onayla. Geldiğinde koltuk seni bekliyor olsun.</p>
+    <div class="facts">
+      <div><b>3 usta</b>aynı anda hizmet</div>
+      <div><b>09–21</b>pazartesi kapalı</div>
+      <div><b>30 dk</b>ortalama saç kesimi</div>
+    </div>
+  </div>
+
+  <div class="book" id="randevu">
+    <h2>Randevu al</h2>
+    <p class="sub">Üç adımda saatini ayır. Dolu saatler seçilemez.</p>
+    <div class="step"><h3>Hizmet</h3><div class="chips" id="svc"></div></div>
+    <div class="step"><h3>Usta</h3><div class="chips" id="barber"></div></div>
+    <div class="step"><h3>Gün</h3><div class="days" id="days"></div></div>
+    <div class="step"><h3>Saat</h3><div class="slots" id="slots"></div></div>
+    <label for="nm" style="font-size:15px;font-weight:600;color:var(--navy);display:block;margin-bottom:6px">Adın</label>
+    <input class="name" id="nm" autocomplete="name" placeholder="Ad Soyad">
+    <div class="summary">
+      <div class="what" id="what">Hizmet ve saat seç</div>
+      <button class="btn" id="go" disabled>Randevuyu onayla</button>
+    </div>
+    <div class="done" id="done" role="status"></div>
+  </div>
+</div>
+</div>
+
+<section class="block" id="fiyatlar"><div class="wrap">
+  <h2>Fiyat listesi</h2>
+  <div class="price-list" id="plist"></div>
+</div></section>
+
+<section class="block" id="ekip"><div class="wrap">
+  <h2>Ustalar</h2>
+  <div class="team" id="team"></div>
+</div></section>
+
+<section class="block" id="adres"><div class="wrap">
+  <h2>Adres ve saatler</h2>
+  <div class="visit">
+    <div>
+      <table>
+        <tr><td>Pazartesi</td><td>Kapalı</td></tr>
+        <tr><td>Salı – Cuma</td><td>09:00 – 21:00</td></tr>
+        <tr><td>Cumartesi</td><td>09:00 – 21:00</td></tr>
+        <tr><td>Pazar</td><td>10:00 – 18:00</td></tr>
+      </table>
+      <p style="margin-top:18px">Örnek Mah. Atatürk Cad. No: 12<br>Telefon: 0 5XX XXX XX XX</p>
+    </div>
+    <div class="map" aria-label="Konum çizimi">
+      <svg viewBox="0 0 400 240" width="100%" aria-hidden="true">
+        <rect width="400" height="240" fill="#E3E8EE"/>
+        <path d="M0 150H400M140 0V240M300 0V240" stroke="#fff" stroke-width="18"/>
+        <path d="M0 60H140M300 200H400" stroke="#fff" stroke-width="9"/>
+        <rect x="160" y="40" width="120" height="90" rx="6" fill="#CBD3DD"/><rect x="20" y="170" width="100" height="55" rx="6" fill="#CBD3DD"/><rect x="315" y="20" width="70" height="110" rx="6" fill="#CBD3DD"/>
+        <path d="M220 118c0-16 24-16 24 0 0 11-12 22-12 22s-12-11-12-22z" fill="#B3261E" transform="translate(-12 -30)"/>
+        <circle cx="220" cy="88" r="4" fill="#fff"/>
+        <text x="152" y="176" font-family="Archivo" font-size="12" fill="#5A6377">Atatürk Cad.</text>
+      </svg>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Usta Makas örnek bir işletmedir. Gerçek sitede randevular doğrudan işletmenin WhatsApp hattına gider.</div></footer>
+
+<script>
+const SVC=[
+ {id:"sac",n:"Saç kesimi",d:"Yıkama ve şekillendirme dahil",m:30,p:350},
+ {id:"sakal",n:"Sakal tıraşı",d:"Sıcak havlu ile",m:20,p:200},
+ {id:"komple",n:"Saç + sakal",d:"En çok tercih edilen",m:45,p:500},
+ {id:"cocuk",n:"Çocuk saç kesimi",d:"12 yaş altı",m:20,p:250},
+ {id:"bakim",n:"Cilt bakımı",d:"Maske ve buhar",m:25,p:300},
+ {id:"damat",n:"Damat tıraşı",d:"Saç, sakal, cilt bakımı, fön",m:90,p:1500}
+];
+const BARBERS=[
+ {id:"any",n:"Fark etmez",r:"İlk boş usta"},
+ {id:"kemal",n:"Kemal Usta",r:"Klasik kesim ve ustura, 22 yıl",c:"#1F2A44"},
+ {id:"emre",n:"Emre",r:"Fade ve modern kesimler, 8 yıl",c:"#B3261E"},
+ {id:"baris",n:"Barış",r:"Sakal şekillendirme, 6 yıl",c:"#B8893B"}
+];
+const DAYN=["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"];
+const DAYL=["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+const st={svc:"sac",barber:"any",day:null,slot:null};
+const $=s=>document.querySelector(s);
+
+// deterministic "busy" slots so the demo looks real
+function busy(dateStr,time,barber){let h=0;const k=dateStr+time+barber;for(const c of k)h=(h*31+c.charCodeAt(0))>>>0;return h%10<3}
+function days(){const out=[];const d=new Date();d.setHours(0,0,0,0);for(let i=0;out.length<7;i++){const x=new Date(d);x.setDate(d.getDate()+i);out.push(x)}return out}
+function hoursFor(dt){const w=dt.getDay();if(w===1)return null;return w===0?[10,18]:[9,21]}
+const iso=dt=>dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+
+function freeCount(dt,svc){const hr=hoursFor(dt);if(!hr)return 0;const now=new Date();let n=0;for(let m=hr[0]*60;m+svc.m<=hr[1]*60;m+=30){const t=String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");const past=iso(now)===iso(dt)&&m<=now.getHours()*60+now.getMinutes();const full=st.barber==="any"?BARBERS.slice(1).every(x=>busy(iso(dt),t,x.id)):busy(iso(dt),t,st.barber);if(!past&&!full)n++}return n}
+function chip(label,small,pressed,disabled,onClick){const b=document.createElement("button");b.type="button";b.className="chip";b.innerHTML=label+(small?`<small>${small}</small>`:"");b.setAttribute("aria-pressed",pressed);if(disabled)b.disabled=true;b.onclick=onClick;return b}
+
+function render(){
+  const s=$("#svc");s.innerHTML="";SVC.forEach(v=>s.appendChild(chip(v.n,v.p+" ₺ · "+v.m+" dk",st.svc===v.id,false,()=>{st.svc=v.id;st.slot=null;render()})));
+  const b=$("#barber");b.innerHTML="";BARBERS.forEach(v=>b.appendChild(chip(v.n,"",st.barber===v.id,false,()=>{st.barber=v.id;st.slot=null;render()})));
+  const dd=$("#days");dd.innerHTML="";
+  if(!st.day){const svc0=SVC.find(x=>x.id===st.svc);for(const dt of days()){if(freeCount(dt,svc0)){st.day=iso(dt);break}}}
+  days().forEach((dt,i)=>{const open=!!hoursFor(dt);const key=iso(dt);
+    dd.appendChild(chip(i===0?"Bugün":DAYN[dt.getDay()],open?dt.getDate()+"":"kapalı",st.day===key,!open,()=>{st.day=key;st.slot=null;render()}))});
+  const sl=$("#slots");sl.innerHTML="";
+  const dt=new Date(st.day+"T00:00:00"),hr=hoursFor(dt),now=new Date(),svc=SVC.find(x=>x.id===st.svc);
+  let any=0;
+  for(let m=hr[0]*60;m+svc.m<=hr[1]*60;m+=30){
+    const t=String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+    const past=iso(now)===st.day&&m<=now.getHours()*60+now.getMinutes();
+    const full=st.barber==="any"?BARBERS.slice(1).every(x=>busy(st.day,t,x.id)):busy(st.day,t,st.barber);
+    if(!past&&!full)any++;
+    sl.appendChild(chip(t,"",st.slot===t,past||full,()=>{st.slot=t;render()}));
+  }
+  if(!any)sl.innerHTML='<p style="font-size:15px;color:#5A6377;grid-column:1/-1">Bu gün için boş saat kalmadı. Başka bir gün seç.</p>';
+  const br=BARBERS.find(x=>x.id===st.barber);
+  $("#what").innerHTML=st.slot?`<b>${svc.n} · ${svc.p} ₺</b><br>${DAYL[dt.getDay()]} ${dt.getDate()}.${dt.getMonth()+1}, saat ${st.slot} · ${br.n}`:"Saat seç";
+  $("#go").disabled=!st.slot;
+}
+$("#go").onclick=()=>{
+  const nm=$("#nm").value.trim();
+  if(!nm){$("#nm").focus();$("#nm").placeholder="Randevu için adını yaz";return}
+  const svc=SVC.find(x=>x.id===st.svc),br=BARBERS.find(x=>x.id===st.barber),dt=new Date(st.day+"T00:00:00");
+  const msg=`Merhaba, randevu almak istiyorum.\nAd: ${nm}\nHizmet: ${svc.n}\nUsta: ${br.n}\nTarih: ${DAYL[dt.getDay()]} ${dt.getDate()}.${dt.getMonth()+1}, ${st.slot}`;
+  const d=$("#done");d.style.display="block";
+  d.innerHTML=`Mesajın hazır. WhatsApp'ta gönderdiğinde berber onaylayacak.<br><a href="https://wa.me/905000000000?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">WhatsApp'ta aç</a><br><small>Demo sayfada mesaj örnek bir numaraya gider.</small>`;
+};
+$("#plist").innerHTML=SVC.map(v=>`<div class="row"><div><div class="n">${v.n}</div><div class="d">${v.d} · ${v.m} dk</div></div><span class="fill"></span><span class="p">${v.p.toLocaleString("tr-TR")} ₺</span></div>`).join("");
+function face(c,hair,beard){return `<svg viewBox="0 0 300 300" role="img" aria-label="Usta çizimi"><rect width="300" height="300" fill="#E3E8EE"/><path d="M60 300c10-60 50-85 90-85s80 25 90 85z" fill="${c}"/><rect x="132" y="180" width="36" height="40" fill="#D9A77E"/><ellipse cx="150" cy="140" rx="56" ry="64" fill="#E2B48C"/>${hair}${beard}<circle cx="130" cy="138" r="5" fill="#1F2A44"/><circle cx="170" cy="138" r="5" fill="#1F2A44"/><path d="M140 175q10 6 20 0" stroke="#7A4E3A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`}
+const TEAM=[
+ {b:BARBERS[1],svg:face("#1F2A44",'<path d="M94 128c0-50 30-72 56-72s56 22 56 72c-8-26-28-38-56-38s-48 12-56 38z" fill="#9AA3AE"/>','<path d="M98 150c4 50 32 66 52 66s48-16 52-66c-10 24-28 30-52 30s-42-6-52-30z" fill="#B7BEC7"/>')},
+ {b:BARBERS[2],svg:face("#B3261E",'<path d="M92 120c4-46 30-66 58-66s56 18 60 60c-20-16-40-22-62-22-24 0-42 8-56 28z" fill="#2B2118"/>','')},
+ {b:BARBERS[3],svg:face("#B8893B",'<path d="M96 116c6-40 28-58 54-58s50 18 54 58c-12-12-30-18-54-18s-42 6-54 18z" fill="#4A3426"/>','<path d="M100 160c8 44 30 58 50 58s42-14 50-58c-12 18-28 24-50 24s-38-6-50-24z" fill="#4A3426"/>')}
+];
+$("#team").innerHTML=TEAM.map(t=>`<div class="person">${t.svg}<h3>${t.b.n}</h3><p>${t.b.r}</p></div>`).join("");
+render();
+</script>
+</body>
+</html>
