@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kontak Otomotiv — Ekspertizi ilanın içinde ikinci el araçlar</title>
+<meta name="description" content="Kontak Otomotiv: Ankara'da ekspertiz raporu ilanın içinde olan ikinci el araçlar. Stok, süzgeçler, takas formu. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#0B0C0E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0C0E'/%3E%3Cpath d='M16 3v7M16 14v6M16 24v5' stroke='%23F6C915' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=DM+Mono:wght@400;500&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<a class="atla" href="#otopark">Araçlara geç</a>
+
+<section class="giris" id="top" data-foto>
+  <img class="foto" src="gorseller/gece.webp" alt="">
+  <header class="ust">
+    <a class="marka" href="#top"><i aria-hidden="true"></i>KONTAK<span>otomotiv</span></a>
+    <nav aria-label="Bölümler"><a href="#otopark">Araçlar</a><a href="#ekspertiz">Ekspertiz</a><a href="#takas">Takas</a><a href="#galeri">Galeri</a></nav>
+    <a class="dugme kucuk" href="https://wa.me/905000000000?text=Merhaba%2C%20bir%20ara%C3%A7%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp</a>
+  </header>
+  <div class="giris-yazi">
+    <h1>İçi dışı <br class="m">belli <br>ikinci el.</h1>
+    <p>Her aracın ekspertiz şeması ilanın içinde. Boyalı parçayı siz sormadan biz söyleriz.</p>
+    <div class="giris-dugme">
+      <a class="dugme" href="#otopark">Araçları gör</a>
+      <button type="button" class="dugme hayalet" id="selektor">Selektör yap</button>
+    </div>
+    <p class="stok" id="stokYazi"></p>
+  </div>
+  <div class="sahne" aria-hidden="true">
+    <div class="isik sol"></div><div class="isik sag"></div><div class="yol-isik"></div>
+    <svg viewBox="0 0 1000 330" class="on-arac" preserveAspectRatio="xMidYMax meet">
+      <path d="M112 330V236q6-46 76-60l110-28q34-84 124-96h156q90 12 124 96l110 28q70 14 76 60v94z" fill="#0D0F12" stroke="#2A2D33" stroke-width="2"/>
+      <path d="M332 150q24-64 96-76h144q72 12 96 76z" fill="#08090B" stroke="#24272C" stroke-width="2"/>
+      <path d="M296 150l-34-10q-14-2-16 10l4 14 40-6zM704 150l34-10q14-2 16 10l-4 14-40-6z" fill="#0D0F12" stroke="#2A2D33" stroke-width="2"/>
+      <path d="M360 204h280l-14 54H374z" fill="#07080A" stroke="#24272C" stroke-width="2"/>
+      <path d="M368 218h264M371 232h258M375 246h250" stroke="#1D2025" stroke-width="3"/>
+      <path d="M250 286h500l-10 26H260z" fill="#07080A"/>
+      <rect x="430" y="270" width="140" height="32" rx="3" fill="#E8E8E2"/><rect x="430" y="270" width="16" height="32" rx="3" fill="#1D4FB8"/>
+      <text x="508" y="293" text-anchor="middle" font-family="DM Mono,monospace" font-weight="500" font-size="19" fill="#111">06 KTK 026</text>
+      <g class="far-cam"><path d="M150 214l146-18 12 44-150 16z"/><path d="M850 214l-146-18-12 44 150 16z"/></g>
+      <g class="far-drl"><path d="M160 262l146-16M840 262l-146-16" stroke-width="4" stroke-linecap="round" fill="none"/></g>
+      <rect x="120" y="318" width="90" height="12" fill="#050506"/><rect x="790" y="318" width="90" height="12" fill="#050506"/>
+    </svg>
+  </div>
+</section>
+
+<main>
+<section class="otopark" id="otopark" aria-labelledby="otoB">
+  <div class="bolum-bas"><h2 id="otoB">Otopark</h2><p id="sayac" aria-live="polite"></p></div>
+  <form class="suzgec" id="suzgec" aria-label="Araç süzgeçleri">
+    <fieldset class="kasa"><legend class="gizli">Kasa tipi</legend><div id="kasaSec"></div></fieldset>
+    <div class="suz-satir">
+      <label><span>Marka</span><select name="marka" id="sMarka"><option value="">Hepsi</option></select></label>
+      <label><span>Yakıt</span><select name="yakit"><option value="">Hepsi</option><option>Benzin</option><option>Dizel</option><option>Hibrit</option><option>LPG</option></select></label>
+      <label><span>Vites</span><select name="vites"><option value="">Hepsi</option><option>Otomatik</option><option>Manuel</option></select></label>
+      <label><span>Sırala</span><select name="sira"><option value="yeni">Yeni gelen</option><option value="ucuz">Fiyat: artan</option><option value="pahali">Fiyat: azalan</option><option value="km">Kilometre: az olan</option><option value="yil">Model yılı: yeni</option></select></label>
+    </div>
+    <div class="suz-satir iki">
+      <label class="kaydir"><span><output id="fiyatO"></output></span><input type="range" name="fiyat" id="sFiyat" min="800000" max="2200000" step="50000" value="2200000"></label>
+      <label class="kaydir"><span><output id="kmO"></output></span><input type="range" name="km" id="sKm" min="30000" max="200000" step="10000" value="200000"></label>
+      <label class="anahtar"><input type="checkbox" name="boyasiz"><i aria-hidden="true"></i><span>Yalnızca boyasız, değişensiz</span></label>
+      <button type="reset" class="yazi-dugme">Temizle</button>
+    </div>
+  </form>
+  <ul class="parklar" id="parklar"></ul>
+  <p class="bos" id="bos" hidden>Bu süzgeçlere uyan araç şu an parkta yok. Aradığınızı yazın, gelince haber verelim.</p>
+</section>
+
+<section class="ekspertiz" id="ekspertiz" aria-labelledby="eksB">
+  <div class="eks-yazi">
+    <h2 id="eksB">Şemayı okumak</h2>
+    <p>Her ilanda aracın kuşbakışı şeması var. Boş parça orijinal demek. Renkli olanın ne olduğunu aşağıda görüyorsunuz; nedenini de ilanda yazıyoruz.</p>
+    <ul class="lejant">
+      <li><i class="o"></i><b>Orijinal</b><span>Fabrika boyası, işlem görmemiş.</span></li>
+      <li><i class="l"></i><b>Lokal boyalı</b><span>Parçanın bir bölümü boyanmış. Çoğu zaman çizik ya da taş izi.</span></li>
+      <li><i class="b"></i><b>Boyalı</b><span>Parçanın tamamı boyanmış.</span></li>
+      <li><i class="d"></i><b>Değişen</b><span>Parça sökülüp yenisi takılmış.</span></li>
+    </ul>
+    <p class="dipnot">Raporlar bağımsız ekspertiz firmasından alınır. İsterseniz aracı kendi seçtiğiniz ekspertize birlikte götürürüz.</p>
+  </div>
+  <div class="eks-ornek" id="eksOrnek"></div>
+</section>
+
+<section class="takas" id="takas" aria-labelledby="takasB">
+  <div class="takas-yazi"><h2 id="takasB">Takas</h2><p>Aracınızı anlatın, hangi araca baktığınızı söyleyin. Aynı gün içinde yaklaşık bir değerle döneriz; kesin rakamı aracı görünce veririz.</p></div>
+  <form id="takasForm" novalidate>
+    <fieldset><legend>Sizin aracınız</legend>
+      <div class="alanlar">
+        <label class="alan"><span>Marka</span><input name="marka" required autocomplete="off" placeholder="Renault"></label>
+        <label class="alan"><span>Model</span><input name="model" required autocomplete="off" placeholder="Megane"></label>
+        <label class="alan"><span>Model yılı</span><input name="yil" type="number" inputmode="numeric" min="1990" max="2026" placeholder="2017"></label>
+        <label class="alan"><span>Kilometre</span><input name="km" inputmode="numeric" placeholder="120.000"></label>
+        <label class="alan"><span>Yakıt</span><select name="yakit"><option>Benzin</option><option>Dizel</option><option>LPG</option><option>Hibrit</option><option>Elektrik</option></select></label>
+        <label class="alan"><span>Vites</span><select name="vites"><option>Manuel</option><option>Otomatik</option></select></label>
+        <label class="alan gen"><span>Boya ve değişen durumu</span><select name="durum"><option>Boyasız, değişensiz</option><option>Lokal boyası var</option><option>Boyalı parçası var</option><option>Değişen parçası var</option><option>Bilmiyorum</option></select></label>
+      </div>
+    </fieldset>
+    <fieldset><legend>Baktığınız araç</legend>
+      <label class="alan"><span class="gizli">Baktığınız araç</span><select name="hedef" id="takasHedef"><option value="">Henüz karar vermedim</option></select></label>
+    </fieldset>
+    <fieldset><legend>İletişim</legend>
+      <div class="alanlar">
+        <label class="alan"><span>Adınız</span><input name="ad" required autocomplete="name"></label>
+        <label class="alan"><span>Telefonunuz</span><input name="tel" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05XX XXX XX XX"></label>
+      </div>
+    </fieldset>
+    <button class="dugme" type="submit">Takas mesajını hazırla</button>
+    <p class="hata" id="takasHata" role="alert" hidden></p>
+    <div class="sonuc" id="takasSonuc" role="status" hidden></div>
+  </form>
+</section>
+
+<section class="galeri" id="galeri" aria-labelledby="galB" data-foto>
+  <img class="foto" src="gorseller/galeri.webp" alt="" loading="lazy" decoding="async">
+  <div class="galeri-ic">
+    <h2 id="galB">Gelin, kaputu <br>birlikte açalım.</h2>
+    <dl>
+      <div><dt>Adres</dt><dd>Örnek Sanayi Sitesi, 14. Cadde No: 26<br>Yenimahalle, Ankara (hayali adres)</dd></div>
+      <div><dt>Saatler</dt><dd>Pazartesi – Cumartesi 09:00 – 19:30<br>Pazar 11:00 – 17:00</dd></div>
+      <div><dt>Telefon</dt><dd><a href="tel:+905000000000">0 5XX XXX XX XX</a><br><a href="https://wa.me/905000000000" target="_blank" rel="noopener">WhatsApp'tan yazın</a></dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p>KONTAK otomotiv</p>
+  <p>Bu site hayali bir işletme için hazırlanmış örnektir. Araçlar, fiyatlar, plaka, adres ve telefon gerçek değildir.</p>
+</footer>
+
+<dialog id="detay" aria-labelledby="dBaslik"><div id="detayIc"></div></dialog>
+
+<script src="araclar.js"></script>
+<script src="uygulama.js"></script>
+</body>
+</html>
