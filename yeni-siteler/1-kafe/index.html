@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr" data-zaman="ogle">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gündüz Kahve &amp; Fırın — Menü</title>
+<meta name="description" content="Gündüz Kahve & Fırın: kahvaltı, fırın işleri, kahve. QR menü, saatler ve WhatsApp ile rezervasyon. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#F4F1E6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231A1730'/%3E%3Ccircle cx='16' cy='18' r='7' fill='%23F2B45A'/%3E%3Crect y='20' width='32' height='12' fill='%231A1730'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<a class="atla" href="#menu" data-i18n="atla">Menüye geç</a>
+
+<header class="ust">
+  <a class="ad" href="#top" aria-label="Gündüz Kahve & Fırın">
+    <span class="ad-g">Gündüz</span><span class="ad-k" data-i18n="altad">kahve &amp; fırın</span>
+  </a>
+  <div class="dil" role="group" aria-label="Dil / Language">
+    <button type="button" data-dil="tr" aria-pressed="true">TR</button>
+    <button type="button" data-dil="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<main id="top">
+<section class="giris">
+  <h1><span data-i18n="h1a">Günün her saati</span> <em data-i18n="h1b">başka kokar.</em></h1>
+  <div class="pencere" id="pencere">
+    <div class="gok" id="gok"></div>
+    <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice" role="img" aria-labelledby="pencereBaslik">
+      <title id="pencereBaslik" data-i18n="pencereAlt">Mahallenin çatıları üzerinde günün saatine göre ilerleyen güneş</title>
+      <g id="yildizlar" opacity="0">
+        <circle cx="62" cy="88" r="1.6"/><circle cx="118" cy="52" r="1.2"/><circle cx="170" cy="118" r="1"/><circle cx="236" cy="64" r="1.7"/>
+        <circle cx="300" cy="104" r="1.2"/><circle cx="338" cy="58" r="1.5"/><circle cx="92" cy="170" r="1.1"/><circle cx="276" cy="176" r="1.3"/>
+        <circle cx="204" cy="30" r="1.1"/><circle cx="352" cy="164" r="1"/><circle cx="40" cy="224" r="1.2"/><circle cx="150" cy="232" r="1"/><circle cx="318" cy="246" r="1.1"/>
+      </g>
+      <path id="yay" d="M30 400 A170 250 0 0 1 370 400" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round"/>
+      <g id="saatIsaret"></g>
+      <g id="gunes" transform="translate(200 90)">
+        <circle r="54" fill="url(#hare)"/>
+        <circle id="gunesDaire" r="23" fill="#FFD86B"/>
+      </g>
+      <defs>
+        <radialGradient id="hare"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g id="catilar">
+        <path d="M0 500V418h22v-16l34-26 34 26v20h18v-34h20v-22h12v22h14v-18l40-30 40 30v52h16v-40l24-18 24 18v18h22v-44h54v-14h12v14h8v64h10v-22l22-16V500z"/>
+        <path d="M148 368c-10-2-16-12-12-22 2-8 10-12 16-10 2-8 12-12 20-8 8 3 10 12 6 18 6 4 6 14-2 18-8 5-20 6-28 4z" opacity=".85"/>
+        <path d="M301 398c0-5 3-8 6-8l1-5 3 4c5 0 9 4 9 9v4h6c2-5 6-3 5 1-1 3-4 4-7 4h-23z"/>
+        <g id="isiklar" opacity="0" fill="#FFD27A">
+          <rect x="42" y="412" width="10" height="13" rx="1"/><rect x="64" y="412" width="10" height="13" rx="1"/>
+          <rect x="176" y="398" width="11" height="15" rx="1"/><rect x="214" y="398" width="11" height="15" rx="1"/><rect x="196" y="430" width="11" height="15" rx="1"/>
+          <rect x="270" y="426" width="9" height="12" rx="1"/><rect x="338" y="396" width="10" height="14" rx="1"/><rect x="356" y="396" width="10" height="14" rx="1"/><rect x="338" y="424" width="10" height="14" rx="1"/>
+          <rect x="116" y="402" width="8" height="12" rx="1"/>
+        </g>
+      </g>
+    </svg>
+    <p class="pencere-ipucu" id="ipucu" data-i18n="ipucu">Güneşi sürükleyin</p>
+  </div>
+  <div class="giris-kontrol">
+    <div class="saat-blok" aria-live="polite">
+      <p class="saat"><span id="saatYazi">--:--</span></p>
+      <div class="saat-yan">
+        <p class="durum"><span class="nokta" id="nokta"></span><span id="durumYazi"></span></p>
+        <p class="servis" id="servisYazi"></p>
+      </div>
+    </div>
+    <div class="kaydir">
+      <label for="saatKaydir" class="gizli" data-i18n="kaydirEtiket">Günün saatini seç</label>
+      <input type="range" id="saatKaydir" min="450" max="1380" step="10" value="720">
+      <div class="kaydir-olcek" aria-hidden="true"><span>07:30</span><span>12:00</span><span>16:00</span><span>20:00</span><span>23:00</span></div>
+    </div>
+    <p class="giris-alt" data-i18n="girisalt">Sabah simit, öğlen tencere yemeği, akşamüstü kahve. Güneşi sürükleyin, o saatte tezgâhta ne olduğunu görün.</p>
+    <div class="giris-dugme">
+      <a class="dugme" href="#menu" data-i18n="menuyeGit">Menüyü aç</a>
+      <a class="dugme ikincil" href="#rezervasyon" data-i18n="masaAyir">Masa ayırt</a>
+      <button class="simdi" id="simdi" type="button" hidden data-i18n="simdi">Şimdiki saate dön</button>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu" aria-labelledby="menuBaslik">
+  <div class="menu-yan">
+    <h2 id="menuBaslik" data-i18n="menu">Menü</h2>
+    <div class="ara">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <label class="gizli" for="q" data-i18n="araEtiket">Menüde ara</label>
+      <input id="q" type="search" autocomplete="off" enterkeyhint="search">
+    </div>
+    <div class="suzgec" role="group" aria-label="Süzgeçler">
+      <label><input type="checkbox" id="fV"><span data-i18n="vej">Vejetaryen</span></label>
+      <label><input type="checkbox" id="fVg"><span data-i18n="vegan">Vegan</span></label>
+      <label><input type="checkbox" id="fG"><span data-i18n="gls">Glutensiz</span></label>
+    </div>
+    <nav class="kat" aria-label="Menü kategorileri"><ul id="katNav"></ul></nav>
+  </div>
+  <div class="menu-ic">
+    <div id="menuListe"></div>
+    <p class="bos" id="bos" hidden data-i18n="bos">Buna uyan bir şey bulamadık. Süzgeçleri kaldırmayı ya da başka bir kelime yazmayı deneyin.</p>
+    <p class="menu-not" data-i18n="menuNot">Fiyatlara KDV dahildir. Alerjiniz varsa sipariş verirken söyleyin, mutfakta aynı tezgâhı kullanıyoruz.</p>
+  </div>
+</section>
+
+<section class="mekan" data-foto>
+  <img class="foto" src="gorseller/mekan.webp" alt="" loading="lazy" decoding="async">
+  <div class="mekan-ic">
+    <p class="mekan-soz"><span data-i18n="soz1">Kahve acele sevmez.</span> <em data-i18n="soz2">Biz de.</em></p>
+    <ul class="mekan-liste">
+      <li data-i18n="m1">Ekmek her sabah 05:30'da fırına girer.</li>
+      <li data-i18n="m2">Çekirdek haftada bir, perşembe günleri kavrulur.</li>
+      <li data-i18n="m3">Bahçede dört masa var; kedilerle paylaşılır.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="alt" id="rezervasyon">
+  <div class="saatler">
+    <h2 data-i18n="saatlerB">Saatler</h2>
+    <table id="saatTablo"><caption class="gizli" data-i18n="saatlerB">Saatler</caption><tbody></tbody></table>
+    <address>
+      <span data-i18n="adres">Çınaraltı Sokak No: 12 (hayali adres)</span><br>
+      <a href="tel:+905000000000">0 5XX XXX XX XX</a>
+    </address>
+  </div>
+  <div class="rez" data-foto>
+    <img class="foto" src="gorseller/doku.webp" alt="" loading="lazy" decoding="async">
+    <h2 data-i18n="rezB">Masa ayırtın</h2>
+    <p class="rez-alt" data-i18n="rezAlt">Formu doldurun, mesaj WhatsApp'ta hazır açılsın. Onayı biz yazarız.</p>
+    <form id="rezForm" novalidate>
+      <label class="alan gen"><span data-i18n="fAd">Adınız</span><input name="ad" required autocomplete="name"></label>
+      <label class="alan"><span data-i18n="fKisi">Kaç kişi</span>
+        <select name="kisi"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7+</option></select></label>
+      <label class="alan"><span data-i18n="fSaat">Saat</span><select name="saat" id="rezSaat"></select></label>
+      <label class="alan gen"><span data-i18n="fGun">Gün</span><input type="date" name="gun" required></label>
+      <label class="alan gen"><span data-i18n="fNot">Not (isteğe bağlı)</span><input name="not" maxlength="120" data-i18n-ph="fNotPh"></label>
+      <p class="hata" id="rezHata" role="alert" hidden></p>
+      <button class="dugme gen" type="submit" data-i18n="fGonder">WhatsApp mesajını hazırla</button>
+    </form>
+    <div class="rez-sonuc" id="rezSonuc" role="status" hidden></div>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p class="dip-ad">Gündüz</p>
+  <p data-i18n="ornek">Bu site hayali bir işletme için hazırlanmış örnektir. Adres, telefon ve fiyatlar gerçek değildir.</p>
+</footer>
+
+<div class="liste-cubuk" id="listeCubuk" hidden>
+  <button type="button" id="listeAc"><span id="listeOzet"></span><span class="liste-git" data-i18n="listeGoster">Listeyi göster</span></button>
+</div>
+<dialog id="listeDlg" aria-labelledby="listeB">
+  <div class="dlg-ic">
+    <div class="dlg-bas"><h2 id="listeB" data-i18n="listeB">Masa listem</h2><button type="button" class="kapat" id="listeKapat" aria-label="Kapat">×</button></div>
+    <p class="dlg-alt" data-i18n="listeAlt">Bu ekranı garsona gösterin. Sipariş buradan gönderilmez.</p>
+    <ul id="listeIc"></ul>
+    <p class="dlg-toplam"><span data-i18n="toplam">Toplam</span><strong id="listeToplam"></strong></p>
+    <button type="button" class="dugme ikincil" id="listeSil" data-i18n="listeSil">Listeyi temizle</button>
+  </div>
+</dialog>
+
+<script src="menu.js"></script>
+<script src="uygulama.js"></script>
+</body>
+</html>
