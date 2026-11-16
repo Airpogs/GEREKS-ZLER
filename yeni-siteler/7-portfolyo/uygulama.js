@@ -20,7 +20,7 @@ $("#vTelefon").innerHTML = ISLER.map((s, i) => `<img src="gorseller/${s.id}-tele
 $("#vTarayici").insertAdjacentHTML("beforeend", ISLER.map(s => `<img src="gorseller/${s.id}-masaustu.webp" alt="" width="1100" height="672" loading="lazy" decoding="async">`).join(""));
 $("#vYazi").innerHTML = ISLER.map((s, i) => `<article class="is" style="--bg:${s.bg};--fg:${s.fg};--vurgu:${s.vurgu}" aria-label="${s.ad}">
   <img class="kucuk-tel" src="gorseller/${s.id}-telefon.webp" alt="${s.ad} sitesinin telefondaki görünümü" width="520" height="1040" loading="lazy" decoding="async">
-  <p class="is-tur">${iki(i + 1)} · ${s.tur}</p><h3 class="f-${s.id}">${s.ad}</h3><p>${s.yazi}</p><a class="is-bag" href="${s.yol}">Siteyi açın <span aria-hidden="true">→</span></a></article>`).join("");
+  <p class="is-tur">${iki(i + 1)} · ${s.tur}</p><h3 class="f-${s.id}">${s.ad}</h3><p>${s.yazi}</p>${s.yol ? `<a class="is-bag" href="${s.yol}">Siteyi açın <span aria-hidden="true">→</span></a>` : ""}</article>`).join("");
 $("#vNokta").innerHTML = ISLER.map((s, i) => `<li><button type="button" aria-label="${s.ad}"></button></li>`).join("");
 const vitrin = $("#vitrin"), isler = $("#isler"), yazilar = $$(".is"), telImg = $$("#vTelefon img"), tarImg = $$("#vTarayici img"), noktalar = $$("#vNokta button");
 let secili = -1;

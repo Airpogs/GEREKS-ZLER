@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kontak Otomotiv</title>
+<meta name="description" content="Kontak Otomotiv: Ankara'da ekspertiz raporu ilanın içinde olan ikinci el araçlar. Stok, süzgeçler, takas formu. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#0B0C0E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0C0E'/%3E%3Cpath d='M16 3v7M16 14v6M16 24v5' stroke='%23F6C915' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=DM+Mono:wght@400;500&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark}
+/* Kontak Otomotiv */
+:root{--asfalt:#0B0C0E;--koyu:#15171A;--cizgi:#2A2D33;--sari:#F6C915;--beyaz:#F2F1EC;--soluk:#9CA1A8;--kirmizi:#E5484D;
+  --genis:"Unbounded","Arial Black",sans-serif;--yazi:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"DM Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--asfalt);color:var(--beyaz);font-family:var(--yazi);font-size:17px;line-height:1.5;overflow-x:hidden}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sari);outline-offset:3px}
+.gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.atla{position:absolute;left:14px;top:-70px;background:var(--sari);color:#000;padding:10px 14px;z-index:60;font-weight:600}
+.atla:focus{top:14px}
+h1,h2{font-family:var(--genis);font-weight:700;line-height:1.02;letter-spacing:-.03em}
+h2{font-size:clamp(34px,8.6vw,84px)}
+.dugme{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 26px;background:var(--sari);color:#0B0C0E;font-weight:600;font-size:17px;text-decoration:none;border:2px solid var(--sari);border-radius:6px;cursor:pointer;transition:transform .15s,background-color .15s,color .15s}
+.dugme:hover{transform:translateY(-2px);background:var(--beyaz);border-color:var(--beyaz)}
+.dugme.hayalet{background:transparent;color:var(--beyaz);border-color:rgba(242,241,236,.4)}
+.dugme.hayalet:hover{border-color:var(--beyaz);background:transparent}
+.dugme.kucuk{min-height:44px;padding:0 16px;font-size:15px}
+.yazi-dugme{background:none;border:0;text-decoration:underline;text-underline-offset:4px;color:var(--soluk);cursor:pointer;min-height:44px;font-size:15px}
+
+/* giriş */
+.giris{position:relative;min-height:min(100svh,900px);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;background:#060708}
+.foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:-3;transition:opacity 1s;pointer-events:none}
+.giris.foto-var>.foto{opacity:.5}
+.ust{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 18px 0;max-width:1400px;width:100%;margin:0 auto;position:relative;z-index:3}
+.marka{font-family:var(--genis);font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:8px}
+.marka i{width:6px;height:22px;background:linear-gradient(var(--sari) 0 30%,transparent 30% 45%,var(--sari) 45% 75%,transparent 75%);display:block}
+.marka span{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--soluk);letter-spacing:0}
+.ust nav{display:none;gap:30px;font-weight:500}
+.ust nav a{text-decoration:none;padding:10px 0}
+.ust nav a:hover{color:var(--sari)}
+.giris-yazi{position:relative;z-index:2;padding:34px 18px 0;max-width:1400px;width:100%;margin:0 auto}
+.giris h1{font-size:clamp(40px,12.2vw,132px);color:#1B1D21;transition:color .12s,text-shadow .3s}
+.giris-yazi>p{max-width:26em;margin-top:18px;font-size:19px;color:#3A3D43;transition:color .3s}
+.giris-dugme{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.stok{font-family:var(--mono);font-size:13.5px;color:#3A3D43;margin-top:20px;transition:color .3s}
+.stok::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#3A3D43;margin-right:9px;transition:background-color .3s}
+.giris.yanik h1{color:var(--beyaz);text-shadow:0 0 60px rgba(255,244,200,.25)}
+.giris.yanik .giris-yazi>p{color:#C7CAD0}
+.giris.yanik .stok{color:var(--soluk)}
+.giris.yanik .stok::before{background:#4CC36B}
+.sahne{position:relative;margin-top:auto;height:clamp(190px,34vw,360px);z-index:1}
+.on-arac{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(132%,1000px);height:100%;display:block}
+.far-cam path{fill:#15171A;stroke:#2A2D33;stroke-width:2;transition:fill .1s}
+.far-drl path{stroke:#3A3320;transition:stroke .1s}
+.giris.yanik .far-cam path{fill:#FFF8DC}
+.giris.yanik .far-drl path{stroke:var(--sari)}
+.isik{position:absolute;bottom:30%;width:min(120vw,900px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,50%);background:radial-gradient(ellipse 50% 3.5% at center,rgba(255,250,225,.9),transparent 100%),radial-gradient(circle,rgba(255,248,220,1) 0,rgba(255,240,190,.55) 6%,rgba(255,236,170,.2) 22%,transparent 60%);opacity:0;mix-blend-mode:screen;pointer-events:none;z-index:2;transition:opacity .07s,transform .07s}
+.isik.sol{left:calc(50% - min(132vw,1000px)*.271)}
+.isik.sag{left:calc(50% + min(132vw,1000px)*.271)}
+.yol-isik{position:absolute;left:0;right:0;bottom:0;height:min(100svh,900px);background:radial-gradient(ellipse 80% 55% at 50% 92%,rgba(255,238,190,.2),transparent 72%);opacity:0;pointer-events:none;transition:opacity .07s}
+.giris.yanik :is(.isik,.yol-isik){opacity:1}
+.giris.uzun .isik{transform:translate(-50%,50%) scale(1.5);transition:transform .08s}
+.giris.uzun .yol-isik{opacity:1;filter:brightness(2.4)}
+
+/* otopark */
+.otopark,.ekspertiz,.takas,.galeri-ic,.dip{max-width:1400px;margin:0 auto}
+.otopark{padding:70px 18px 50px}
+.bolum-bas{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;padding-bottom:16px;border-bottom:4px dashed var(--sari)}
+#sayac{font-family:var(--mono);font-size:13.5px;color:var(--soluk);text-align:right}
+.suzgec{display:grid;gap:14px;padding:20px 0 26px}
+.suzgec fieldset{border:0;min-width:0}
+#kasaSec{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:2px 18px}
+#kasaSec::-webkit-scrollbar{display:none}
+#kasaSec label{position:relative;flex:none;cursor:pointer}
+#kasaSec input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
+#kasaSec span{display:flex;align-items:center;gap:8px;min-height:46px;padding:0 16px;border:1.5px solid var(--cizgi);border-radius:999px;font-weight:500;white-space:nowrap}
+#kasaSec input:checked+span{background:var(--beyaz);color:#0B0C0E;border-color:var(--beyaz)}
+#kasaSec input:focus-visible+span{outline:3px solid var(--sari);outline-offset:2px}
+.suz-satir{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.suz-satir label,.alan{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--soluk);font-weight:500}
+select,.alan input{height:50px;background:var(--koyu);border:1.5px solid var(--cizgi);border-radius:6px;padding:0 12px;font-size:16px;color:var(--beyaz);width:100%}
+select:focus,.alan input:focus{border-color:var(--beyaz)}
+.alan input::placeholder{color:#6B7078}
+[aria-invalid="true"]{border-color:var(--kirmizi)!important}
+.kaydir output{color:var(--beyaz);font-family:var(--mono)}
+input[type=range]{appearance:none;-webkit-appearance:none;background:transparent;height:34px;width:100%;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:repeating-linear-gradient(90deg,var(--sari) 0 14px,transparent 14px 22px)}
+input[type=range]::-moz-range-track{height:4px;background:repeating-linear-gradient(90deg,var(--sari) 0 14px,transparent 14px 22px)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--beyaz);border:6px solid #0B0C0E;box-shadow:0 0 0 2px var(--beyaz);margin-top:-11px}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--beyaz);border:5px solid #0B0C0E;box-shadow:0 0 0 2px var(--beyaz)}
+.anahtar{flex-direction:row!important;align-items:center;gap:10px!important;cursor:pointer;position:relative;font-size:15.5px!important;color:var(--beyaz)!important;grid-column:1/-1;min-height:44px}
+.anahtar input{position:absolute;opacity:0;width:52px;height:30px;cursor:pointer}
+.anahtar i{width:52px;height:30px;border-radius:999px;background:var(--cizgi);position:relative;flex:none;transition:background-color .2s}
+.anahtar i::after{content:"";position:absolute;left:4px;top:4px;width:22px;height:22px;border-radius:50%;background:var(--beyaz);transition:transform .2s}
+.anahtar input:checked+i{background:var(--sari)}
+.anahtar input:checked+i::after{transform:translateX(22px);background:#0B0C0E}
+.anahtar input:focus-visible+i{outline:3px solid var(--sari);outline-offset:3px}
+
+.parklar{list-style:none;display:grid;grid-template-columns:1fr 1fr;border-left:3px solid var(--sari)}
+.park{position:relative;border-right:3px solid var(--sari);border-bottom:3px solid var(--sari);background:var(--koyu);display:flex;flex-direction:column;overflow:hidden}
+.park:nth-child(-n+2){border-top:3px solid var(--sari)}
+.park-no{position:absolute;left:8px;top:2px;font-family:var(--genis);font-weight:700;font-size:44px;color:rgba(246,201,21,.16);line-height:1;pointer-events:none}
+.park-arac{display:grid;place-items:center;padding:16px 10px 8px;aspect-ratio:1/1.12}
+.park-arac svg{height:100%;width:auto;max-width:100%;transition:transform .5s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 10px 12px rgba(0,0,0,.6))}
+.park:hover .park-arac svg,.park:focus-within .park-arac svg{transform:translateY(-10px)}
+.park-rozet{position:absolute;right:8px;top:8px;font-family:var(--mono);font-size:11px;padding:3px 7px;border-radius:4px;background:#0B0C0E;border:1px solid var(--cizgi);color:var(--soluk)}
+.park-rozet.temiz{color:#7EE19A;border-color:#2C5A3A}
+.park-rozet.degisen{color:#FF9A9D;border-color:#6B2A2C}
+.park-rozet.boyali{color:var(--sari);border-color:#6B5A12}
+.kunye{padding:10px 10px 12px;border-top:1px solid var(--cizgi);display:grid;gap:1px;margin-top:auto}
+.kunye h3{font-family:var(--yazi);font-size:17px;font-weight:600;line-height:1.2}
+.kunye h3 a{text-decoration:none}
+.kunye h3 a::after{content:"";position:absolute;inset:0}
+.kunye p{font-size:13.5px;color:var(--soluk);line-height:1.35}
+.kunye .km{font-family:var(--mono);font-size:12.5px}
+.kunye strong{font-family:var(--mono);font-weight:500;font-size:16.5px;color:var(--sari);margin-top:5px}
+.bos{padding:50px 0;font-size:20px;color:var(--soluk);max-width:26em}
+
+/* kuşbakışı araç */
+.kus .govde{stroke:#000;stroke-opacity:.55;stroke-width:1.5}
+.kus .cam{fill:#0F1216;stroke:#000;stroke-opacity:.5}
+.kus .ayna{stroke:#000;stroke-opacity:.5}
+.kus.eks .parca{fill:#1B1E22;stroke:#5A5F68;stroke-width:1.5}
+.kus.eks .parca.l{fill:url(#lokal)}
+.kus.eks .parca.b{fill:var(--sari)}
+.kus.eks .parca.d{fill:var(--kirmizi)}
+.kus.eks .tampon{fill:#121417;stroke:#3A3E45;stroke-width:1.5;stroke-dasharray:4 4}
+.kus.eks .cam{fill:#0B0C0E;stroke:#3A3E45}
+
+/* ekspertiz */
+.ekspertiz{padding:70px 18px;display:grid;gap:34px}
+.eks-yazi>p{color:#C7CAD0;margin-top:16px;max-width:30em;font-size:18px}
+.lejant{list-style:none;margin:24px 0 18px;display:grid;gap:0;max-width:34em}
+.lejant li{display:grid;grid-template-columns:34px 1fr;gap:0 12px;padding:13px 0;border-top:1px solid var(--cizgi);align-items:center}
+.lejant i{width:28px;height:28px;border-radius:4px;border:1.5px solid #5A5F68;grid-row:1/3;background:#1B1E22}
+.lejant i.l{background:repeating-linear-gradient(-45deg,var(--sari) 0 3px,#1B1E22 3px 7px)}
+.lejant i.b{background:var(--sari);border-color:var(--sari)}
+.lejant i.d{background:var(--kirmizi);border-color:var(--kirmizi)}
+.lejant b{font-weight:600}
+.lejant span{color:var(--soluk);font-size:15px;grid-column:2}
+.dipnot{font-size:14px;color:var(--soluk);max-width:36em}
+.eks-ornek{background:var(--koyu);border:1px solid var(--cizgi);border-radius:10px;padding:22px;display:grid;gap:8px;justify-items:center}
+.eks-ornek svg{width:min(62%,250px);height:auto}
+.eks-ornek p{font-family:var(--mono);font-size:13px;color:var(--soluk);text-align:center}
+
+/* takas */
+.takas{padding:50px 18px 80px;display:grid;gap:26px;border-top:4px dashed var(--sari)}
+.takas-yazi{padding-top:20px}
+.takas-yazi p{color:#C7CAD0;margin-top:16px;font-size:18px;max-width:28em}
+#takasForm{display:grid;gap:26px}
+#takasForm fieldset{border:0;min-width:0}
+#takasForm legend{font-family:var(--genis);font-weight:500;font-size:17px;margin-bottom:14px;padding:0;color:var(--sari)}
+.alanlar{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gen{grid-column:1/-1}
+.hata{color:#FF9A9D;font-weight:600}
+.sonuc{border:1.5px dashed var(--sari);border-radius:8px;padding:16px}
+.sonuc pre{white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;margin:10px 0 14px;color:#C7CAD0}
+.sonuc small{display:block;margin-top:10px;color:var(--soluk)}
+
+/* galeri */
+.galeri{position:relative;isolation:isolate;background:var(--sari);color:#0B0C0E}
+.galeri .foto{z-index:-2}
+.galeri.foto-var>.foto{opacity:1}
+.galeri.foto-var{color:var(--beyaz);background:#0B0C0E}
+.galeri.foto-var::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,12,14,.92),rgba(11,12,14,.55))}
+.galeri-ic{padding:70px 18px}
+.galeri dl{display:grid;gap:22px;margin-top:34px;font-size:18px;font-weight:500}
+.galeri dt{font-family:var(--mono);font-size:13px;font-weight:500;margin-bottom:6px;opacity:.75}
+.dip{padding:26px 18px 40px;font-size:13.5px;color:var(--soluk);display:grid;gap:6px}
+.dip p:first-child{font-family:var(--genis);font-weight:700;font-size:15px;color:var(--beyaz)}
+
+/* detay */
+dialog{border:0;padding:0;margin:0 0 0 auto;width:100%;max-width:680px;height:100%;max-height:none;background:var(--asfalt);color:var(--beyaz);overflow:auto;border-left:3px solid var(--sari)}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+dialog[open]{animation:kay .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes kay{from{transform:translateX(60px);opacity:0}}
+.d-ust{position:sticky;top:0;z-index:4;display:flex;justify-content:space-between;align-items:center;padding:10px 18px;background:var(--asfalt);border-bottom:1px solid var(--cizgi);font-family:var(--mono);font-size:13px;color:var(--soluk)}
+.d-kapat{min-height:44px;padding:0 14px;background:none;border:1.5px solid var(--cizgi);border-radius:6px;cursor:pointer;color:var(--beyaz);font-family:var(--yazi);font-weight:500}
+.d-kapat:hover{border-color:var(--beyaz)}
+.d-govde{padding:22px 18px 120px}
+.d-govde h2{font-size:clamp(28px,7vw,44px)}
+.d-paket{color:var(--soluk);margin-top:8px}
+.d-fiyat{font-family:var(--mono);font-weight:500;font-size:34px;color:var(--sari);margin-top:14px}
+.d-ozet{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--cizgi);border:1px solid var(--cizgi);margin-top:20px}
+.d-ozet div{background:var(--asfalt);padding:12px 10px}
+.d-ozet dt{font-size:12.5px;color:var(--soluk)}
+.d-ozet dd{font-family:var(--mono);font-size:14.5px;margin-top:2px}
+.d-govde h3{font-family:var(--genis);font-weight:500;font-size:17px;margin:34px 0 14px;color:var(--sari)}
+.d-eks{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;background:var(--koyu);border:1px solid var(--cizgi);border-radius:10px;padding:16px}
+.d-eks svg{width:100%;height:auto}
+.d-eks ul{list-style:none;display:grid;gap:8px;font-size:15.5px}
+.d-eks li{display:flex;gap:10px;align-items:center}
+.d-eks li i{width:16px;height:16px;border-radius:3px;flex:none;border:1.5px solid #5A5F68}
+.d-eks li i.l{background:repeating-linear-gradient(-45deg,var(--sari) 0 2px,#1B1E22 2px 5px)}
+.d-eks li i.b{background:var(--sari);border-color:var(--sari)}
+.d-eks li i.d{background:var(--kirmizi);border-color:var(--kirmizi)}
+.d-hasar{font-family:var(--mono);font-size:13.5px;color:var(--soluk);margin-top:12px}
+.d-not{color:#C7CAD0}
+.d-don{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.d-don li{border:1px solid var(--cizgi);border-radius:999px;padding:5px 12px;font-size:14.5px}
+.d-foto{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.d-foto div{aspect-ratio:4/3;border:1.5px dashed #4A4E56;border-radius:6px;display:grid;place-items:center;text-align:center;font-size:12px;color:var(--soluk);padding:6px;background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(255,255,255,.03) 10px 11px)}
+.d-eylem{position:sticky;bottom:0;display:flex;gap:8px;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:var(--asfalt);border-top:1px solid var(--cizgi);margin-top:-80px}
+.d-eylem .dugme{flex:1;padding:0 8px;font-size:15.5px;min-height:52px}
+
+@media (min-width:700px){.parklar{grid-template-columns:repeat(3,1fr)}.park:nth-child(-n+3){border-top:3px solid var(--sari)}.suz-satir{grid-template-columns:repeat(4,1fr)}.suz-satir.iki{grid-template-columns:1fr 1fr auto auto;align-items:end}.anahtar{grid-column:auto}}
+@media (min-width:1040px){
+  body{font-size:18px}
+  .ust{padding:26px 40px 0}.ust nav{display:flex}
+  .giris-yazi{padding:50px 40px 0}
+  .giris h1{font-size:clamp(70px,8vw,124px)}
+  .giris h1 br.m{display:none}
+  .otopark{padding:110px 40px 70px}
+  #kasaSec{margin:0;padding:2px 0}
+  .parklar{grid-template-columns:repeat(4,1fr)}
+  .park:nth-child(-n+4){border-top:3px solid var(--sari)}
+  .park-no{font-size:64px}
+  .park-arac{aspect-ratio:1/.98;padding:24px 10px 12px}
+  .kunye{padding:14px 16px 16px}
+  .kunye h3{font-size:19px}
+  .kunye strong{font-size:19px}
+  .ekspertiz{grid-template-columns:1.1fr .9fr;gap:80px;padding:110px 40px;align-items:center}
+  .takas{grid-template-columns:.8fr 1.2fr;gap:80px;padding:90px 40px 130px}
+  .alanlar{grid-template-columns:repeat(3,1fr)}
+  .galeri-ic{padding:120px 40px}
+  .galeri dl{grid-template-columns:repeat(3,1fr);gap:50px}
+  .dip{padding:30px 40px 50px;grid-template-columns:auto 1fr;gap:30px;align-items:baseline}
+  .d-govde{padding:30px 34px 120px}.d-ust{padding:12px 34px}.d-eylem{padding:12px 34px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+</style>
+</head>
+<body>
+<a class="atla" href="#otopark">Araçlara geç</a>
+
+<section class="giris" id="top" data-foto>
+  <img class="foto" src="data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==" alt="">
+  <header class="ust">
+    <a class="marka" href="#top"><i aria-hidden="true"></i>KONTAK<span>otomotiv</span></a>
+    <nav aria-label="Bölümler"><a href="#otopark">Araçlar</a><a href="#ekspertiz">Ekspertiz</a><a href="#takas">Takas</a><a href="#galeri">Galeri</a></nav>
+    <a class="dugme kucuk" href="https://wa.me/905000000000?text=Merhaba%2C%20bir%20ara%C3%A7%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp</a>
+  </header>
+  <div class="giris-yazi">
+    <h1>İçi dışı <br class="m">belli <br>ikinci el.</h1>
+    <p>Her aracın ekspertiz şeması ilanın içinde. Boyalı parçayı siz sormadan biz söyleriz.</p>
+    <div class="giris-dugme">
+      <a class="dugme" href="#otopark">Araçları gör</a>
+      <button type="button" class="dugme hayalet" id="selektor">Selektör yap</button>
+    </div>
+    <p class="stok" id="stokYazi"></p>
+  </div>
+  <div class="sahne" aria-hidden="true">
+    <div class="isik sol"></div><div class="isik sag"></div><div class="yol-isik"></div>
+    <svg viewBox="0 0 1000 330" class="on-arac" preserveAspectRatio="xMidYMax meet">
+      <path d="M112 330V236q6-46 76-60l110-28q34-84 124-96h156q90 12 124 96l110 28q70 14 76 60v94z" fill="#0D0F12" stroke="#2A2D33" stroke-width="2"/>
+      <path d="M332 150q24-64 96-76h144q72 12 96 76z" fill="#08090B" stroke="#24272C" stroke-width="2"/>
+      <path d="M296 150l-34-10q-14-2-16 10l4 14 40-6zM704 150l34-10q14-2 16 10l-4 14-40-6z" fill="#0D0F12" stroke="#2A2D33" stroke-width="2"/>
+      <path d="M360 204h280l-14 54H374z" fill="#07080A" stroke="#24272C" stroke-width="2"/>
+      <path d="M368 218h264M371 232h258M375 246h250" stroke="#1D2025" stroke-width="3"/>
+      <path d="M250 286h500l-10 26H260z" fill="#07080A"/>
+      <rect x="430" y="270" width="140" height="32" rx="3" fill="#E8E8E2"/><rect x="430" y="270" width="16" height="32" rx="3" fill="#1D4FB8"/>
+      <text x="508" y="293" text-anchor="middle" font-family="DM Mono,monospace" font-weight="500" font-size="19" fill="#111">06 KTK 026</text>
+      <g class="far-cam"><path d="M150 214l146-18 12 44-150 16z"/><path d="M850 214l-146-18-12 44 150 16z"/></g>
+      <g class="far-drl"><path d="M160 262l146-16M840 262l-146-16" stroke-width="4" stroke-linecap="round" fill="none"/></g>
+      <rect x="120" y="318" width="90" height="12" fill="#050506"/><rect x="790" y="318" width="90" height="12" fill="#050506"/>
+    </svg>
+  </div>
+</section>
+
+<main>
+<section class="otopark" id="otopark" aria-labelledby="otoB">
+  <div class="bolum-bas"><h2 id="otoB">Otopark</h2><p id="sayac" aria-live="polite"></p></div>
+  <form class="suzgec" id="suzgec" aria-label="Araç süzgeçleri">
+    <fieldset class="kasa"><legend class="gizli">Kasa tipi</legend><div id="kasaSec"></div></fieldset>
+    <div class="suz-satir">
+      <label><span>Marka</span><select name="marka" id="sMarka"><option value="">Hepsi</option></select></label>
+      <label><span>Yakıt</span><select name="yakit"><option value="">Hepsi</option><option>Benzin</option><option>Dizel</option><option>Hibrit</option><option>LPG</option></select></label>
+      <label><span>Vites</span><select name="vites"><option value="">Hepsi</option><option>Otomatik</option><option>Manuel</option></select></label>
+      <label><span>Sırala</span><select name="sira"><option value="yeni">Yeni gelen</option><option value="ucuz">Fiyat: artan</option><option value="pahali">Fiyat: azalan</option><option value="km">Kilometre: az olan</option><option value="yil">Model yılı: yeni</option></select></label>
+    </div>
+    <div class="suz-satir iki">
+      <label class="kaydir"><span><output id="fiyatO"></output></span><input type="range" name="fiyat" id="sFiyat" aria-label="En yüksek fiyat" min="800000" max="2200000" step="50000" value="2200000"></label>
+      <label class="kaydir"><span><output id="kmO"></output></span><input type="range" name="km" id="sKm" aria-label="En yüksek kilometre" min="30000" max="200000" step="10000" value="200000"></label>
+      <label class="anahtar"><input type="checkbox" name="boyasiz"><i aria-hidden="true"></i><span>Yalnızca boyasız, değişensiz</span></label>
+      <button type="reset" class="yazi-dugme">Temizle</button>
+    </div>
+  </form>
+  <ul class="parklar" id="parklar"></ul>
+  <p class="bos" id="bos" hidden>Bu süzgeçlere uyan araç şu an parkta yok. Aradığınızı yazın, gelince haber verelim.</p>
+</section>
+
+<section class="ekspertiz" id="ekspertiz" aria-labelledby="eksB">
+  <div class="eks-yazi">
+    <h2 id="eksB">Şemayı okumak</h2>
+    <p>Her ilanda aracın kuşbakışı şeması var. Boş parça orijinal demek. Renkli olanın ne olduğunu aşağıda görüyorsunuz; nedenini de ilanda yazıyoruz.</p>
+    <ul class="lejant">
+      <li><i class="o"></i><b>Orijinal</b><span>Fabrika boyası, işlem görmemiş.</span></li>
+      <li><i class="l"></i><b>Lokal boyalı</b><span>Parçanın bir bölümü boyanmış. Çoğu zaman çizik ya da taş izi.</span></li>
+      <li><i class="b"></i><b>Boyalı</b><span>Parçanın tamamı boyanmış.</span></li>
+      <li><i class="d"></i><b>Değişen</b><span>Parça sökülüp yenisi takılmış.</span></li>
+    </ul>
+    <p class="dipnot">Raporlar bağımsız ekspertiz firmasından alınır. İsterseniz aracı kendi seçtiğiniz ekspertize birlikte götürürüz.</p>
+  </div>
+  <div class="eks-ornek" id="eksOrnek"></div>
+</section>
+
+<section class="takas" id="takas" aria-labelledby="takasB">
+  <div class="takas-yazi"><h2 id="takasB">Takas</h2><p>Aracınızı anlatın, hangi araca baktığınızı söyleyin. Aynı gün içinde yaklaşık bir değerle döneriz; kesin rakamı aracı görünce veririz.</p></div>
+  <form id="takasForm" novalidate>
+    <fieldset><legend>Sizin aracınız</legend>
+      <div class="alanlar">
+        <label class="alan"><span>Marka</span><input name="marka" required autocomplete="off" placeholder="Renault"></label>
+        <label class="alan"><span>Model</span><input name="model" required autocomplete="off" placeholder="Megane"></label>
+        <label class="alan"><span>Model yılı</span><input name="yil" type="number" inputmode="numeric" min="1990" max="2026" placeholder="2017"></label>
+        <label class="alan"><span>Kilometre</span><input name="km" inputmode="numeric" placeholder="120.000"></label>
+        <label class="alan"><span>Yakıt</span><select name="yakit"><option>Benzin</option><option>Dizel</option><option>LPG</option><option>Hibrit</option><option>Elektrik</option></select></label>
+        <label class="alan"><span>Vites</span><select name="vites"><option>Manuel</option><option>Otomatik</option></select></label>
+        <label class="alan gen"><span>Boya ve değişen durumu</span><select name="durum"><option>Boyasız, değişensiz</option><option>Lokal boyası var</option><option>Boyalı parçası var</option><option>Değişen parçası var</option><option>Bilmiyorum</option></select></label>
+      </div>
+    </fieldset>
+    <fieldset><legend>Baktığınız araç</legend>
+      <label class="alan"><span class="gizli">Baktığınız araç</span><select name="hedef" id="takasHedef"><option value="">Henüz karar vermedim</option></select></label>
+    </fieldset>
+    <fieldset><legend>İletişim</legend>
+      <div class="alanlar">
+        <label class="alan"><span>Adınız</span><input name="ad" required autocomplete="name"></label>
+        <label class="alan"><span>Telefonunuz</span><input name="tel" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05XX XXX XX XX"></label>
+      </div>
+    </fieldset>
+    <button class="dugme" type="submit">Takas mesajını hazırla</button>
+    <p class="hata" id="takasHata" role="alert" hidden></p>
+    <div class="sonuc" id="takasSonuc" role="status" hidden></div>
+  </form>
+</section>
+
+<section class="galeri" id="galeri" aria-labelledby="galB" data-foto>
+  <img class="foto" src="data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==" alt="" loading="lazy" decoding="async">
+  <div class="galeri-ic">
+    <h2 id="galB">Gelin, kaputu <br>birlikte açalım.</h2>
+    <dl>
+      <div><dt>Adres</dt><dd>Örnek Sanayi Sitesi, 14. Cadde No: 26<br>Yenimahalle, Ankara (hayali adres)</dd></div>
+      <div><dt>Saatler</dt><dd>Pazartesi – Cumartesi 09:00 – 19:30<br>Pazar 11:00 – 17:00</dd></div>
+      <div><dt>Telefon</dt><dd><a href="tel:+905000000000">0 5XX XXX XX XX</a><br><a href="https://wa.me/905000000000" target="_blank" rel="noopener">WhatsApp'tan yazın</a></dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p>KONTAK otomotiv</p>
+  <p>Bu site hayali bir işletme için hazırlanmış örnektir. Araçlar, fiyatlar, plaka, adres ve telefon gerçek değildir.</p>
+</footer>
+
+<dialog id="detay" aria-labelledby="dBaslik"><div id="detayIc"></div></dialog>
+
+<script>
+/* Stok listesi. Yeni araç için ARACLAR dizisine bir satır ekleyin.
+   kasa: sedan | hatchback | suv | station
+   eks (ekspertiz): parça → durum. Yazılmayan parça orijinaldir.
+     Parçalar: kaput, tavan, bagaj, sof/sok/sak/saf (sol ön çamurluk, ön kapı, arka kapı, arka çamurluk), gof/gok/gak/gaf (sağ taraf)
+     Durumlar: l = lokal boyalı, b = boyalı, d = değişen
+   hasar: hasar kaydı tutarı (TL), 0 = kayıt yok */
+window.ARACLAR = [
+ {no:"KT-12",yil:2023,marka:"Toyota",model:"Corolla",paket:"1.8 Hybrid Flame X-Pack",kasa:"sedan",yakit:"Hibrit",vites:"Otomatik",km:28000,renk:"Beyaz",fiyat:1720000,eks:{},hasar:0,motor:"1.798 cc · 140 hp",don:["Adaptif hız sabitleyici","Geri görüş kamerası","Şerit takip","Apple CarPlay"],not:"İlk sahibinden, yetkili servis bakımlı. Hibrit batarya garantisi sürüyor."},
+ {no:"KT-11",yil:2020,marka:"Volkswagen",model:"Passat Variant",paket:"1.6 TDI Business",kasa:"station",yakit:"Dizel",vites:"Otomatik",km:110000,renk:"Siyah",fiyat:1650000,eks:{},hasar:0,motor:"1.598 cc · 120 hp",don:["Elektrikli bagaj","Isıtmalı koltuk","LED far","Park sensörü"],not:"Şirket aracı olarak kullanıldı, tüm bakımları faturalı."},
+ {no:"KT-10",yil:2021,marka:"Peugeot",model:"3008",paket:"1.5 BlueHDi Allure",kasa:"suv",yakit:"Dizel",vites:"Otomatik",km:68000,renk:"Gri",fiyat:1890000,eks:{kaput:"l"},hasar:0,motor:"1.499 cc · 130 hp",don:["Panoramik cam tavan","i-Cockpit","Kör nokta uyarı","Kablosuz şarj"],not:"Kaputta taş izi için lokal boya var, hasar kaydı yok."},
+ {no:"KT-09",yil:2015,marka:"Honda",model:"Civic",paket:"1.6 i-VTEC Eco Elegance",kasa:"sedan",yakit:"LPG",vites:"Otomatik",km:187000,renk:"Beyaz",fiyat:870000,eks:{gof:"l",saf:"l"},hasar:6200,motor:"1.597 cc · 125 hp",don:["Fabrikasyon LPG","Sunroof","Geri görüş kamerası"],not:"Fabrika çıkışlı LPG. Triger seti 160 binde değişti."},
+ {no:"KT-08",yil:2019,marka:"Skoda",model:"Octavia",paket:"1.6 TDI Style",kasa:"sedan",yakit:"Dizel",vites:"Otomatik",km:118000,renk:"Gri",fiyat:1320000,eks:{},hasar:0,motor:"1.598 cc · 115 hp",don:["Çift bölge klima","Hız sabitleyici","Ön-arka park sensörü"],not:"Boyasız, değişensiz. DSG şanzıman bakımı 100 binde yapıldı."},
+ {no:"KT-07",yil:2016,marka:"Ford",model:"Focus",paket:"1.5 TDCi Titanium",kasa:"hatchback",yakit:"Dizel",vites:"Otomatik",km:165000,renk:"Siyah",fiyat:890000,eks:{bagaj:"b",gaf:"b"},hasar:38500,motor:"1.499 cc · 120 hp",don:["Otomatik park","Xenon far","Anahtarsız çalıştırma"],not:"Arkadan darbe almış; bagaj kapağı ve sağ arka çamurluk boyalı. Şasi ve podye işlemsiz, ekspertiz raporunda yazıyor."},
+ {no:"KT-06",yil:2022,marka:"Hyundai",model:"Tucson",paket:"1.6 T-GDI Elite",kasa:"suv",yakit:"Benzin",vites:"Otomatik",km:41000,renk:"Lacivert",fiyat:2150000,eks:{},hasar:0,motor:"1.598 cc · 180 hp",don:["Panoramik cam tavan","360° kamera","Isıtmalı ve soğutmalı koltuk","Elektrikli bagaj"],not:"Garantisi devam ediyor. İkinci anahtar ve kış lastikleri veriliyor."},
+ {no:"KT-05",yil:2018,marka:"Fiat",model:"Egea",paket:"1.3 Multijet Urban",kasa:"sedan",yakit:"Dizel",vites:"Manuel",km:142000,renk:"Beyaz",fiyat:795000,eks:{sok:"d",sof:"b"},hasar:61000,motor:"1.248 cc · 95 hp",don:["Hız sabitleyici","Bluetooth","Arka park sensörü"],not:"Sol ön kapı değişen, sol ön çamurluk boyalı. Fiyatı buna göre belirledik. Hava yastıkları açılmamış."},
+ {no:"KT-04",yil:2020,marka:"Dacia",model:"Duster",paket:"1.5 Blue dCi Prestige 4x4",kasa:"suv",yakit:"Dizel",vites:"Manuel",km:96000,renk:"Turuncu",fiyat:1240000,eks:{},hasar:0,motor:"1.461 cc · 115 hp",don:["Dört çeker","Çok yönlü kamera","Deri direksiyon"],not:"Arazide kullanılmadı; alt takım raporu temiz."},
+ {no:"KT-03",yil:2017,marka:"Toyota",model:"Corolla",paket:"1.6 Advance",kasa:"sedan",yakit:"Benzin",vites:"Otomatik",km:128000,renk:"Gümüş",fiyat:1090000,eks:{kaput:"b"},hasar:23500,motor:"1.598 cc · 132 hp",don:["Geri görüş kamerası","Dokunmatik ekran","Hız sabitleyici"],not:"Kaput boyalı, ön tampon değişmiş. Radyatör ve paneller orijinal."},
+ {no:"KT-02",yil:2021,marka:"Renault",model:"Clio",paket:"1.0 TCe Touch",kasa:"hatchback",yakit:"Benzin",vites:"Manuel",km:52000,renk:"Kırmızı",fiyat:985000,eks:{},hasar:0,motor:"999 cc · 90 hp",don:["LED far","Dokunmatik ekran","Yokuş kalkış desteği"],not:"Hatasız, boyasız. Şehir içi kullanım, bakımları zamanında."},
+ {no:"KT-01",yil:2019,marka:"Volkswagen",model:"Golf",paket:"1.5 TSI Highline",kasa:"hatchback",yakit:"Benzin",vites:"Otomatik",km:84000,renk:"Beyaz",fiyat:1385000,eks:{gaf:"l"},hasar:8400,motor:"1.498 cc · 150 hp",don:["Dijital gösterge","Adaptif hız sabitleyici","Isıtmalı koltuk","Cam tavan"],not:"Sağ arka çamurlukta park sürtmesi için lokal boya. Onun dışında orijinal."}
+];
+
+</script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const sakin=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const WA="905000000000", ARACLAR=window.ARACLAR;
+const tl=n=>n.toLocaleString("tr-TR")+" ₺", km=n=>n.toLocaleString("tr-TR")+" km";
+const kacis=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ad=a=>`${a.yil} ${a.marka} ${a.model}`;
+const RENK={Beyaz:"#E6E6E0",Gri:"#7D838B","Gümüş":"#B7BCC2",Siyah:"#2B2F36",Lacivert:"#27407A","Kırmızı":"#B3262E",Turuncu:"#C4601F"};
+const KASA={sedan:"Sedan",hatchback:"Hatchback",suv:"SUV",station:"Station"};
+const PARCA={kaput:"Kaput",tavan:"Tavan",bagaj:"Bagaj kapağı",sof:"Sol ön çamurluk",sok:"Sol ön kapı",sak:"Sol arka kapı",saf:"Sol arka çamurluk",gof:"Sağ ön çamurluk",gok:"Sağ ön kapı",gak:"Sağ arka kapı",gaf:"Sağ arka çamurluk"};
+const DURUM={l:"lokal boyalı",b:"boyalı",d:"değişen"};
+document.body.insertAdjacentHTML("afterbegin",`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="lokal" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="7" height="7" fill="#1B1E22"/><rect width="3" height="7" fill="#F6C915"/></pattern></defs></svg>`);
+
+/* ---------- Kuşbakışı araç çizimi (vitrin ve ekspertiz aynı çizimi kullanır) ---------- */
+const OLCU={sedan:[92,96,58,120],hatchback:[86,112,16,120],suv:[94,134,14,132],station:[92,150,14,120]};
+function kus(a,eks){
+  const [K,T,B,w]=OLCU[a.kasa], s=20, x0=(200-w)/2, x1=x0+w, y0=12, yT1=y0+24, yK=yT1+K, yC1=yK+30, yTav=yC1+T, yC2=yTav+28, yB=yC2+B, yE=yB+22, yD=yTav+10, yM=(yK+yD)/2, H=yE+12;
+  const ic=y=>y<yC1?s+6*(y-yK)/30:y<=yTav?s+6:s+6-6*(y-yTav)/28;
+  const boya=RENK[a.renk]||"#888", P=(id,noktalar)=>{const d="M"+noktalar.map(p=>p.join(" ")).join("L")+"Z", ayna="M"+noktalar.map(p=>[200-p[0],p[1]].join(" ")).join("L")+"Z";
+    return id.length===1?`<path class="parca govde ${eks?(a.eks[id[0]]||""):""}" d="${d}"${eks?"":` fill="${boya}"`}/>`:`<path class="parca govde ${eks?(a.eks[id[0]]||""):""}" d="${d}"${eks?"":` fill="${boya}"`}/><path class="parca govde ${eks?(a.eks[id[1]]||""):""}" d="${ayna}"${eks?"":` fill="${boya}"`}/>`};
+  const tf=eks?"":` fill="${boya}"`;
+  return `<svg class="kus${eks?" eks":""}" viewBox="0 0 200 ${H}" role="img" aria-label="${kacis(eks?ad(a)+" ekspertiz şeması":ad(a)+", "+a.renk.toLocaleLowerCase("tr")+", kuşbakışı çizim")}">
+  <ellipse class="ayna govde" cx="${x0-4}" cy="${yK+10}" rx="8" ry="4.5"${eks?' fill="#1B1E22"':tf}/><ellipse class="ayna govde" cx="${x1+4}" cy="${yK+10}" rx="8" ry="4.5"${eks?' fill="#1B1E22"':tf}/>
+  <path class="tampon govde"${tf} d="M${x0+16} ${y0}Q100 ${y0-9} ${x1-16} ${y0}Q${x1} ${y0+3} ${x1} ${yT1}H${x0}Q${x0} ${y0+3} ${x0+16} ${y0}Z"/>
+  <path class="tampon govde"${tf} d="M${x0} ${yB}H${x1}Q${x1} ${yE-3} ${x1-14} ${yE}Q100 ${yE+5} ${x0+14} ${yE}Q${x0} ${yE-3} ${x0} ${yB}Z"/>
+  ${P(["kaput"],[[x0+s,yT1],[x1-s,yT1],[x1-s,yK],[x0+s,yK]])}${P(["sof","gof"],[[x0,yT1],[x0+s,yT1],[x0+s,yK],[x0,yK]])}
+  ${P(["sok","gok"],[[x0,yK],[x0+s,yK],[x0+s+6,yC1],[x0+s+6,yM],[x0,yM]])}${P(["sak","gak"],[[x0,yM],[x0+s+6,yM],[x0+s+6,yTav],[x0+ic(yD),yD],[x0,yD]])}
+  ${P(["saf","gaf"],[[x0,yD],[x0+ic(yD),yD],[x0+s,yC2],[x0+s,yB],[x0,yB]])}${P(["tavan"],[[x0+s+6,yC1],[x1-s-6,yC1],[x1-s-6,yTav],[x0+s+6,yTav]])}${P(["bagaj"],[[x0+s,yC2],[x1-s,yC2],[x1-s,yB],[x0+s,yB]])}
+  <path class="cam" d="M${x0+s} ${yK}H${x1-s}L${x1-s-6} ${yC1}H${x0+s+6}Z"/><path class="cam" d="M${x0+s+6} ${yTav}H${x1-s-6}L${x1-s} ${yC2}H${x0+s}Z"/>
+  ${eks?"":`<path d="M${x0+s+12} ${yT1+10}V${yK-12}M${x1-s-12} ${yT1+10}V${yK-12}" stroke="#000" stroke-opacity=".18" stroke-width="2" fill="none"/><path d="M${x0+7} ${y0+9}h18M${x1-25} ${y0+9}h18" stroke="#FFF6D0" stroke-width="5" stroke-linecap="round"/><path d="M${x0+7} ${yE-8}h16M${x1-23} ${yE-8}h16" stroke="#D2343B" stroke-width="4" stroke-linecap="round"/>`}</svg>`;
+}
+function eksOzet(a){const d=Object.values(a.eks);if(!d.length)return ["Boyasız","temiz"];const dg=d.filter(x=>x==="d").length;if(dg)return [dg+" değişen"+(d.length>dg?" + boya":""),"degisen"];const b=d.filter(x=>x==="b").length;return b?[b+" boyalı parça","boyali"]:[d.length+" lokal boya","boyali"]}
+
+/* ---------- Otopark ---------- */
+const suzgec=$("#suzgec");
+$("#kasaSec").innerHTML=`<label><input type="radio" name="kasa" value="" checked><span>Hepsi</span></label>`+Object.keys(KASA).map(k=>`<label><input type="radio" name="kasa" value="${k}"><span>${KASA[k]}</span></label>`).join("");
+$("#sMarka").insertAdjacentHTML("beforeend",[...new Set(ARACLAR.map(a=>a.marka))].sort().map(m=>`<option>${m}</option>`).join(""));
+$("#takasHedef").insertAdjacentHTML("beforeend",ARACLAR.map(a=>`<option value="${a.no}">${ad(a)} · ${tl(a.fiyat)}</option>`).join(""));
+function otoparkCiz(){
+  const f=Object.fromEntries(new FormData(suzgec));
+  $("#fiyatO").textContent=+f.fiyat>=2200000?"Fiyat: sınır yok":"En çok "+tl(+f.fiyat);$("#kmO").textContent=+f.km>=200000?"Kilometre: sınır yok":"En çok "+km(+f.km);
+  const l=ARACLAR.filter(a=>(!f.kasa||a.kasa===f.kasa)&&(!f.marka||a.marka===f.marka)&&(!f.yakit||a.yakit===f.yakit)&&(!f.vites||a.vites===f.vites)&&(+f.fiyat>=2200000||a.fiyat<=+f.fiyat)&&(+f.km>=200000||a.km<=+f.km)&&(!f.boyasiz||!Object.keys(a.eks).length));
+  l.sort({yeni:(a,b)=>b.no.localeCompare(a.no),ucuz:(a,b)=>a.fiyat-b.fiyat,pahali:(a,b)=>b.fiyat-a.fiyat,km:(a,b)=>a.km-b.km,yil:(a,b)=>b.yil-a.yil}[f.sira]);
+  $("#parklar").innerHTML=l.map(a=>{const [yazi,sinif]=eksOzet(a);return `<li class="park"><span class="park-no" aria-hidden="true">${a.no.slice(3)}</span><span class="park-rozet ${sinif}">${yazi}</span>
+    <div class="park-arac">${kus(a)}</div><div class="kunye"><h3><a href="#arac-${a.no}">${ad(a)}</a></h3><p>${a.paket}</p><p class="km">${km(a.km)} · ${a.yakit} · ${a.vites}</p><strong>${tl(a.fiyat)}</strong></div></li>`}).join("");
+  $("#bos").hidden=l.length>0;$("#sayac").textContent=l.length===ARACLAR.length?`${l.length} araç parkta`:`${ARACLAR.length} araçtan ${l.length} tanesi`;
+}
+suzgec.addEventListener("input",otoparkCiz);suzgec.addEventListener("reset",()=>setTimeout(otoparkCiz));
+$("#stokYazi").textContent=`Stokta ${ARACLAR.length} araç · hepsi ekspertizli`;
+$("#eksOrnek").innerHTML=kus(ARACLAR.find(a=>a.no==="KT-05"),true)+`<p>Örnek: sol ön kapı değişen, sol ön çamurluk boyalı</p>`;
+
+/* ---------- Araç detayı ---------- */
+const dlg=$("#detay");
+function detayAc(no){
+  const a=ARACLAR.find(x=>x.no===no);if(!a)return;
+  const msg=`Merhaba, ${a.no} numaralı ${ad(a)} (${tl(a.fiyat)}) hakkında bilgi almak istiyorum.`, eks=Object.entries(a.eks);
+  const oz=(dt,dd)=>`<div><dt>${dt}</dt><dd>${dd}</dd></div>`;
+  $("#detayIc").innerHTML=`<div class="d-ust"><span>${a.no} · ${KASA[a.kasa]}</span><button type="button" class="d-kapat" id="dKapat">Kapat ✕</button></div>
+  <div class="d-govde"><h2 id="dBaslik">${ad(a)}</h2><p class="d-paket">${a.paket}</p><p class="d-fiyat">${tl(a.fiyat)}</p>
+   <dl class="d-ozet">${oz("Kilometre",km(a.km))+oz("Yakıt",a.yakit)+oz("Vites",a.vites)+oz("Motor",a.motor)+oz("Renk",a.renk)+oz("Kasa",KASA[a.kasa])}</dl>
+   <h3>Ekspertiz</h3><div class="d-eks">${kus(a,true)}<ul>${eks.length?eks.map(([p,d])=>`<li><i class="${d}"></i>${PARCA[p]}: ${DURUM[d]}</li>`).join("")+`<li><i></i>Diğer ${11-eks.length} parça orijinal</li>`:`<li><i></i>11 parçanın tamamı orijinal</li>`}</ul></div>
+   <p class="d-hasar">Hasar kaydı: ${a.hasar?tl(a.hasar):"yok"} · Rapor galeride, isteyene gönderilir</p>
+   <h3>Bizim notumuz</h3><p class="d-not">${a.not}</p>
+   <h3>Öne çıkan donanım</h3><ul class="d-don">${a.don.map(d=>`<li>${d}</li>`).join("")}</ul>
+   <h3>Fotoğraflar</h3><div class="d-foto"><div>Fotoğraf yeri<br>Dış</div><div>Fotoğraf yeri<br>İç</div><div>Fotoğraf yeri<br>Gösterge</div></div></div>
+  <div class="d-eylem"><a class="dugme" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">WhatsApp'tan sor</a><button type="button" class="dugme hayalet" id="dTakas">Takas teklifi al</button></div>`;
+  if(!dlg.open)dlg.showModal();dlg.scrollTop=0;
+  $("#dKapat").addEventListener("click",()=>dlg.close());
+  $("#dTakas").addEventListener("click",()=>{dlg.close();$("#takasHedef").value=a.no;$("#takas").scrollIntoView({behavior:sakin?"auto":"smooth"});setTimeout(()=>$("#takasForm [name=marka]").focus({preventScroll:true}),sakin?0:600)});
+}
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+dlg.addEventListener("close",()=>{if(location.hash.startsWith("#arac-"))history.replaceState(null,"",location.pathname+location.search)});
+function yol(){const h=location.hash;if(h.startsWith("#arac-"))detayAc(h.slice(6));else if(dlg.open)dlg.close()}
+addEventListener("hashchange",yol);
+
+/* ---------- Takas formu ---------- */
+$("#takasForm [name=km]").addEventListener("input",e=>{const d=e.target.value.replace(/\D/g,"").slice(0,7);e.target.value=d?(+d).toLocaleString("tr-TR"):""});
+$("#takasForm").addEventListener("submit",e=>{
+  e.preventDefault();const fm=e.target, f=Object.fromEntries(new FormData(fm)), hata=$("#takasHata");let m="",odak=null;
+  $$("#takasForm [aria-invalid]").forEach(x=>x.removeAttribute("aria-invalid"));
+  if(!f.marka.trim()){m="Aracınızın markasını yazın.";odak=fm.marka}
+  else if(!f.model.trim()){m="Aracınızın modelini yazın.";odak=fm.model}
+  else if(f.yil&&(+f.yil<1990||+f.yil>2026)){m="Model yılı 1990 ile 2026 arasında olmalı.";odak=fm.yil}
+  else if(!f.ad.trim()){m="Adınızı yazın.";odak=fm.ad}
+  else if(f.tel.replace(/\D/g,"").length<10){m="Telefon numaranız eksik görünüyor.";odak=fm.tel}
+  hata.hidden=!m;hata.textContent=m;if(m){odak.setAttribute("aria-invalid","true");odak.focus();$("#takasSonuc").hidden=true;return}
+  const hedef=ARACLAR.find(a=>a.no===f.hedef);
+  const msg=`Merhaba, takas için teklif almak istiyorum.\nAracım: ${f.yil?f.yil+" ":""}${f.marka.trim()} ${f.model.trim()}${f.km?", "+f.km+" km":""}, ${f.yakit}, ${f.vites}\nDurum: ${f.durum}\nBaktığım araç: ${hedef?`${hedef.no} ${ad(hedef)}`:"henüz karar vermedim"}\nAd: ${f.ad.trim()} · Tel: ${f.tel.trim()}`;
+  const s=$("#takasSonuc");s.hidden=false;
+  s.innerHTML=`<strong>Mesajınız hazır.</strong><pre>${kacis(msg)}</pre><a class="dugme" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">WhatsApp'ta aç</a><small>Örnek sitede mesaj deneme numarasına gider; bilgileriniz hiçbir yere kaydedilmez.</small>`;
+  s.scrollIntoView({block:"nearest",behavior:sakin?"auto":"smooth"});
+});
+
+/* ---------- Farlar ---------- */
+(function(){
+  const g=$(".giris"), yak=v=>g.classList.toggle("yanik",v);
+  if(sakin){yak(true)}else{[[700,1],[790,0],[900,1],[980,0],[1130,1]].forEach(([t,v])=>setTimeout(()=>yak(!!v),t))}
+  let mesgul=false;
+  $("#selektor").addEventListener("click",()=>{yak(true);if(mesgul||sakin)return;mesgul=true;[[0,1],[130,0],[260,1],[420,0]].forEach(([t,v])=>setTimeout(()=>{g.classList.toggle("uzun",!!v);if(t===420)mesgul=false},t))});
+})();
+
+/* ---------- Görseller ---------- */
+$$("[data-foto] > .foto").forEach(img=>{const bak=()=>{if(img.naturalWidth>8)img.parentElement.classList.add("foto-var")};img.complete?bak():img.addEventListener("load",bak)});
+
+otoparkCiz();yol();
+})();
+
+</script>
+</body>
+</html>

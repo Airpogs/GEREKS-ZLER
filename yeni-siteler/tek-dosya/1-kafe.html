@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="tr" data-zaman="ogle">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gündüz Kahve & Fırın</title>
+<meta name="description" content="Gündüz Kahve & Fırın: kahvaltı, fırın işleri, kahve. QR menü, saatler ve WhatsApp ile rezervasyon. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#F4F1E6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231A1730'/%3E%3Ccircle cx='16' cy='18' r='7' fill='%23F2B45A'/%3E%3Crect y='20' width='32' height='12' fill='%231A1730'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+
+/* Gündüz Kahve & Fırın */
+:root{
+  --bg:#F4F1E6;--kagit:#FFFDF6;--ink:#1E1B14;--soluk:#5C5747;--vurgu:#3F6B2A;--cizgi:rgba(30,27,20,.16);--vurgu-ust:#fff;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gecis:.7s cubic-bezier(.3,.7,.2,1);
+}
+[data-zaman="sabah"]{--bg:#F7EDE0;--kagit:#FFF8EE;--ink:#2B1A10;--soluk:#6B5444;--vurgu:#A8401A;--cizgi:rgba(43,26,16,.16)}
+[data-zaman="ogle"]{--bg:#F4F1E6;--kagit:#FFFDF6;--ink:#1E1B14;--soluk:#5C5747;--vurgu:#3F6B2A;--cizgi:rgba(30,27,20,.16)}
+[data-zaman="aksam"]{--bg:#F2DCC6;--kagit:#FBEBDA;--ink:#2A160F;--soluk:#654536;--vurgu:#99301C;--cizgi:rgba(42,22,15,.18)}
+[data-zaman="gece"]{--bg:#1A1730;--kagit:#252145;--ink:#F5EADB;--soluk:#BDB3CA;--vurgu:#F2B45A;--cizgi:rgba(245,234,219,.18);--vurgu-ust:#1A1730}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:70px}
+body{font-family:var(--sans);font-size:17px;line-height:1.5;background:var(--bg);color:var(--ink);transition:background-color var(--gecis),color var(--gecis);overflow-x:hidden}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--vurgu);outline-offset:3px;border-radius:6px}
+.gizli{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.atla{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:10px;z-index:50}
+.atla:focus{top:12px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.02em}
+em{font-style:italic}
+
+.ust{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 6px;max-width:1240px;margin:0 auto}
+.ad{text-decoration:none;display:flex;align-items:baseline;gap:8px}
+.ad-g{font-family:var(--serif);font-style:italic;font-weight:500;font-size:27px;letter-spacing:-.02em}
+.ad-k{font-size:13px;color:var(--soluk);letter-spacing:.02em}
+.dil{display:flex;border:1.5px solid var(--ink);border-radius:999px;padding:2px}
+.dil button{border:0;background:none;font-size:13px;font-weight:600;min-width:44px;min-height:40px;border-radius:999px;cursor:pointer}
+.dil button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* giriş */
+.giris{max-width:1240px;margin:0 auto;padding:14px 20px 44px;display:grid;gap:22px}
+.giris h1{font-size:clamp(46px,13.2vw,112px);text-wrap:balance}
+.giris h1 em{color:var(--vurgu);transition:color var(--gecis)}
+.giris-alt{color:var(--soluk);max-width:34em;font-size:17px}
+.saat-blok{display:flex;align-items:center;gap:16px}
+.saat{font-family:var(--serif);font-size:58px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.saat-yan{font-size:15px;min-width:0}
+.durum{font-weight:600;display:flex;align-items:center;gap:8px}
+.nokta{width:10px;height:10px;border-radius:50%;background:#3E8E41;flex:none}
+.nokta.kapali{background:#C0392B}
+.servis{color:var(--soluk);margin-top:2px}
+.kaydir{margin-top:12px}
+.giris-alt{margin-top:22px;padding-top:18px;border-top:1.5px solid var(--ink)}
+.kaydir input{width:100%;appearance:none;-webkit-appearance:none;background:transparent;height:34px;cursor:pointer;display:block}
+.kaydir input::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,#F2A65E,#8FC0E6 35%,#F0B06A 72%,#2A2752)}
+.kaydir input::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(90deg,#F2A65E,#8FC0E6 35%,#F0B06A 72%,#2A2752)}
+.kaydir input::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--bg);border:3px solid var(--ink);margin-top:-11px}
+.kaydir input::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--bg);border:3px solid var(--ink)}
+.kaydir-olcek{display:flex;justify-content:space-between;font-size:12px;color:var(--soluk);font-variant-numeric:tabular-nums;margin-top:2px}
+.giris-dugme{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+.dugme{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:var(--bg);font-weight:600;text-decoration:none;cursor:pointer;transition:transform .2s,background-color var(--gecis),color var(--gecis)}
+.dugme:hover{transform:translateY(-2px)}
+.dugme.ikincil{background:transparent;color:var(--ink)}
+.simdi{border:0;background:none;text-decoration:underline;text-underline-offset:4px;cursor:pointer;font-size:15px;min-height:44px;padding:0 6px;color:var(--vurgu);font-weight:600}
+
+.pencere{position:relative;aspect-ratio:4/3.9;border-radius:999px 999px 22px 22px;overflow:hidden;border:1.5px solid var(--ink);touch-action:pan-y;cursor:grab;max-width:520px;width:100%;margin:0 auto;isolation:isolate;box-shadow:0 30px 60px -40px rgba(0,0,0,.5)}
+.pencere:active{cursor:grabbing}
+.gok{position:absolute;inset:0;background:linear-gradient(#8FC0E6,#E8F0E2)}
+.pencere svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#yildizlar{fill:#fff}
+#saatIsaret text{font:600 11px var(--sans);fill:#fff;paint-order:stroke;stroke:rgba(20,20,40,.35);stroke-width:2.5px;text-anchor:middle}
+#saatIsaret circle{fill:#fff}
+#catilar{fill:#27352C}
+.pencere-ipucu{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:13px;font-weight:600;color:#fff;background:rgba(20,18,30,.55);padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px);transition:opacity .5s;white-space:nowrap;pointer-events:none}
+.pencere-ipucu.git{opacity:0}
+
+/* menü */
+.menu{max-width:1240px;margin:0 auto;padding:10px 0 30px}
+.menu-yan{position:sticky;top:0;z-index:10;background:var(--bg);transition:background-color var(--gecis);padding:12px 20px 0;border-bottom:1.5px solid var(--cizgi)}
+.menu-yan h2{font-size:40px;display:none}
+.ara{position:relative;color:var(--soluk)}
+.ara svg{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+.ara input{width:100%;height:46px;border-radius:999px;border:1.5px solid var(--cizgi);background:var(--kagit);padding:0 16px 0 42px;color:var(--ink);transition:background-color var(--gecis)}
+.ara input::placeholder{color:var(--soluk);opacity:1}
+.suzgec{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none}
+.suzgec::-webkit-scrollbar,.kat ul::-webkit-scrollbar{display:none}
+.suzgec label{flex:none;position:relative;cursor:pointer}
+.suzgec input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.suzgec span{display:block;font-size:14px;font-weight:500;padding:6px 12px;border-radius:999px;border:1.5px dashed var(--cizgi);color:var(--soluk)}
+.suzgec input:checked+span{border-style:solid;border-color:var(--vurgu);background:var(--vurgu);color:var(--vurgu-ust)}
+.suzgec input:focus-visible+span{outline:3px solid var(--vurgu);outline-offset:2px}
+.kat ul{list-style:none;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:8px -20px 0;padding:0 20px}
+.kat a{display:block;white-space:nowrap;text-decoration:none;font-weight:500;font-size:15.5px;padding:10px 12px 12px;color:var(--soluk);border-bottom:3px solid transparent}
+.kat a[aria-current="true"]{color:var(--ink);border-color:var(--vurgu)}
+.kat li.yok a{text-decoration:line-through;opacity:.7}
+
+.menu-ic{padding:6px 20px 0}
+.bolum{padding:34px 0 8px;scroll-margin-top:175px}
+.bolum-bas{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bolum h3{font-size:clamp(38px,10vw,60px);font-style:italic;font-weight:400}
+.bolum-saat{font-size:13.5px;font-weight:600;color:var(--vurgu);font-variant-numeric:tabular-nums;border:1.5px solid currentColor;border-radius:999px;padding:3px 10px;margin-bottom:8px;transition:color var(--gecis)}
+.bolum-not{color:var(--soluk);font-size:15px;margin-top:6px}
+.bolum.disi .bolum-saat{color:var(--soluk);border-style:dashed}
+.bolum.disi .urunler{opacity:.62}
+.urunler{list-style:none;margin-top:14px;transition:opacity .4s}
+.urun{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:15px 0;border-top:1px solid var(--cizgi);align-items:start}
+.urun-ust{display:flex;align-items:baseline;gap:8px;min-width:0}
+.urun h4{font-family:var(--sans);font-size:17.5px;font-weight:600;line-height:1.3}
+.urun-nokta{flex:1;border-bottom:2px dotted var(--cizgi);min-width:16px;transform:translateY(-4px)}
+.urun-fiyat{font-family:var(--serif);font-size:19px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.urun-acik{color:var(--soluk);font-size:15px;max-width:42em}
+.urun-etk{display:flex;gap:10px;flex-wrap:wrap;margin-top:5px;font-size:12.5px;font-weight:600;color:var(--soluk)}
+.urun-etk span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--vurgu);margin-right:5px;vertical-align:1px}
+.urun-etk .k::before{border-radius:1px;transform:rotate(45deg)}
+.ekle{grid-row:1/4;grid-column:2;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;cursor:pointer;font-size:22px;line-height:1;display:grid;place-items:center;transition:background-color .2s,color .2s,transform .2s}
+.ekle:hover{transform:scale(1.06)}
+.ekle[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ekle b{font:600 15px var(--sans)}
+.bos{padding:50px 0;color:var(--soluk);font-size:18px;font-family:var(--serif);font-style:italic}
+.menu-not{font-size:13.5px;color:var(--soluk);margin-top:26px;padding-top:16px;border-top:1.5px solid var(--ink)}
+
+/* mekân bandı */
+.mekan{position:relative;margin:40px 0 0;background:var(--ink);color:var(--bg);overflow:hidden;transition:background-color var(--gecis),color var(--gecis)}
+.foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s;pointer-events:none}
+.foto-var>.foto{opacity:1}
+.mekan.foto-var{background:#17120E;color:#FBF3E6}
+.mekan.foto-var::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,10,6,.35),rgba(15,10,6,.78))}
+.mekan-ic{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:64px 20px;display:grid;gap:30px}
+.mekan-soz{font-family:var(--serif);font-size:clamp(44px,12vw,120px);line-height:.98;letter-spacing:-.03em}
+.mekan-soz em{color:var(--vurgu)}
+[data-zaman="sabah"] .mekan-soz em,[data-zaman="ogle"] .mekan-soz em,[data-zaman="aksam"] .mekan-soz em,.mekan.foto-var .mekan-soz em{color:#F2B45A}
+[data-zaman="gece"] .mekan:not(.foto-var) .mekan-soz em{color:#99301C}
+.mekan-liste{list-style:none;display:grid;gap:0;font-size:17px;max-width:30em}
+.mekan-liste li{padding:13px 0;border-top:1px solid color-mix(in srgb,currentColor 28%,transparent)}
+
+/* saatler + rezervasyon */
+.alt{max-width:1240px;margin:0 auto;padding:54px 20px 60px;display:grid;gap:44px}
+.alt h2{font-size:clamp(38px,9vw,56px);margin-bottom:16px}
+.saatler table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.saatler td{padding:10px 0;border-top:1px solid var(--cizgi)}
+.saatler td:last-child{text-align:right}
+.saatler tr.bugun td{font-weight:600;color:var(--vurgu)}
+address{font-style:normal;margin-top:20px;color:var(--soluk);line-height:1.7}
+.rez{position:relative;background:var(--kagit);border-radius:26px;padding:26px 20px;overflow:hidden;transition:background-color var(--gecis);isolation:isolate}
+.rez .foto{z-index:-1}
+.rez.foto-var>.foto{opacity:.16}
+.rez-alt{color:var(--soluk);margin-bottom:18px}
+#rezForm{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px}
+.gen{grid-column:1/-1}
+.alan{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600}
+.alan input,.alan select{height:50px;border-radius:14px;border:1.5px solid var(--cizgi);background:var(--bg);padding:0 14px;font-weight:400;font-size:16px;width:100%;transition:background-color var(--gecis)}
+.alan input:focus,.alan select:focus{border-color:var(--ink)}
+.alan input[aria-invalid="true"]{border-color:#C0392B}
+.hata{grid-column:1/-1;color:#B3261E;font-weight:600;font-size:14.5px}
+[data-zaman="gece"] .hata{color:#FF9C8F}
+.rez-sonuc{margin-top:18px;padding:18px;border-radius:18px;border:1.5px dashed var(--ink)}
+.rez-sonuc blockquote{font-family:var(--serif);font-size:19px;line-height:1.35;margin:8px 0 14px}
+.rez-sonuc small{display:block;margin-top:10px;color:var(--soluk)}
+
+.dip{border-top:1.5px solid var(--ink);margin:0 20px;padding:26px 0 120px;font-size:13.5px;color:var(--soluk);max-width:1200px}
+.dip-ad{font-family:var(--serif);font-style:italic;font-size:44px;color:var(--ink);line-height:1;margin-bottom:10px}
+
+/* masa listesi */
+.liste-cubuk{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;animation:yuksel .35s both}
+.liste-cubuk[hidden]{display:none}
+.liste-cubuk button{width:100%;min-height:56px;border-radius:999px;border:0;background:var(--vurgu);color:var(--vurgu-ust);font-weight:600;display:flex;justify-content:space-between;align-items:center;padding:0 22px;cursor:pointer;box-shadow:0 14px 30px -12px rgba(0,0,0,.55)}
+.liste-git{text-decoration:underline;text-underline-offset:3px}
+@keyframes yuksel{from{transform:translateY(80px)}}
+dialog{border:0;padding:0;background:transparent;color:var(--ink);max-width:none;max-height:none;width:100%;margin:auto auto 0}
+dialog::backdrop{background:rgba(15,12,25,.55)}
+.dlg-ic{background:var(--kagit);border-radius:26px 26px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));max-height:86vh;overflow:auto}
+.dlg-bas{display:flex;justify-content:space-between;align-items:center}
+.dlg-bas h2{font-size:34px;font-style:italic}
+.kapat{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:none;font-size:24px;cursor:pointer;line-height:1}
+.dlg-alt{color:var(--soluk);font-size:15px;margin:6px 0 12px}
+#listeIc{list-style:none}
+#listeIc li{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--cizgi);font-size:17px}
+.adet{display:flex;align-items:center;gap:4px}
+.adet button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--cizgi);background:none;cursor:pointer;font-size:18px}
+.adet span{min-width:22px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.dlg-toplam{display:flex;justify-content:space-between;align-items:baseline;border-top:1.5px solid var(--ink);padding:14px 0 18px;font-weight:600}
+.dlg-toplam strong{font-family:var(--serif);font-weight:400;font-size:30px}
+
+@media (min-width:900px){
+  body{font-size:18px}
+  .ust{padding:26px 40px 0}
+  .giris{grid-template-columns:1.15fr .85fr;grid-template-areas:"h p" "k p";gap:34px 60px;padding:40px 40px 80px;align-items:start}
+  .giris h1{grid-area:h;align-self:end}
+  .pencere{grid-area:p;aspect-ratio:4/4.6;align-self:center}
+  .giris-kontrol{grid-area:k}
+  .giris h1{font-size:clamp(72px,7.6vw,118px)}
+  .giris-alt{font-size:19px}
+  .saat{font-size:76px}
+  .menu{display:grid;grid-template-columns:300px 1fr;gap:70px;padding:30px 40px 60px;align-items:start}
+  .menu-yan{top:24px;border-bottom:0;padding:0;background:transparent}
+  .menu-yan h2{display:block;margin-bottom:18px;font-size:64px}
+  .suzgec{flex-wrap:wrap}
+  .kat ul{flex-direction:column;margin:22px 0 0;padding:0;gap:0}
+  .kat a{border-bottom:0;border-left:3px solid transparent;padding:9px 14px;font-size:17px}
+  .menu-ic{padding:0}
+  .bolum{scroll-margin-top:24px;padding-top:10px;padding-bottom:40px}
+  .bolum h3{font-size:72px}
+  .mekan-ic{grid-template-columns:1.4fr 1fr;align-items:end;padding:120px 40px;gap:60px}
+  .alt{grid-template-columns:.8fr 1.2fr;gap:80px;padding:100px 40px}
+  .rez{padding:40px}
+  .dip{margin:0 auto;padding-bottom:60px;max-width:1160px}
+  dialog{width:520px;margin:auto}
+  .dlg-ic{border-radius:26px}
+  .liste-cubuk{left:auto;right:28px;bottom:28px;width:380px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+</style>
+</head>
+<body>
+<a class="atla" href="#menu" data-i18n="atla">Menüye geç</a>
+
+<header class="ust">
+  <a class="ad" href="#top" aria-label="Gündüz Kahve & Fırın">
+    <span class="ad-g">Gündüz</span><span class="ad-k" data-i18n="altad">kahve &amp; fırın</span>
+  </a>
+  <div class="dil" role="group" aria-label="Dil / Language">
+    <button type="button" data-dil="tr" aria-pressed="true">TR</button>
+    <button type="button" data-dil="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<main id="top">
+<section class="giris">
+  <h1><span data-i18n="h1a">Günün her saati</span> <em data-i18n="h1b">başka kokar.</em></h1>
+  <div class="pencere" id="pencere">
+    <div class="gok" id="gok"></div>
+    <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice" role="img" aria-labelledby="pencereBaslik">
+      <title id="pencereBaslik" data-i18n="pencereAlt">Mahallenin çatıları üzerinde günün saatine göre ilerleyen güneş</title>
+      <g id="yildizlar" opacity="0">
+        <circle cx="62" cy="88" r="1.6"/><circle cx="118" cy="52" r="1.2"/><circle cx="170" cy="118" r="1"/><circle cx="236" cy="64" r="1.7"/>
+        <circle cx="300" cy="104" r="1.2"/><circle cx="338" cy="58" r="1.5"/><circle cx="92" cy="170" r="1.1"/><circle cx="276" cy="176" r="1.3"/>
+        <circle cx="204" cy="30" r="1.1"/><circle cx="352" cy="164" r="1"/><circle cx="40" cy="224" r="1.2"/><circle cx="150" cy="232" r="1"/><circle cx="318" cy="246" r="1.1"/>
+      </g>
+      <path id="yay" d="M30 400 A170 250 0 0 1 370 400" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round"/>
+      <g id="saatIsaret"></g>
+      <g id="gunes" transform="translate(200 90)">
+        <circle r="54" fill="url(#hare)"/>
+        <circle id="gunesDaire" r="23" fill="#FFD86B"/>
+      </g>
+      <defs>
+        <radialGradient id="hare"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g id="catilar">
+        <path d="M0 500V418h22v-16l34-26 34 26v20h18v-34h20v-22h12v22h14v-18l40-30 40 30v52h16v-40l24-18 24 18v18h22v-44h54v-14h12v14h8v64h10v-22l22-16V500z"/>
+        <path d="M148 368c-10-2-16-12-12-22 2-8 10-12 16-10 2-8 12-12 20-8 8 3 10 12 6 18 6 4 6 14-2 18-8 5-20 6-28 4z" opacity=".85"/>
+        <path d="M301 398c0-5 3-8 6-8l1-5 3 4c5 0 9 4 9 9v4h6c2-5 6-3 5 1-1 3-4 4-7 4h-23z"/>
+        <g id="isiklar" opacity="0" fill="#FFD27A">
+          <rect x="42" y="412" width="10" height="13" rx="1"/><rect x="64" y="412" width="10" height="13" rx="1"/>
+          <rect x="176" y="398" width="11" height="15" rx="1"/><rect x="214" y="398" width="11" height="15" rx="1"/><rect x="196" y="430" width="11" height="15" rx="1"/>
+          <rect x="270" y="426" width="9" height="12" rx="1"/><rect x="338" y="396" width="10" height="14" rx="1"/><rect x="356" y="396" width="10" height="14" rx="1"/><rect x="338" y="424" width="10" height="14" rx="1"/>
+          <rect x="116" y="402" width="8" height="12" rx="1"/>
+        </g>
+      </g>
+    </svg>
+    <p class="pencere-ipucu" id="ipucu" data-i18n="ipucu">Güneşi sürükleyin</p>
+  </div>
+  <div class="giris-kontrol">
+    <div class="saat-blok">
+      <p class="saat"><span id="saatYazi">--:--</span></p>
+      <div class="saat-yan">
+        <p class="durum"><span class="nokta" id="nokta"></span><span id="durumYazi"></span></p>
+        <p class="servis" id="servisYazi"></p>
+      </div>
+    </div>
+    <div class="kaydir">
+      <label for="saatKaydir" class="gizli" data-i18n="kaydirEtiket">Günün saatini seç</label>
+      <input type="range" id="saatKaydir" min="450" max="1380" step="10" value="720">
+      <div class="kaydir-olcek" aria-hidden="true"><span>07:30</span><span>12:00</span><span>16:00</span><span>20:00</span><span>23:00</span></div>
+    </div>
+    <p class="giris-alt" data-i18n="girisalt">Sabah simit, öğlen tencere yemeği, akşamüstü kahve. Güneşi sürükleyin, o saatte tezgâhta ne olduğunu görün.</p>
+    <div class="giris-dugme">
+      <a class="dugme" href="#menu" data-i18n="menuyeGit">Menüyü aç</a>
+      <a class="dugme ikincil" href="#rezervasyon" data-i18n="masaAyir">Masa ayırt</a>
+      <button class="simdi" id="simdi" type="button" hidden data-i18n="simdi">Şimdiki saate dön</button>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu" aria-labelledby="menuBaslik">
+  <div class="menu-yan">
+    <h2 id="menuBaslik" data-i18n="menu">Menü</h2>
+    <div class="ara">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <label class="gizli" for="q" data-i18n="araEtiket">Menüde ara</label>
+      <input id="q" type="search" autocomplete="off" enterkeyhint="search">
+    </div>
+    <div class="suzgec" role="group" aria-label="Süzgeçler">
+      <label><input type="checkbox" id="fV"><span data-i18n="vej">Vejetaryen</span></label>
+      <label><input type="checkbox" id="fVg"><span data-i18n="vegan">Vegan</span></label>
+      <label><input type="checkbox" id="fG"><span data-i18n="gls">Glutensiz</span></label>
+    </div>
+    <nav class="kat" aria-label="Menü kategorileri"><ul id="katNav"></ul></nav>
+  </div>
+  <div class="menu-ic">
+    <div id="menuListe"></div>
+    <p class="bos" id="bos" hidden data-i18n="bos">Buna uyan bir şey bulamadık. Süzgeçleri kaldırmayı ya da başka bir kelime yazmayı deneyin.</p>
+    <p class="menu-not" data-i18n="menuNot">Fiyatlara KDV dahildir. Alerjiniz varsa sipariş verirken söyleyin, mutfakta aynı tezgâhı kullanıyoruz.</p>
+  </div>
+</section>
+
+<section class="mekan" data-foto>
+  <img class="foto" src="data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==" alt="" loading="lazy" decoding="async">
+  <div class="mekan-ic">
+    <p class="mekan-soz"><span data-i18n="soz1">Kahve acele sevmez.</span> <em data-i18n="soz2">Biz de.</em></p>
+    <ul class="mekan-liste">
+      <li data-i18n="m1">Ekmek her sabah 05:30'da fırına girer.</li>
+      <li data-i18n="m2">Çekirdek haftada bir, perşembe günleri kavrulur.</li>
+      <li data-i18n="m3">Bahçede dört masa var; kedilerle paylaşılır.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="alt" id="rezervasyon">
+  <div class="saatler">
+    <h2 data-i18n="saatlerB">Saatler</h2>
+    <table id="saatTablo"><caption class="gizli" data-i18n="saatlerB">Saatler</caption><tbody></tbody></table>
+    <address>
+      <span data-i18n="adres">Çınaraltı Sokak No: 12 (hayali adres)</span><br>
+      <a href="tel:+905000000000">0 5XX XXX XX XX</a>
+    </address>
+  </div>
+  <div class="rez" data-foto>
+    <img class="foto" src="data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==" alt="" loading="lazy" decoding="async">
+    <h2 data-i18n="rezB">Masa ayırtın</h2>
+    <p class="rez-alt" data-i18n="rezAlt">Formu doldurun, mesaj WhatsApp'ta hazır açılsın. Onayı biz yazarız.</p>
+    <form id="rezForm" novalidate>
+      <label class="alan gen"><span data-i18n="fAd">Adınız</span><input name="ad" required autocomplete="name"></label>
+      <label class="alan"><span data-i18n="fKisi">Kaç kişi</span>
+        <select name="kisi"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7+</option></select></label>
+      <label class="alan"><span data-i18n="fSaat">Saat</span><select name="saat" id="rezSaat"></select></label>
+      <label class="alan gen"><span data-i18n="fGun">Gün</span><input type="date" name="gun" required></label>
+      <label class="alan gen"><span data-i18n="fNot">Not (isteğe bağlı)</span><input name="not" maxlength="120" data-i18n-ph="fNotPh"></label>
+      <p class="hata" id="rezHata" role="alert" hidden></p>
+      <button class="dugme gen" type="submit" data-i18n="fGonder">WhatsApp mesajını hazırla</button>
+    </form>
+    <div class="rez-sonuc" id="rezSonuc" role="status" hidden></div>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p class="dip-ad">Gündüz</p>
+  <p data-i18n="ornek">Bu site hayali bir işletme için hazırlanmış örnektir. Adres, telefon ve fiyatlar gerçek değildir.</p>
+</footer>
+
+<div class="liste-cubuk" id="listeCubuk" hidden>
+  <button type="button" id="listeAc"><span id="listeOzet"></span><span class="liste-git" data-i18n="listeGoster">Listeyi göster</span></button>
+</div>
+<dialog id="listeDlg" aria-labelledby="listeB">
+  <div class="dlg-ic">
+    <div class="dlg-bas"><h2 id="listeB" data-i18n="listeB">Masa listem</h2><button type="button" class="kapat" id="listeKapat" aria-label="Kapat">×</button></div>
+    <p class="dlg-alt" data-i18n="listeAlt">Bu ekranı garsona gösterin. Sipariş buradan gönderilmez.</p>
+    <ul id="listeIc"></ul>
+    <p class="dlg-toplam"><span data-i18n="toplam">Toplam</span><strong id="listeToplam"></strong></p>
+    <button type="button" class="dugme ikincil" id="listeSil" data-i18n="listeSil">Listeyi temizle</button>
+  </div>
+</dialog>
+
+<script>
+/* Menü verisi. Fiyat ya da ürün değiştirmek için yalnızca bu dosyayı düzenleyin.
+   s: servis saatleri [başlangıç, bitiş] (ondalık saat; 13.5 = 13:30). Yoksa gün boyu.
+   e: etiketler — v: vejetaryen, vg: vegan, g: glutensiz, k: kuruyemiş içerir */
+window.SAATLER = [[8.5,22],[7.5,23],[7.5,23],[7.5,23],[7.5,23],[7.5,23],[7.5,23]]; // Pazar..Cumartesi
+window.MENU = [
+ {id:"kahvalti", tr:"Kahvaltı", en:"Breakfast", s:[7.5,13], ntr:"Yumurtalar köy yumurtası, tereyağı Trabzon'dan.", nen:"Free-range eggs, butter from Trabzon.", urun:[
+  {tr:"Gündüz tabağı", en:"The Gündüz plate", dtr:"Ezine peyniri, eski kaşar, zeytin, domates, salatalık, bal-tereyağı, haşlanmış yumurta, simit", den:"Ezine cheese, aged kashar, olives, tomato, cucumber, honey & butter, boiled egg, simit", f:390, e:"v"},
+  {tr:"Serpme kahvaltı (2 kişilik)", en:"Breakfast spread (for two)", dtr:"Tabağın genişi; menemen ya da sahanda yumurta ve bir demlik çayla", den:"The big version, with menemen or fried eggs and a pot of tea", f:890, e:"v"},
+  {tr:"Menemen", en:"Menemen", dtr:"Domates, sivri biber, yumurta. Soğanlı mı soğansız mı, siz karar verin", den:"Tomato, green pepper, eggs. With or without onion — your call", f:220, e:"v"},
+  {tr:"Çılbır", en:"Çılbır", dtr:"Sarımsaklı süzme yoğurt, poşe yumurta, pul biberli tereyağı", den:"Garlic yogurt, poached eggs, chili butter", f:210, e:"v g"},
+  {tr:"Sucuklu yumurta", en:"Eggs with sucuk", dtr:"Bakır sahanda, fırından ekmekle", den:"In a copper pan, with bread from our oven", f:250, e:""},
+  {tr:"Tahin pekmezli yulaf", en:"Oats with tahini & molasses", dtr:"Yulaf sütü, muz, ceviz", den:"Oat milk, banana, walnuts", f:185, e:"v vg k"}
+ ]},
+ {id:"firin", tr:"Fırından", en:"From the oven", ntr:"Gün boyu, tükenene kadar. Öğleden sonra seçenek azalır.", nen:"All day, until it runs out. Fewer choices in the afternoon.", urun:[
+  {tr:"Simit", en:"Simit", dtr:"Sabah çıkar, bol susamlı", den:"Baked each morning, heavy on the sesame", f:35, e:"v vg"},
+  {tr:"Tereyağlı açma", en:"Butter açma", dtr:"Yumuşak, hafif tatlı", den:"Soft and slightly sweet", f:55, e:"v"},
+  {tr:"Zeytinli poğaça", en:"Olive poğaça", dtr:"Siyah zeytin ezmesi, çörek otu", den:"Black olive paste, nigella seeds", f:60, e:"v"},
+  {tr:"Ispanaklı börek", en:"Spinach börek", dtr:"El açması yufka, dilim", den:"Hand-rolled pastry, by the slice", f:130, e:"v"},
+  {tr:"Tahinli çörek", en:"Tahini roll", dtr:"Cevizli", den:"With walnuts", f:75, e:"v vg k"},
+  {tr:"Ekşi maya ekmek", en:"Sourdough loaf", dtr:"Bütün somun, eve götürmelik", den:"Whole loaf, to take home", f:160, e:"v vg"}
+ ]},
+ {id:"kahve", tr:"Kahve ve çay", en:"Coffee & tea", ntr:"Bitki sütü farkı 20 ₺.", nen:"Plant milk +20 ₺.", urun:[
+  {tr:"Türk kahvesi", en:"Turkish coffee", dtr:"Közde, yanında lokum", den:"Brewed over embers, with Turkish delight", f:95, e:"v vg g"},
+  {tr:"Espresso", en:"Espresso", dtr:"Tek ya da çift", den:"Single or double", f:90, e:"v vg g"},
+  {tr:"Cortado", en:"Cortado", dtr:"Espresso kadar süt", den:"Equal parts espresso and milk", f:115, e:"v g"},
+  {tr:"Flat white", en:"Flat white", dtr:"Çift shot, ince köpük", den:"Double shot, thin foam", f:135, e:"v g"},
+  {tr:"Filtre kahve", en:"Filter coffee", dtr:"Haftanın çekirdeği tahtada yazar", den:"This week's bean is on the board", f:120, e:"v vg g"},
+  {tr:"Demlik çay", en:"Pot of tea", dtr:"İki kişilik, Rize", den:"For two, from Rize", f:120, e:"v vg g"},
+  {tr:"Ihlamur", en:"Linden tea", dtr:"Bal ve limonla", den:"With honey and lemon", f:95, e:"v g"}
+ ]},
+ {id:"soguk", tr:"Soğuklar", en:"Cold drinks", urun:[
+  {tr:"Cold brew", en:"Cold brew", dtr:"16 saat demlenir", den:"Steeped for 16 hours", f:140, e:"v vg g"},
+  {tr:"Buzlu latte", en:"Iced latte", dtr:"", den:"", f:150, e:"v g"},
+  {tr:"Ev limonatası", en:"House lemonade", dtr:"Taze nane, az şeker", den:"Fresh mint, not too sweet", f:110, e:"v vg g"},
+  {tr:"Naneli ayran", en:"Mint ayran", dtr:"Yayık", den:"Churned", f:60, e:"v g"},
+  {tr:"Taze portakal suyu", en:"Fresh orange juice", dtr:"Mevsiminde", den:"In season", f:130, e:"v vg g"}
+ ]},
+ {id:"ogle", tr:"Öğle tabağı", en:"Lunch plates", s:[12,16], ntr:"Her gün değişir. Bugün ne olduğu kapıdaki tahtada.", nen:"Changes daily. Today's list is on the board by the door.", urun:[
+  {tr:"Günün çorbası", en:"Soup of the day", dtr:"Ekmek ve limonla", den:"With bread and lemon", f:140, e:"v"},
+  {tr:"Zeytinyağlı tabağı", en:"Olive oil plate", dtr:"Üç çeşit zeytinyağlı, yoğurt", den:"Three vegetables braised in olive oil, yogurt", f:260, e:"v g"},
+  {tr:"Fırın makarna", en:"Baked pasta", dtr:"Beşamel, kaşar, bol karabiber", den:"Béchamel, kashar, plenty of black pepper", f:240, e:"v"},
+  {tr:"Tavuklu bulgur pilavı", en:"Chicken with bulgur", dtr:"Közlenmiş biber, cacık", den:"Charred peppers, cacık", f:290, e:""},
+  {tr:"Izgara köfte", en:"Grilled köfte", dtr:"Piyaz ve közlenmiş domatesle", den:"With bean salad and charred tomato", f:330, e:"g"}
+ ]},
+ {id:"tatli", tr:"Tatlı", en:"Sweets", urun:[
+  {tr:"Fırın sütlaç", en:"Baked rice pudding", dtr:"Üstü iyice yanık", den:"Properly burnt on top", f:150, e:"v g"},
+  {tr:"San Sebastián", en:"San Sebastián cheesecake", dtr:"Dilim", den:"By the slice", f:195, e:"v"},
+  {tr:"İrmik helvası", en:"Semolina helva", dtr:"Ilık, bir top dondurmayla", den:"Warm, with a scoop of ice cream", f:175, e:"v k"},
+  {tr:"Havuçlu kek", en:"Carrot cake", dtr:"Cevizli, tarçınlı", den:"Walnut and cinnamon", f:160, e:"v k"},
+  {tr:"Elmalı kurabiye", en:"Apple cookie", dtr:"", den:"", f:70, e:"v"}
+ ]},
+ {id:"aksam", tr:"Akşamüstü", en:"Evening bites", s:[16,22.5], ntr:"Kahvenin yanına, sohbetin ortasına.", nen:"Something to share over a long chat.", urun:[
+  {tr:"Peynir tabağı", en:"Cheese board", dtr:"Dört peynir, incir reçeli, ceviz, ekşi maya", den:"Four cheeses, fig jam, walnuts, sourdough", f:340, e:"v k"},
+  {tr:"Humus", en:"Hummus", dtr:"Tereyağlı pul biber, sıcak ekmek", den:"Chili butter, warm bread", f:210, e:"v"},
+  {tr:"Fırın patates", en:"Oven potatoes", dtr:"Kekik, sarımsaklı yoğurt", den:"Thyme, garlic yogurt", f:160, e:"v g"}
+ ]}
+];
+
+</script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const sakin=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const WA="905000000000";
+const AC=7.5, KAPA=23; // penceredeki yayın uçları
+
+const M={
+ tr:{atla:"Menüye geç",altad:"kahve & fırın",h1a:"Günün her saati",h1b:"başka kokar.",girisalt:"Sabah simit, öğlen tencere yemeği, akşamüstü kahve. Güneşi sürükleyin, o saatte tezgâhta ne olduğunu görün.",kaydirEtiket:"Günün saatini seç",menuyeGit:"Menüyü aç",masaAyir:"Masa ayırt",simdi:"Şimdiki saate dön",pencereAlt:"Mahallenin çatıları üzerinde günün saatine göre ilerleyen güneş",ipucu:"Güneşi sürükleyin",menu:"Menü",araEtiket:"Menüde ara",araPh:"Ara: menemen, latte…",vej:"Vejetaryen",vegan:"Vegan",gls:"Glutensiz",bos:"Buna uyan bir şey bulamadık. Süzgeçleri kaldırmayı ya da başka bir kelime yazmayı deneyin.",menuNot:"Fiyatlara KDV dahildir. Alerjiniz varsa sipariş verirken söyleyin, mutfakta aynı tezgâhı kullanıyoruz.",soz1:"Kahve acele sevmez.",soz2:"Biz de.",m1:"Ekmek her sabah 05:30'da fırına girer.",m2:"Çekirdek haftada bir, perşembe günleri kavrulur.",m3:"Bahçede dört masa var; kedilerle paylaşılır.",saatlerB:"Saatler",adres:"Çınaraltı Sokak No: 12 (hayali adres)",rezB:"Masa ayırtın",rezAlt:"Formu doldurun, mesaj WhatsApp'ta hazır açılsın. Onayı biz yazarız.",fAd:"Adınız",fKisi:"Kaç kişi",fSaat:"Saat",fGun:"Gün",fNot:"Not (isteğe bağlı)",fNotPh:"Bahçe olsun, mama sandalyesi…",fGonder:"WhatsApp mesajını hazırla",ornek:"Bu site hayali bir işletme için hazırlanmış örnektir. Adres, telefon ve fiyatlar gerçek değildir.",listeGoster:"Listeyi göster",listeB:"Masa listem",listeAlt:"Bu ekranı garsona gösterin. Sipariş buradan gönderilmez.",toplam:"Toplam",listeSil:"Listeyi temizle",
+  gunler:["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"],suAn:"Şu an",saatinde:s=>`Saat ${s}'${ek(s)}`,acik:"açığız",kapali:"kapalıyız",kapanir:s=>`${s}'${ek(s,1)} kapanır`,acilir:s=>`${s}'${ek(s)} açılır`,servis:"Tezgâhta: ",gunBoyu:"Gün boyu",disi:"şu an servis yok",etk:{v:"Vejetaryen",vg:"Vegan",g:"Glutensiz",k:"Kuruyemiş içerir"},ekle:a=>`${a} listeye ekle`,cikar:a=>`${a} listeden çıkar`,urunSay:n=>`${n} ürün`,hAd:"Adınızı yazar mısınız?",hGun:"Bir gün seçin.",hGec:"Geçmiş bir gün seçilemez.",mesaj:(f,g)=>`Merhaba, ${g} günü saat ${f.saat} için ${f.kisi} kişilik masa ayırtmak istiyorum. İsim: ${f.ad}.${f.not?` Not: ${f.not}`:""}`,hazir:"Mesajınız hazır",waAc:"WhatsApp'ta aç",demo:"Örnek sitede mesaj deneme numarasına gider."},
+ en:{atla:"Skip to menu",altad:"coffee & bakery",h1a:"Every hour of the day",h1b:"smells different.",girisalt:"Simit in the morning, a home-cooked lunch, coffee in the late afternoon. Drag the sun to see what's on the counter at that hour.",kaydirEtiket:"Pick a time of day",menuyeGit:"Open the menu",masaAyir:"Book a table",simdi:"Back to now",pencereAlt:"The sun moving over neighbourhood rooftops according to the time of day",ipucu:"Drag the sun",menu:"Menu",araEtiket:"Search the menu",araPh:"Search: eggs, latte…",vej:"Vegetarian",vegan:"Vegan",gls:"Gluten-free",bos:"Nothing matches that. Try removing the filters or another word.",menuNot:"Prices include VAT. If you have an allergy, tell us when ordering — everything shares one kitchen counter.",soz1:"Coffee doesn't like to be rushed.",soz2:"Neither do we.",m1:"Bread goes into the oven at 5:30 every morning.",m2:"Beans are roasted once a week, on Thursdays.",m3:"Four tables in the garden; shared with the cats.",saatlerB:"Hours",adres:"Çınaraltı Sokak No: 12 (fictional address)",rezB:"Book a table",rezAlt:"Fill in the form and the message opens ready in WhatsApp. We confirm by reply.",fAd:"Your name",fKisi:"Guests",fSaat:"Time",fGun:"Date",fNot:"Note (optional)",fNotPh:"Garden table, high chair…",fGonder:"Prepare WhatsApp message",ornek:"This is a sample site made for a fictional business. The address, phone and prices are not real.",listeGoster:"Show list",listeB:"My table list",listeAlt:"Show this screen to your waiter. Orders are not sent from here.",toplam:"Total",listeSil:"Clear list",
+  gunler:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],suAn:"Right now",saatinde:s=>`At ${s}`,acik:"we're open",kapali:"we're closed",kapanir:s=>`closes at ${s}`,acilir:s=>`opens at ${s}`,servis:"On the counter: ",gunBoyu:"All day",disi:"not served right now",etk:{v:"Vegetarian",vg:"Vegan",g:"Gluten-free",k:"Contains nuts"},ekle:a=>`Add ${a} to list`,cikar:a=>`Remove ${a} from list`,urunSay:n=>`${n} item${n>1?"s":""}`,hAd:"Please enter your name.",hGun:"Please pick a date.",hGec:"That date is in the past.",mesaj:(f,g)=>`Hello, I'd like to book a table for ${f.kisi} on ${g} at ${f.saat}. Name: ${f.ad}.${f.not?` Note: ${f.not}`:""}`,hazir:"Your message is ready",waAc:"Open in WhatsApp",demo:"On this sample site the message goes to a test number."}
+};
+// Türkçe saat ekleri: 13:00'te, 07:30'da, 22:00'de
+function ek(s){const [h,d]=s.split(":").map(Number), n=d||h;
+  if(n%10===0&&n>0){const o={10:"da",20:"de",30:"da",40:"ta",50:"de"}[n];return o||"da"}
+  return ["da","de","de","te","te","te","da","de","de","da"][n%10]}
+
+let dil="tr"; try{dil=localStorage.getItem("gunduz-dil")||"tr"}catch(e){}
+const t=()=>M[dil];
+const fiyat=n=>n.toLocaleString("tr-TR")+" ₺";
+const sStr=h=>{const m=Math.round(h*60);return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
+const kucuk=s=>s.toLocaleLowerCase("tr").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ı/g,"i");
+
+/* ---------- Günün saati penceresi ---------- */
+const kaydir=$("#saatKaydir");
+let canli=true, secili=0; // secili: ondalık saat
+const simdiSaat=()=>{const d=new Date();return d.getHours()+d.getMinutes()/60};
+const GOK=[[0,"#0E0E24","#1E1B3A"],[4.5,"#17163A","#3A2F5A"],[6,"#2B2A4F","#D98A6A"],[7.5,"#A9C4DA","#F8CFA0"],[10,"#93C3E8","#E6F0E4"],[13,"#7DB6E4","#DCEBEB"],[16,"#8DB5D8","#F3DDB4"],[18,"#6E7FB3","#F2A66E"],[19,"#3B3A6B","#D9785A"],[20.2,"#1B1A3A","#4A3562"],[23.5,"#0E0E24","#1E1B3A"]];
+const GUNES=[[0,"#F3EBD3"],[5,"#F3EBD3"],[6.5,"#FF9A4A"],[8,"#FFD86B"],[16,"#FFD86B"],[18.6,"#FF8A3D"],[19.6,"#F3EBD3"],[24,"#F3EBD3"]];
+const CATI=[[0,"#0C0B1C"],[5,"#0C0B1C"],[8,"#27352C"],[17,"#27352C"],[19.5,"#0C0B1C"],[24,"#0C0B1C"]];
+const hex=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));
+const kar=(a,b,k)=>{const A=hex(a),B=hex(b);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(",")+")"};
+function ara(tablo,h,kol){kol=kol||1;if(h<=tablo[0][0])return tablo[0][kol];for(let i=1;i<tablo.length;i++){if(h<=tablo[i][0]){const k=(h-tablo[i-1][0])/(tablo[i][0]-tablo[i-1][0]);return kar(tablo[i-1][kol],tablo[i][kol],k)}}return tablo[tablo.length-1][kol]}
+function zamanAdi(h){return h<11?"sabah":h<16?"ogle":h<19?"aksam":"gece"}
+function gunSaat(){const g=new Date().getDay();return window.SAATLER[g]}
+function acikMi(h){const [a,k]=gunSaat();return h>=a&&h<k}
+function servisVar(kat,h){return !kat.s||(h>=kat.s[0]&&h<kat.s[1])}
+
+function ciz(h){
+  secili=h;
+  const k=Math.max(0,Math.min(1,(h-AC)/(KAPA-AC)));
+  const x=200-170*Math.cos(Math.PI*k), y=400-250*Math.sin(Math.PI*k);
+  $("#gunes").setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+  $("#gok").style.background=`linear-gradient(${ara(GOK,h,1)},${ara(GOK,h,2)})`;
+  $("#gunesDaire").setAttribute("fill",ara(GUNES,h));
+  $("#catilar").style.fill=ara(CATI,h);
+  const gece=h<6.5?Math.max(0,Math.min(1,6.5-h)):Math.max(0,Math.min(1,(h-18.7)/1.3));
+  $("#yildizlar").setAttribute("opacity",gece.toFixed(2));
+  $("#isiklar").setAttribute("opacity",gece.toFixed(2));
+  const z=acikMi(h)||canli===false?zamanAdi(h):"gece";
+  if(document.documentElement.dataset.zaman!==z){document.documentElement.dataset.zaman=z;
+    const tc={sabah:"#F7EDE0",ogle:"#F4F1E6",aksam:"#F2DCC6",gece:"#1A1730"}[z];document.querySelector('meta[name=theme-color]').content=tc}
+  yazilar();
+}
+function yazilar(){
+  const h=secili, s=sStr(h), T=t(), acik=acikMi(h), [a,kp]=gunSaat();
+  $("#saatYazi").textContent=s;
+  $("#nokta").classList.toggle("kapali",!acik);
+  const on=canli?T.suAn:T.saatinde(s);
+  $("#durumYazi").textContent=`${on} ${acik?T.acik:T.kapali}`+(canli?` · ${acik?T.kapanir(sStr(kp)):T.acilir(sStr(h<a?a:window.SAATLER[(new Date().getDay()+1)%7][0]))}`:"");
+  const var_=window.MENU.filter(c=>servisVar(c,h)).map(c=>c[dil]);
+  $("#servisYazi").textContent=acik?T.servis+var_.join(", "):"";
+  kaydir.setAttribute("aria-valuetext",s+" — "+(acik?T.acik:T.kapali));
+  $("#simdi").hidden=canli;
+  $$(".bolum").forEach(b=>{const c=window.MENU.find(c=>c.id===b.id);const yok=!servisVar(c,h);b.classList.toggle("disi",yok);
+    const r=b.querySelector(".bolum-saat");if(r)r.textContent=(c.s?sStr(c.s[0])+" – "+sStr(c.s[1]):T.gunBoyu)+(yok?" · "+T.disi:"")});
+  $$("#katNav li").forEach(li=>{const c=window.MENU.find(c=>"#"+c.id===li.firstChild.getAttribute("href"));li.classList.toggle("yok",!servisVar(c,h))});
+}
+function saatAyarla(h,kullanici){
+  if(kullanici){canli=false;$("#ipucu").classList.add("git")}
+  kaydir.value=Math.round(h*60);
+  ciz(h);
+}
+kaydir.addEventListener("input",()=>saatAyarla(kaydir.value/60,true));
+$("#simdi").addEventListener("click",()=>{canli=true;const h=simdiSaat();kaydir.value=Math.round(Math.max(AC,Math.min(KAPA,h))*60);ciz(h);kaydir.focus()});
+// güneşi sürükleme
+(function(){
+  const p=$("#pencere");let surukle=false,bx=0,by=0,karar=false;
+  const kOku=e=>{const r=p.getBoundingClientRect(), nx=((e.clientX-r.left)/r.width-.5)*400/170;return Math.acos(Math.max(-1,Math.min(1,-nx)))/Math.PI};
+  const uygula=e=>saatAyarla(Math.round((AC+kOku(e)*(KAPA-AC))*6)/6,true);
+  p.addEventListener("pointerdown",e=>{surukle=true;karar=e.pointerType==="mouse";bx=e.clientX;by=e.clientY;if(karar){p.setPointerCapture(e.pointerId);uygula(e)}});
+  p.addEventListener("pointermove",e=>{if(!surukle)return;if(!karar){const dx=Math.abs(e.clientX-bx),dy=Math.abs(e.clientY-by);if(dx<8&&dy<8)return;if(dy>dx){surukle=false;return}karar=true;try{p.setPointerCapture(e.pointerId)}catch(_){}}uygula(e)});
+  ["pointerup","pointercancel"].forEach(n=>p.addEventListener(n,()=>{surukle=false}));
+  p.addEventListener("touchmove",e=>{if(surukle&&karar)e.preventDefault()},{passive:false});
+})();
+// saat işaretleri
+(function(){let s="";[9,12,15,18,21].forEach(h=>{const k=(h-AC)/(KAPA-AC),x=200-170*Math.cos(Math.PI*k),y=400-250*Math.sin(Math.PI*k),ox=200-150*Math.cos(Math.PI*k),oy=400-226*Math.sin(Math.PI*k);
+  s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6"/><text x="${ox.toFixed(1)}" y="${(oy+4).toFixed(1)}">${String(h).padStart(2,"0")}</text>`});$("#saatIsaret").innerHTML=s})();
+
+/* ---------- Menü ---------- */
+let liste={}; try{liste=JSON.parse(sessionStorage.getItem("gunduz-liste")||"{}")}catch(e){}
+const anahtar=(c,i)=>c.id+"-"+i;
+function menuCiz(){
+  const T=t(), q=kucuk($("#q").value.trim()), fv=$("#fV").checked, fvg=$("#fVg").checked, fg=$("#fG").checked;
+  let toplam=0, html="";
+  window.MENU.forEach(c=>{
+    const satir=c.urun.map((u,i)=>({u,i})).filter(({u})=>{
+      const e=u.e.split(" ");
+      if(fv&&!e.includes("v"))return false; if(fvg&&!e.includes("vg"))return false; if(fg&&!e.includes("g"))return false;
+      return !q||kucuk([u.tr,u.en,u.dtr,u.den,c.tr,c.en].join(" ")).includes(q);
+    });
+    toplam+=satir.length; if(!satir.length)return;
+    html+=`<section class="bolum" id="${c.id}" aria-labelledby="b-${c.id}"><div class="bolum-bas"><h3 id="b-${c.id}">${c[dil]}</h3><span class="bolum-saat"></span></div>${c["n"+dil]?`<p class="bolum-not">${c["n"+dil]}</p>`:""}<ul class="urunler">`+
+    satir.map(({u,i})=>{const k=anahtar(c,i), n=liste[k]||0, e=u.e.split(" ").filter(x=>x&&!(x==="v"&&u.e.includes("vg")));
+      return `<li class="urun"><div class="urun-ust"><h4>${u[dil]}</h4><span class="urun-nokta" aria-hidden="true"></span><span class="urun-fiyat">${fiyat(u.f)}</span></div>
+      <button class="ekle" type="button" data-k="${k}" aria-pressed="${n>0}" aria-label="${T.ekle(u[dil])}">${n?`<b>${n}</b>`:"+"}</button>
+      ${u["d"+dil]?`<p class="urun-acik">${u["d"+dil]}</p>`:""}${e.length?`<p class="urun-etk">${e.map(x=>`<span class="${x}">${T.etk[x]}</span>`).join("")}</p>`:""}</li>`}).join("")+`</ul></section>`;
+  });
+  $("#menuListe").innerHTML=html; $("#bos").hidden=toplam>0;
+  yazilar(); izle();
+}
+function navCiz(){$("#katNav").innerHTML=window.MENU.map((c,i)=>`<li><a href="#${c.id}"${i===0?' aria-current="true"':""}>${c[dil]}</a></li>`).join("")}
+let io;
+function izle(){
+  if(io)io.disconnect();
+  io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;$$("#katNav a").forEach(a=>{const on=a.getAttribute("href")==="#"+e.target.id;if(on){a.setAttribute("aria-current","true");const ul=a.closest("ul");if(ul.scrollWidth>ul.clientWidth)ul.scrollTo({left:a.offsetLeft-ul.clientWidth/2+a.offsetWidth/2,behavior:sakin?"auto":"smooth"})}else a.removeAttribute("aria-current")})}),{rootMargin:"-35% 0px -60% 0px"});
+  $$(".bolum").forEach(b=>io.observe(b));
+}
+["input","change"].forEach(o=>["#q","#fV","#fVg","#fG"].forEach(s=>$(s).addEventListener(o,menuCiz)));
+
+/* ---------- Masa listesi ---------- */
+function urunBul(k){const [id,i]=k.split("-");const c=window.MENU.find(c=>c.id===id);return c&&c.urun[+i]}
+function listeKaydet(){try{sessionStorage.setItem("gunduz-liste",JSON.stringify(liste))}catch(e){}listeCiz()}
+function listeCiz(){
+  const T=t(), anahtarlar=Object.keys(liste).filter(k=>liste[k]>0&&urunBul(k));
+  const adet=anahtarlar.reduce((a,k)=>a+liste[k],0), tutar=anahtarlar.reduce((a,k)=>a+liste[k]*urunBul(k).f,0);
+  $("#listeCubuk").hidden=adet===0;
+  $("#listeOzet").textContent=`${T.urunSay(adet)} · ${fiyat(tutar)}`;
+  $("#listeIc").innerHTML=anahtarlar.map(k=>{const u=urunBul(k);return `<li><span>${u[dil]}</span><span class="adet"><button type="button" data-k="${k}" data-d="-1" aria-label="${T.cikar(u[dil])}">−</button><span>${liste[k]}</span><button type="button" data-k="${k}" data-d="1" aria-label="${T.ekle(u[dil])}">+</button></span><span>${fiyat(u.f*liste[k])}</span></li>`}).join("");
+  $("#listeToplam").textContent=fiyat(tutar);
+  $$(".ekle").forEach(b=>{const n=liste[b.dataset.k]||0;b.setAttribute("aria-pressed",n>0);b.innerHTML=n?`<b>${n}</b>`:"+"});
+  if(adet===0&&$("#listeDlg").open)$("#listeDlg").close();
+}
+$("#menuListe").addEventListener("click",e=>{const b=e.target.closest(".ekle");if(!b)return;liste[b.dataset.k]=(liste[b.dataset.k]||0)+1;listeKaydet()});
+$("#listeIc").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const k=b.dataset.k;liste[k]=Math.max(0,(liste[k]||0)+ +b.dataset.d);if(!liste[k])delete liste[k];listeKaydet()});
+$("#listeAc").addEventListener("click",()=>$("#listeDlg").showModal());
+$("#listeKapat").addEventListener("click",()=>$("#listeDlg").close());
+$("#listeDlg").addEventListener("click",e=>{if(e.target===e.currentTarget)e.currentTarget.close()});
+$("#listeSil").addEventListener("click",()=>{liste={};listeKaydet()});
+
+/* ---------- Saatler + rezervasyon ---------- */
+function saatTablo(){const T=t(), g=new Date().getDay();
+  $("#saatTablo tbody").innerHTML=[1,2,3,4,5,6,0].map(i=>`<tr${i===g?' class="bugun"':""}><td>${T.gunler[i]}</td><td>${sStr(window.SAATLER[i][0])} – ${sStr(window.SAATLER[i][1])}</td></tr>`).join("")}
+(function(){let o="";for(let h=8;h<=21.5;h+=.5)o+=`<option${h===19?" selected":""}>${sStr(h)}</option>`;$("#rezSaat").innerHTML=o;
+  const d=new Date(),yerel=new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);const g=$("#rezForm [name=gun]");g.min=yerel;g.value=yerel})();
+$("#rezForm").addEventListener("submit",e=>{
+  e.preventDefault();const T=t(), f=Object.fromEntries(new FormData(e.target)), hata=$("#rezHata"), ad=e.target.ad, gun=e.target.gun;
+  f.ad=f.ad.trim();f.not=(f.not||"").trim();
+  let m="";ad.removeAttribute("aria-invalid");gun.removeAttribute("aria-invalid");
+  if(!f.ad){m=T.hAd;ad.setAttribute("aria-invalid","true");ad.focus()}
+  else if(!f.gun){m=T.hGun;gun.setAttribute("aria-invalid","true");gun.focus()}
+  else if(f.gun<gun.min){m=T.hGec;gun.setAttribute("aria-invalid","true");gun.focus()}
+  hata.hidden=!m;hata.textContent=m;if(m){$("#rezSonuc").hidden=true;return}
+  const gunYazi=new Date(f.gun+"T12:00").toLocaleDateString(dil==="tr"?"tr-TR":"en-GB",{day:"numeric",month:"long",weekday:"long"});
+  const msg=T.mesaj(f,gunYazi), s=$("#rezSonuc");
+  s.hidden=false;s.innerHTML=`<strong>${T.hazir}</strong><blockquote></blockquote><a class="dugme" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">${T.waAc}</a><small>${T.demo}</small>`;
+  s.querySelector("blockquote").textContent=msg;s.scrollIntoView({block:"nearest",behavior:sakin?"auto":"smooth"});
+});
+
+/* ---------- Dil ---------- */
+function dilUygula(){
+  const T=t();document.documentElement.lang=dil;
+  $$("[data-i18n]").forEach(el=>{const v=T[el.dataset.i18n];if(typeof v==="string")el.textContent=v});
+  $$("[data-i18n-ph]").forEach(el=>el.placeholder=T[el.dataset.i18nPh]);
+  $("#q").placeholder=T.araPh;
+  $$(".dil button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.dil===dil));
+  navCiz();menuCiz();saatTablo();listeCiz();
+}
+$$(".dil button").forEach(b=>b.addEventListener("click",()=>{dil=b.dataset.dil;try{localStorage.setItem("gunduz-dil",dil)}catch(e){}dilUygula()}));
+
+/* ---------- Görseller: gorseller/ klasörüne gerçek dosya konunca kendiliğinden görünür ---------- */
+$$("[data-foto] > .foto").forEach(img=>{const bak=()=>{if(img.naturalWidth>8)img.parentElement.classList.add("foto-var")};img.complete?bak():img.addEventListener("load",bak)});
+
+/* ---------- Başlat ---------- */
+dilUygula();
+(function(){
+  const hedef=simdiSaat(), hk=Math.max(AC,Math.min(KAPA,hedef));
+  kaydir.value=Math.round(hk*60);
+  if(sakin||!acikMi(hedef)){ciz(hedef);return}
+  // güneş ufuktan doğup şimdiki saate oturur
+  const t0=performance.now(), sure=1700;
+  (function adim(n){const k=Math.min(1,(n-t0)/sure), e=1-Math.pow(1-k,3);if(!canli)return;ciz(AC+(hk-AC)*e);if(k<1)requestAnimationFrame(adim);else ciz(hedef)})(t0);
+})();
+setInterval(()=>{if(canli){const h=simdiSaat();kaydir.value=Math.round(Math.max(AC,Math.min(KAPA,h))*60);ciz(h)}},60000);
+})();
+
+</script>
+</body>
+</html>

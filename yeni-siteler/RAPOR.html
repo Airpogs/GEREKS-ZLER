@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yedi Site Raporu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Düzen: tek sütun, okuma genişliğinde; her site bir satır, sağında açma düğmesi */
+:root{
+  --zemin:#F4F6F5; --yuzey:#FFFFFF; --yazi:#16201D; --soluk:#55635E; --cizgi:#D6DEDA; --vurgu:#0B6B55; --vurgu-ust:#FFFFFF; --uyari:#8A5A00; --uyari-zemin:#FFF4D6;
+  --baslik:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif; --metin:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --zemin:#101614; --yuzey:#18201D; --yazi:#E7EEEB; --soluk:#9DADA7; --cizgi:#2B3632; --vurgu:#5FD3B4; --vurgu-ust:#0B1512; --uyari:#F2C76B; --uyari-zemin:#2E2610; color-scheme:dark } }
+:root[data-theme="dark"]{ --zemin:#101614; --yuzey:#18201D; --yazi:#E7EEEB; --soluk:#9DADA7; --cizgi:#2B3632; --vurgu:#5FD3B4; --vurgu-ust:#0B1512; --uyari:#F2C76B; --uyari-zemin:#2E2610; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--zemin);color:var(--yazi);font-family:var(--metin);font-size:17px;line-height:1.6;margin:0}
+.sayfa{max-width:760px;margin:0 auto;padding-block:28px 64px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+h1,h2,h3{font-family:var(--baslik);line-height:1.12;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,8vw,52px);font-weight:700}
+h2{font-size:26px;font-weight:700;padding-bottom:10px;border-bottom:2px solid var(--yazi)}
+h3{font-size:20px;font-weight:700}
+p{margin:0}
+a{color:var(--vurgu)}
+:focus-visible{outline:3px solid var(--vurgu);outline-offset:3px;border-radius:6px}
+.giris p{margin-top:14px;font-size:18.5px;max-width:36em}
+.kunye{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;padding:0;list-style:none}
+.kunye li{background:var(--yuzey);border:1px solid var(--cizgi);border-radius:999px;padding:4px 14px;font-size:14.5px;font-weight:500}
+section{display:grid;gap:18px;min-width:0}
+.siteler{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.site{background:var(--yuzey);border:1px solid var(--cizgi);border-radius:16px;padding:18px;display:grid;gap:10px}
+.site-ust{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 14px}
+.site-tur{font-size:14px;color:var(--soluk);font-weight:500}
+.site dl{margin:0;display:grid;gap:8px}
+.site dt{font-size:13px;font-weight:600;color:var(--soluk)}
+.site dd{margin:0}
+.ac{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;background:var(--vurgu);color:var(--vurgu-ust);font-weight:600;text-decoration:none;justify-self:start;margin-top:4px}
+.ac:hover{filter:brightness(1.08)}
+.not{background:var(--uyari-zemin);color:var(--uyari);border-radius:10px;padding:10px 14px;font-size:15px;font-weight:500}
+.tablo{overflow-x:auto;border:1px solid var(--cizgi);border-radius:14px;background:var(--yuzey)}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--cizgi);vertical-align:top}
+th{font-size:13px;color:var(--soluk);font-weight:600}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--zemin);border:1px solid var(--cizgi);border-radius:6px;padding:1px 6px;white-space:nowrap}
+ol.liste,ul.liste{margin:0;padding-left:1.3em;display:grid;gap:10px}
+.liste li{padding-left:4px}
+.sayi{font-family:var(--baslik);font-weight:700;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.ikili{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kutu{background:var(--yuzey);border:1px solid var(--cizgi);border-radius:14px;padding:16px}
+.kutu p{color:var(--soluk);font-size:14.5px;margin-top:6px}
+</style>
+
+</head>
+<body>
+<main class="sayfa">
+  <header class="giris">
+    <h1>Yedi site hazır</h1>
+    <p>Yedi sitenin hepsi sıfırdan yazıldı. Her birinin ayrı bir karakteri, ayrı yazı tipleri ve kendine ait bir "wow anı" var. Aşağıdaki düğmelerden her siteyi ayrı ayrı açabilirsiniz; telefonda açmanızı öneririm.</p>
+    <ul class="kunye"><li>7 site</li><li>Telefon ve masaüstünde test edildi</li><li>Kurulum gerekmiyor</li></ul>
+  </header>
+
+  <section aria-labelledby="b-siteler">
+    <h2 id="b-siteler">Siteler</h2>
+    <ol class="siteler">
+      <li class="site">
+        <div class="site-ust"><h3>1. Gündüz Kahve &amp; Fırın</h3><span class="site-tur">Kafe · QR menü</span></div>
+        <dl>
+          <div><dt>Wow anı</dt><dd>Kemerli bir pencerede güneşi sürükleyince saat ilerliyor. Gökyüzü, sitenin renkleri ve o saatte servis edilen menü değişiyor; akşam yıldızlar çıkıyor.</dd></div>
+          <div><dt>Öne çıkanlar</dt><dd>Kategori şeridi, arama, vejetaryen/vegan/glutensiz süzgeçleri, Türkçe ve İngilizce, masa listesi, WhatsApp rezervasyonu.</dd></div>
+        </dl>
+        <a class="ac" href="https://claude.ai/artifact/Qetebm11e7WJ1hJyhcNEus">Siteyi aç</a>
+      </li>
+      <li class="site">
+        <div class="site-ust"><h3>2. Perdah Berber</h3><span class="site-tur">Berber · online randevu</span></div>
+        <dl>
+          <div><dt>Wow anı</dt><dd>Dev başlık tıraş köpüğüyle kaplı açılıyor. Bir ustura darbesi ilk satırı açıyor, gerisini parmağınızla siliyorsunuz.</dd></div>
+          <div><dt>Öne çıkanlar</dt><dd>Hizmet, usta, gün ve saat seçimi; seçtikçe dolan randevu fişi; WhatsApp'a hazır mesaj.</dd></div>
+        </dl>
+        <a class="ac" href="https://claude.ai/artifact/XHmppDqkz3JtUGH3yRJQ3s">Siteyi aç</a>
+      </li>
+      <li class="site">
+        <div class="site-ust"><h3>3. Eşik Gayrimenkul</h3><span class="site-tur">Emlak ofisi</span></div>
+        <dl>
+          <div><dt>Wow anı</dt><dd>İlanların yüzü fotoğraf değil, gözünüzün önünde çizilen kat planı.</dd></div>
+          <div><dt>Öne çıkanlar</dt><dd>12 ilan, süzgeçler ve sıralama, ilan sayfası (oda oda metrekare), "evinizi satalım" formu, kredi hesaplayıcı.</dd></div>
+        </dl>
+        <a class="ac" href="https://claude.ai/artifact/AifwbGShVnBqzW1oDSbzxn">Siteyi aç</a>
+      </li>
+      <li class="site">
+        <div class="site-ust"><h3>4. Kontak Otomotiv</h3><span class="site-tur">Oto galeri</span></div>
+        <dl>
+          <div><dt>Wow anı</dt><dd>Sayfa karanlık açılıyor, farlar kırpışıp yanıyor ve başlığı aydınlatıyor. "Selektör yap" düğmesi uzunları yakıyor.</dd></div>
+          <div><dt>Öne çıkanlar</dt><dd>Araçlar bir otoparkta kuşbakışı duruyor; ilanda boyalı ve değişen parçayı gösteren ekspertiz şeması; süzgeçler; takas formu.</dd></div>
+        </dl>
+        <a class="ac" href="https://claude.ai/artifact/97Xu95Ud1Yqq74tKcmgTkQ">Siteyi aç</a>
+      </li>
+      <li class="site">
+        <div class="site-ust"><h3>5. Can Auto</h3><span class="site-tur">Oto galeri · gerçek işletme</span></div>
+        <dl>
+          <div><dt>Wow anı</dt><dd>Sayfanın içinden kıvrılan bir yol; kaydırdıkça küçük bir araba ilerliyor ve her durakta bir adım açılıyor. Girişte "Auto"nun "o"su dönen bir jant.</dd></div>
+          <div><dt>Öne çıkanlar</dt><dd>Can Auto'dan gelmemiş her bilgi sarı yer tutucu olarak görünüyor. Telefon, adres, araç, fiyat uydurulmadı.</dd></div>
+        </dl>
+        <p class="not">Can Auto gerçek bir işletme olduğu için bu siteyi bağlantı olarak yayınlamadım; sohbette dosya olarak gönderdim. İsterseniz onun için de bağlantı açarım.</p>
+      </li>
+      <li class="site">
+        <div class="site-ust"><h3>6. Çatkı</h3><span class="site-tur">Ahşap ev atölyesi</span></div>
+        <dl>
+          <div><dt>Wow anı</dt><dd>Açılışta bir tomruğun yıl halkaları canlı çiziliyor. Kaydırdıkça tomruk kesiliyor, kirişe, kiriş de evin iskeletine dönüşüyor.</dd></div>
+          <div><dt>Öne çıkanlar</dt><dd>Dört evin ölçülü ön cephe çizimi; sürüklenen "geçme" oyuncağı.</dd></div>
+        </dl>
+        <a class="ac" href="https://claude.ai/artifact/T8okokBxPieq96uDHfvhMi">Siteyi aç</a>
+      </li>
+      <li class="site">
+        <div class="site-ust"><h3>7. Portfolyo</h3><span class="site-tur">Sizin vitrin sayfanız</span></div>
+        <dl>
+          <div><dt>Wow anı</dt><dd>"İşler" bölümünde kaydırdıkça telefondaki site değişiyor ve sayfanın tamamı o sitenin rengine, yazı tipine bürünüyor.</dd></div>
+          <div><dt>Öne çıkanlar</dt><dd>Altı sitenin gerçek ekran görüntüleri, paketler, seçim yapınca kendiliğinden hazırlanan WhatsApp mesajı.</dd></div>
+        </dl>
+        <a class="ac" href="https://claude.ai/artifact/X6YH3Ajpbk3Yhogps31hrB">Siteyi aç</a>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="b-gorsel">
+    <h2 id="b-gorsel">Higgsfield görselleri</h2>
+    <div class="ikili">
+      <div class="kutu"><div class="sayi">0</div><p>Üretilen görsel. Higgsfield anahtarı tanımlı değildi.</p></div>
+      <div class="kutu"><div class="sayi">0 $</div><p>Harcama.</p></div>
+      <div class="kutu"><div class="sayi">12</div><p>Sizin üretmeniz gereken görsel.</p></div>
+    </div>
+    <p>Siteler görselsiz de eksiksiz görünüyor. Görselleri eklemek isterseniz komutlar her sitenin <code>gorseller</code> klasöründeki <code>HIGGSFIELD-KOMUTLARI.md</code> dosyasında yazılı.</p>
+    <div class="tablo">
+      <table>
+        <thead><tr><th>Site</th><th>Üretilecek dosyalar</th></tr></thead>
+        <tbody>
+          <tr><td>Kafe</td><td><code>mekan.webp</code> <code>doku.webp</code></td></tr>
+          <tr><td>Berber</td><td><code>kapak.webp</code> <code>dukkan.webp</code> <code>alet.webp</code></td></tr>
+          <tr><td>Emlak</td><td><code>korfez.webp</code> <code>ofis.webp</code></td></tr>
+          <tr><td>Galeri</td><td><code>gece.webp</code> <code>galeri.webp</code></td></tr>
+          <tr><td>Can Auto</td><td><code>doku.webp</code> (yalnızca soyut doku)</td></tr>
+          <tr><td>Mimari</td><td><code>orman.webp</code> <code>atolye.webp</code></td></tr>
+          <tr><td>Portfolyo</td><td>Yok. Gerçek ekran görüntüleri kullanılıyor.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Klasörlerde bu adlarla boş dosyalar duruyor. Ürettiğiniz görseli aynı adla üzerine yazınca site kendiliğinden kullanıyor.</p>
+  </section>
+
+  <section aria-labelledby="b-yapilacak">
+    <h2 id="b-yapilacak">Sizin yapmanız gerekenler</h2>
+    <ol class="liste">
+      <li>12 Higgsfield görselini üretip klasörlere koymak.</li>
+      <li>Portfolyodaki <code>[Adın Soyadın]</code> ve <code>[0 5XX XXX XX XX]</code> yerlerini doldurmak; bütün sitelerdeki örnek WhatsApp numarasını değiştirmek.</li>
+      <li>Can Auto'dan gerçek bilgileri alıp siteye yazmak. Slogan ve "Anahtara giden yol" metinleri benim önerim; galerinin onaylaması gerekir. Portfolyoda göstermeden önce izinlerini alın.</li>
+      <li>Portfolyodaki paket açıklamalarını kendi hizmetinize göre düzeltmek. Fiyatlar sizin verdiğiniz, içerikler benim önerim.</li>
+      <li>Siteleri kendi adreslerinizde yayınlayınca portfolyodaki bağlantıları güncellemek.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="b-karar">
+    <h2 id="b-karar">Verdiğim kararlar</h2>
+    <ul class="liste">
+      <li><strong>Kayıt:</strong> <code>yeni-siteler</code> içinde ayrı bir git deposu başlatmadım, çünkü klasör zaten bir deponun içinde. Her site aynı depoda ayrı bir kayıt olarak duruyor.</li>
+      <li><strong>Kütüphane yok:</strong> three.js ve GSAP kullanmadım. Çalıştığım ortamdan onlara erişemiyordum, ekleseydim test edemezdim. Siteler bu sayede çok hafif.</li>
+      <li><strong>Kafe dili:</strong> Site Türkçe açılıyor, İngilizce düğmeyle geliyor.</li>
+      <li><strong>Eski siteler:</strong> <code>siteler</code> klasörüne dokunmadım.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="b-eksik">
+    <h2 id="b-eksik">Açık kalan eksikler</h2>
+    <ul class="liste">
+      <li>Siteler gerçek bir telefonda, Safari'de ve Firefox'ta denenmedi. Testler yalnızca Chrome'da, telefon boyutunda yapıldı.</li>
+      <li>Çatkı sitesindeki ağaç kesitinin eski ya da zayıf telefonlarda ne kadar akıcı çalıştığı bilinmiyor.</li>
+      <li>Renk kontrastı için otomatik bir denetim çalıştırılmadı; klavyeyle baştan sona gezinme elle denenmedi.</li>
+      <li>Formlar hiçbir yere kayıt yapmıyor, yalnızca WhatsApp mesajı hazırlıyor. Berberdeki dolu saatler rastgele; yönetim paneli yok.</li>
+      <li>Yazı tipleri internetten geliyor. İnternet yokken siteler yedek yazı tipiyle açılır.</li>
+      <li>Hayali sitelerdeki fiyatlar, ilanlar ve adresler uydurmadır; her sitenin altında bunu söyleyen not var.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
