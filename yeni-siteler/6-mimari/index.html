@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Çatkı — Ahşap yapı atölyesi</title>
+<meta name="description" content="Çatkı: Mudurnu'da çivisiz geçme ahşap karkas evler yapan atölye. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#EFE9DD">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EFE9DD'/%3E%3Cg fill='none' stroke='%237A5230'%3E%3Ccircle cx='16' cy='16' r='4'/%3E%3Ccircle cx='16' cy='16' r='8'/%3E%3Ccircle cx='16' cy='16' r='12' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<a class="atla" href="#evler">Evlere geç</a>
+
+<header class="ust">
+  <a class="marka" href="#top">Çatkı</a>
+  <nav aria-label="Bölümler"><a href="#evler">Evler</a><a href="#gecme">Geçme</a><a href="#usul">Usul</a><a href="#atolye">Atölye</a></nav>
+</header>
+
+<main id="top">
+<section class="hikaye" id="hikaye" aria-label="Ağaçtan eve">
+  <div class="sahne">
+    <canvas id="agac" aria-hidden="true"></canvas>
+    <div class="iskelet" id="iskelet" aria-hidden="true"></div>
+    <div class="perde" data-p="0">
+      <h1>Çatkı</h1>
+      <p class="alt-ad">ahşap yapı atölyesi · Mudurnu</p>
+      <p class="soz">Bir ev, seksen yaşında <em>bir ağaçla</em> başlar.</p>
+    </div>
+    <div class="perde" data-p="1">
+      <h2>Tomruğu <em>çeyrek</em> keseriz.</h2>
+      <p class="soz kucuk">Daha yavaş, daha fireli. Ama yıllar geçtikçe dönmeyen, çatlamayan kereste böyle çıkar.</p>
+    </div>
+    <div class="perde" data-p="2">
+      <h2>Sonra <em>çivisiz</em> birleştiririz.</h2>
+      <p class="soz kucuk">Her kiriş yerine geçmeyle oturur, meşe kavelayla kilitlenir. İskelet atölyede kurulur, arsada on günde ayağa kalkar.</p>
+    </div>
+    <p class="sayac" aria-hidden="true"><span id="halka">0</span><i>yıl halkası</i></p>
+    <p class="ipucu" id="ipucu" aria-hidden="true">Kaydırın</p>
+  </div>
+</section>
+
+<section class="evler" id="evler" aria-labelledby="evlerB">
+  <div class="bolum-bas"><h2 id="evlerB">Evler</h2><p>Dört ev. Her birinin ön cephesi, kurulduğu ölçüyle.</p></div>
+  <ol class="ev-liste" id="evListe"></ol>
+</section>
+
+<section class="gecme" id="gecme" aria-labelledby="gecmeB">
+  <div class="gecme-yazi">
+    <h2 id="gecmeB">Zıvana, <em>kavela,</em> o kadar.</h2>
+    <p>Kirişin ucundaki dil, dikmedeki yuvaya girer. Araya çakılan meşe çivi, yani kavela, ikisini birbirine çeker. Vida yok, metal yok. Aşağıdaki kolu sürükleyin.</p>
+    <div class="kol">
+      <label for="gecmeKol">Kirişi yerine oturt</label>
+      <input type="range" id="gecmeKol" min="0" max="100" value="0">
+      <p class="durum" id="gecmeDurum" aria-live="polite">Açık</p>
+    </div>
+  </div>
+  <svg class="gecme-cizim" viewBox="60 0 660 360" role="img" aria-labelledby="gecmeAlt">
+    <title id="gecmeAlt">Zıvanalı geçme: yatay kiriş, dikmedeki yuvaya girer ve kavelayla kilitlenir</title>
+    <defs><pattern id="lif" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(8)"><path d="M0 4.5h9" stroke="#7A5230" stroke-width=".7" opacity=".35"/></pattern>
+    <pattern id="lifD" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(96)"><path d="M0 4.5h9" stroke="#7A5230" stroke-width=".7" opacity=".35"/></pattern></defs>
+    <g id="gecmeKiris">
+      <path d="M150 140h90v-22h340v124H240v-22h-90z" fill="#E3CBA3"/><path d="M150 140h90v-22h340v124H240v-22h-90z" fill="url(#lif)"/>
+      <path d="M150 140h90v-22h340v124H240v-22h-90z" fill="none" stroke="#1E1812" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="195" cy="180" r="9" fill="#EFE9DD" stroke="#1E1812" stroke-width="1.6"/>
+      <text x="410" y="186" text-anchor="middle">kiriş</text><text x="195" y="158" text-anchor="middle" class="kucuk-yazi">zıvana</text>
+    </g>
+    <g>
+      <path d="M150 20h90v120h-90zM150 220h90v120h-90z" fill="#D8BC8E"/><path d="M150 20h90v120h-90zM150 220h90v120h-90z" fill="url(#lifD)"/>
+      <path d="M150 20h90v320h-90z" fill="none" stroke="#1E1812" stroke-width="2.2"/>
+      <path d="M150 140h90M150 220h90" stroke="#1E1812" stroke-width="1.4" stroke-dasharray="5 5"/>
+      <text x="195" y="60" text-anchor="middle">dikme</text>
+    </g>
+    <g id="gecmeKavela"><circle cx="195" cy="180" r="9" fill="#7A5230" stroke="#1E1812" stroke-width="1.6"/><path d="M189 180h12M195 174v12" stroke="#EFE9DD" stroke-width="1.2"/></g>
+    <g class="olcu"><path d="M120 140v80M114 140h12M114 220h12"/><text x="104" y="184" text-anchor="middle" transform="rotate(-90 104 184)">8 cm</text></g>
+  </svg>
+</section>
+
+<section class="usul" id="usul" aria-labelledby="usulB" data-foto>
+  <img class="foto" src="gorseller/orman.webp" alt="" loading="lazy" decoding="async">
+  <div class="usul-ic">
+    <h2 id="usulB">Usul</h2>
+    <ol>
+      <li><span class="sure">Kış</span><h3>Kesim</h3><p>Ağaç, suyu çekildiğinde, ocak ve şubat arasında kesilir. Kestane, sarıçam, köknar; hepsi Bolu ormanlarından, damgalı.</p></li>
+      <li><span class="sure">İki yaz</span><h3>Kurutma</h3><p>Kereste atölyenin sundurmasında, kendi hâline bırakılır. Fırın yok. Acele edilen ahşap sonradan konuşur.</p></li>
+      <li><span class="sure">Altı hafta</span><h3>Geçme</h3><p>Her birleşim elle işaretlenir, elle açılır. İskelet önce atölyede kuru kurulur, sonra sökülüp numaralanır.</p></li>
+      <li><span class="sure">On gün</span><h3>Kurulum</h3><p>Arsada iskelet on günde ayağa kalkar. Çatı örtülür, sonrası sıva, doğrama ve sabır.</p></li>
+    </ol>
+    <p class="temsili">Temsili görsel</p>
+  </div>
+</section>
+
+<section class="atolye" id="atolye" aria-labelledby="atolyeB">
+  <div class="atolye-foto" data-foto><img class="foto" src="gorseller/atolye.webp" alt="" loading="lazy" decoding="async"><p class="temsili">Temsili görsel</p></div>
+  <div class="atolye-yazi">
+    <h2 id="atolyeB">Bir arsa, bir fikir, <em>bir çay.</em></h2>
+    <p>Yılda en çok dört ev yapıyoruz. Aklınızda bir yer varsa yazın; önce arsayı görür, sonra konuşuruz.</p>
+    <a class="dugme" href="https://wa.me/905000000000?text=Merhaba%2C%20ah%C5%9Fap%20ev%20i%C3%A7in%20g%C3%B6r%C3%BC%C5%9Fmek%20istiyorum." target="_blank" rel="noopener">WhatsApp'tan yazın</a>
+    <dl>
+      <div><dt>Atölye</dt><dd>Örnek Köyü Yolu 3. km, Mudurnu, Bolu (hayali adres)</dd></div>
+      <div><dt>Telefon</dt><dd><a href="tel:+905000000000">0 5XX XXX XX XX</a></dd></div>
+      <div><dt>Ziyaret</dt><dd>Cumartesileri, haber vererek</dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p class="dip-ad">Çatkı</p>
+  <p>Bu site hayali bir işletme için hazırlanmış örnektir. Evler, ölçüler, adres ve telefon gerçek değildir.</p>
+</footer>
+
+<script src="uygulama.js"></script>
+</body>
+</html>
