@@ -110,8 +110,8 @@
   <div class="kredi-ic">
     <form id="krediForm" aria-label="Kredi hesaplayıcı">
       <label class="alan"><span>Evin fiyatı</span><div class="tl"><input name="fiyat" id="kFiyat" inputmode="numeric" value="8.900.000" autocomplete="off"><i>₺</i></div></label>
-      <label class="alan"><span>Peşinat: <output id="kPesinO"></output></span><input type="range" name="pesin" id="kPesin" min="10" max="90" step="5" value="40"></label>
-      <label class="alan"><span>Vade: <output id="kVadeO"></output></span><input type="range" name="vade" id="kVade" min="12" max="120" step="12" value="120"></label>
+      <label class="alan"><span>Peşinat: <output id="kPesinO"></output></span><input type="range" name="pesin" id="kPesin" aria-label="Peşinat oranı" min="10" max="90" step="5" value="40"></label>
+      <label class="alan"><span>Vade: <output id="kVadeO"></output></span><input type="range" name="vade" id="kVade" aria-label="Vade, ay" min="12" max="120" step="12" value="120"></label>
       <label class="alan"><span>Aylık faiz oranı (%)</span><input name="faiz" id="kFaiz" inputmode="decimal" value="2,79" autocomplete="off"></label>
     </form>
     <div class="kredi-sonuc" aria-live="polite">

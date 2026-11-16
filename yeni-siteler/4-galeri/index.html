@@ -61,8 +61,8 @@
       <label><span>Sırala</span><select name="sira"><option value="yeni">Yeni gelen</option><option value="ucuz">Fiyat: artan</option><option value="pahali">Fiyat: azalan</option><option value="km">Kilometre: az olan</option><option value="yil">Model yılı: yeni</option></select></label>
     </div>
     <div class="suz-satir iki">
-      <label class="kaydir"><span><output id="fiyatO"></output></span><input type="range" name="fiyat" id="sFiyat" min="800000" max="2200000" step="50000" value="2200000"></label>
-      <label class="kaydir"><span><output id="kmO"></output></span><input type="range" name="km" id="sKm" min="30000" max="200000" step="10000" value="200000"></label>
+      <label class="kaydir"><span><output id="fiyatO"></output></span><input type="range" name="fiyat" id="sFiyat" aria-label="En yüksek fiyat" min="800000" max="2200000" step="50000" value="2200000"></label>
+      <label class="kaydir"><span><output id="kmO"></output></span><input type="range" name="km" id="sKm" aria-label="En yüksek kilometre" min="30000" max="200000" step="10000" value="200000"></label>
       <label class="anahtar"><input type="checkbox" name="boyasiz"><i aria-hidden="true"></i><span>Yalnızca boyasız, değişensiz</span></label>
       <button type="reset" class="yazi-dugme">Temizle</button>
     </div>
