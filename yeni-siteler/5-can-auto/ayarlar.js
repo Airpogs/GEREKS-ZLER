@@ -8,8 +8,8 @@ window.AYAR = {
   ad: "Can Auto",
   slogan: "İkinci el araç alım, satım ve takas.",   // Öneri metin. Can Auto onaylamalı.
 
-  telefon: "",        // Sitede görünecek biçimde. Örn. "0 532 123 45 67"
-  whatsapp: "",       // Ülke koduyla, boşluksuz. Örn. "905321234567". Boşken deneme numarasına (905000000000) gider.
+  telefon: "",        // Sitede görünecek biçimde: "0 5XX XXX XX XX"
+  whatsapp: "",       // Ülke koduyla, boşluksuz: "905XXXXXXXXX". Boşken deneme numarasına (905000000000) gider.
   adres: "",          // Örn. "Atatürk Cad. No: 10, Çankaya / Ankara"
   saatler: "",        // Örn. "Pazartesi–Cumartesi 09:00–19:00"
   harita: "",         // Google Haritalar bağlantısı
