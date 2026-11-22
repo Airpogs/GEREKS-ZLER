@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eşik Gayrimenkul</title>
+<meta name="description" content="Eşik Gayrimenkul: İzmir'de her ilan kat planıyla yayınlanır. Satılık ve kiralık ilanlar, kredi hesaplayıcı, evinizi satalım formu. Hayali bir işletme için hazırlanmış örnek site.">
+<meta name="theme-color" content="#E9E7DF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E9E7DF'/%3E%3Cpath d='M6 26V6h20v20H18v-9h-5v9z' fill='none' stroke='%23141B24' stroke-width='2.5'/%3E%3Cpath d='M13 26h5' stroke='%23C8432B' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* Eşik Gayrimenkul */
+:root{--kagit:#E9E7DF;--pafta:#F7F6F1;--ink:#141B24;--kalem:#C8432B;--soluk:#56606B;--yesil:#4F7355;--cizgi:rgba(20,27,36,.2);
+  --serif:"Instrument Serif","Iowan Old Style",Georgia,serif;--sans:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--kagit);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.5;overflow-x:hidden;
+  background-image:linear-gradient(rgba(20,27,36,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(20,27,36,.045) 1px,transparent 1px);background-size:32px 32px}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--kalem);outline-offset:3px}
+.atla{position:absolute;left:14px;top:-70px;background:var(--ink);color:var(--pafta);padding:10px 14px;z-index:60}
+.atla:focus{top:14px}
+h1,h2{font-family:var(--serif);font-weight:400;line-height:.98;letter-spacing:-.015em}
+h2{font-size:clamp(46px,11vw,96px)}
+em{font-style:italic;color:var(--kalem)}
+.ic,.ust,.giris,.vitrin,.satalim,.kredi,.ofis-ic,.dip{max-width:1320px;margin-left:auto;margin-right:auto}
+
+.ust{display:flex;align-items:center;justify-content:space-between;padding:16px 18px}
+.marka{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:32px;line-height:1}
+.ust nav{display:none;gap:30px;font-size:15.5px;font-weight:500}
+.ust nav a{text-decoration:none;padding:8px 0}
+.ust nav a:hover{text-decoration:underline;text-decoration-color:var(--kalem);text-underline-offset:6px;text-decoration-thickness:2px}
+.dugme{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;background:var(--ink);color:var(--pafta);border:1.5px solid var(--ink);font-weight:600;text-decoration:none;cursor:pointer;transition:background-color .2s,color .2s}
+.dugme:hover{background:var(--kalem);border-color:var(--kalem)}
+.dugme.cizgili{background:transparent;color:var(--ink);min-height:44px;padding:0 16px;font-size:15px}
+.dugme.cizgili:hover{background:var(--ink);color:var(--pafta);border-color:var(--ink)}
+.yazi-dugme{background:none;border:0;text-decoration:underline;text-underline-offset:4px;cursor:pointer;min-height:44px;color:var(--soluk);font-size:14.5px;justify-self:start}
+
+/* giriş */
+.giris{padding:18px 18px 50px;display:grid;gap:26px}
+.giris h1{font-size:clamp(50px,14vw,124px)}
+.giris-yazi p{margin-top:18px;font-size:18px;color:var(--soluk);max-width:30em}
+.giris-plan{background:var(--pafta);border:1.5px solid var(--ink);padding:10px 10px 0;position:relative}
+.giris-plan figcaption{display:flex;justify-content:space-between;gap:12px;border-top:1.5px solid var(--ink);margin:6px -10px 0;padding:9px 12px;font-size:12.5px;font-weight:500}
+.plan{display:block;width:100%;height:auto;overflow:visible}
+.plan .dis{fill:none;stroke:var(--ink);stroke-width:5;stroke-linejoin:miter}
+.plan .oda{fill:none;stroke:var(--ink);stroke-width:1.8}
+.plan .dolgu{stroke:none}
+.plan .olcu{stroke:var(--kalem);stroke-width:1.2;fill:none}
+.plan text{font-family:var(--sans);fill:var(--ink)}
+.plan .ad{font-size:13px;font-weight:600;text-anchor:middle}
+.plan .m2{font-size:11.5px;fill:var(--soluk);text-anchor:middle}
+.plan .kucuk .ad{font-size:11px}
+.plan .kucuk .m2{font-size:10px}
+@media (max-width:639px){.plan.etiketli .ad{font-size:20px}.plan.etiketli .m2{font-size:15.5px}.plan.etiketli .kucuk .ad{font-size:15px}.plan.etiketli .kucuk .m2{font-size:12.5px}.plan.etiketli .olcu-yazi{font-size:19px!important}}
+.plan .olcu-yazi{font-size:12px;fill:var(--kalem);font-weight:600;text-anchor:middle}
+.plan .d{stroke-dasharray:1;stroke-dashoffset:0}
+.anim .plan:not(.ciz) .d{stroke-dashoffset:1}
+.anim .plan:not(.ciz) :is(.y,.dolgu){opacity:0}
+.anim .plan.ciz .d{animation:ciz 1.1s cubic-bezier(.65,0,.2,1) both;animation-delay:calc(var(--i)*70ms)}
+.anim .plan.ciz :is(.y,.dolgu){animation:gel .5s both;animation-delay:calc(var(--i)*70ms + .7s)}
+@keyframes ciz{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes gel{from{opacity:0}to{opacity:1}}
+.hizli{display:grid;gap:10px;background:var(--pafta);border:1.5px solid var(--ink);padding:14px}
+.ikili{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--ink)}
+.ikili label{position:relative;cursor:pointer}
+.ikili input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
+.ikili span{display:grid;place-items:center;min-height:48px;font-weight:600;padding:0 10px;text-align:center}
+.ikili input:checked+span{background:var(--ink);color:var(--pafta)}
+.ikili input:focus-visible+span{outline:2.5px solid var(--kalem);outline-offset:2px}
+.hizli-alan,.suzgec label,.alan{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;color:var(--soluk)}
+select,.alan input,.alan textarea{height:50px;border:1.5px solid var(--cizgi);background:var(--pafta);padding:0 12px;font-size:16px;font-weight:500;color:var(--ink);border-radius:0;width:100%}
+.alan textarea{height:auto;padding:12px;resize:vertical}
+select:focus,.alan input:focus,.alan textarea:focus{border-color:var(--ink)}
+[aria-invalid="true"]{border-color:var(--kalem)!important}
+
+/* vitrin */
+.vitrin{padding:40px 18px 60px}
+.vitrin-bas{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:1.5px solid var(--ink);padding-bottom:12px}
+#sayac{font-size:14.5px;color:var(--soluk);padding-bottom:8px;text-align:right}
+.suzgec{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 0 22px}
+.suzgec select{height:46px;font-size:15px}
+.paftalar{list-style:none;display:grid;gap:22px}
+.pafta{position:relative;background:var(--pafta);border:1.5px solid var(--ink);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.pafta:hover,.pafta:focus-within{transform:translate(-4px,-4px);box-shadow:8px 8px 0 var(--ink)}
+.pafta-plan{padding:14px 14px 8px;aspect-ratio:16/11;display:grid;place-items:center}
+.pafta-plan .plan{max-height:100%;width:auto;max-width:100%}
+.antet{border-top:1.5px solid var(--ink);display:grid;grid-template-columns:1fr auto;margin-top:auto}
+.antet>*{padding:10px 12px}
+.a-ust{grid-column:1/-1;display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;border-bottom:1px solid var(--cizgi);padding:8px 12px}
+.a-ust .islem{color:var(--kalem)}
+.a-ust .yeni{background:var(--ink);color:var(--pafta);padding:0 7px;margin-left:8px}
+.antet h3{grid-column:1/-1;font-family:var(--serif);font-weight:400;font-size:27px;line-height:1.08;padding-bottom:2px}
+.antet h3 a{text-decoration:none}
+.antet h3 a::after{content:"";position:absolute;inset:0}
+.a-yer{grid-column:1/-1;color:var(--soluk);font-size:14.5px;padding-top:0}
+.a-ozet{border-top:1px solid var(--cizgi);display:flex;gap:14px;font-size:14px;font-weight:500;align-items:center}
+.a-fiyat{border-top:1px solid var(--cizgi);border-left:1px solid var(--cizgi);font-weight:700;font-size:17px;white-space:nowrap;display:flex;align-items:center}
+.a-fiyat small{font-weight:500;color:var(--soluk);margin-left:4px}
+.bos{padding:50px 0;font-family:var(--serif);font-size:26px;line-height:1.2;max-width:24em}
+
+/* usul */
+.usul{position:relative;isolation:isolate;background:var(--ink);color:var(--pafta);overflow:hidden}
+.foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:-2;transition:opacity .8s;pointer-events:none}
+.foto-var>.foto{opacity:1}
+.usul.foto-var::before,.ofis.foto-var::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,27,36,.82),rgba(20,27,36,.9))}
+.usul ol{list-style:none;max-width:1320px;margin:0 auto;padding:60px 18px;display:grid;gap:34px;counter-reset:u}
+.usul li{counter-increment:u;font-size:17px;color:#C9CED3;max-width:30em;border-top:1px solid rgba(247,246,241,.3);padding-top:16px}
+.usul li span{display:block;font-family:var(--serif);font-size:clamp(40px,10vw,64px);line-height:1;color:var(--pafta);margin-bottom:12px}
+.usul li::before{content:"0" counter(u);font-size:13px;font-weight:600;color:#F08A73;display:block;margin-bottom:10px}
+
+/* satalım */
+.satalim{padding:70px 18px;display:grid;gap:30px}
+.sat-yazi p{margin-top:16px;color:var(--soluk);font-size:18px;max-width:28em}
+#satForm{display:grid;gap:22px;background:var(--pafta);border:1.5px solid var(--ink);padding:20px 16px}
+fieldset{border:0;min-width:0;display:grid;gap:14px}
+legend{font-family:var(--serif);font-size:30px;line-height:1;margin-bottom:12px;padding:0}
+.alanlar{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gen{grid-column:1/-1}
+.onay{display:flex;gap:10px;font-size:14px;color:var(--soluk);align-items:flex-start;cursor:pointer}
+.onay input{width:22px;height:22px;flex:none;accent-color:var(--ink);margin-top:1px}
+.hata{color:#A5301B;font-weight:600}
+.sonuc{border:1.5px dashed var(--ink);padding:16px}
+.sonuc pre{white-space:pre-wrap;font-family:var(--sans);font-size:15px;margin:8px 0 14px}
+.sonuc small{display:block;margin-top:10px;color:var(--soluk)}
+
+/* kredi */
+.kredi{padding:20px 18px 80px}
+.kredi-ic{display:grid;gap:26px;margin-top:26px;border-top:1.5px solid var(--ink);padding-top:26px}
+#krediForm{display:grid;gap:18px}
+.tl{position:relative}
+.tl i{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--soluk);font-weight:600}
+.tl input{padding-right:34px;font-size:20px;font-weight:600}
+input[type=range]{appearance:none;-webkit-appearance:none;height:34px;background:transparent;border:0;padding:0;cursor:pointer;width:100%}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--ink)}
+input[type=range]::-moz-range-track{height:2px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;background:var(--kalem);border:0;border-radius:0;margin-top:-11px;transform:rotate(45deg)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--kalem);border:0;border-radius:0;transform:rotate(45deg)}
+.alan output{color:var(--ink);font-weight:700}
+.kredi-sonuc{background:var(--pafta);border:1.5px solid var(--ink);padding:22px 18px}
+.k-etiket{font-size:14px;font-weight:600;color:var(--soluk)}
+.k-taksit{font-family:var(--serif);font-size:clamp(54px,15vw,104px);line-height:1;margin:4px 0 18px;letter-spacing:-.02em}
+.k-cubuk{display:flex;height:26px;border:1.5px solid var(--ink)}
+.k-cubuk span{display:block;transition:width .4s}
+#kAna{background:var(--ink)}
+#kFz{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7'%3E%3Cpath d='M-1 8 8-1' stroke='%23C8432B' stroke-width='1.6'/%3E%3C/svg%3E")}
+.kredi-sonuc dl{margin:14px 0}
+.kredi-sonuc dl div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--cizgi)}
+.kredi-sonuc dt{display:flex;align-items:center;gap:8px;color:var(--soluk)}
+.kredi-sonuc dd{font-weight:700}
+dt i{width:12px;height:12px;display:inline-block;border:1.5px solid var(--ink)}
+dt i.ana{background:var(--ink)}
+dt i.fz{border-color:var(--kalem);background:repeating-linear-gradient(-45deg,var(--kalem) 0 1.5px,transparent 1.5px 4px)}
+.kucuk{font-size:13px;color:var(--soluk)}
+
+/* ofis */
+.ofis{position:relative;isolation:isolate;background:var(--ink);color:var(--pafta)}
+.ofis-ic{padding:70px 18px}
+.ofis h2 em{color:#F08A73}
+.ofis-kol{display:grid;gap:24px;margin-top:36px;font-size:17px}
+.ofis-kol b{display:block;font-size:13px;color:#F08A73;margin-bottom:6px}
+address{font-style:normal}
+.dip{padding:26px 18px 40px;font-size:13.5px;color:var(--soluk);display:grid;gap:6px}
+.dip p:first-child{font-family:var(--serif);font-size:26px;color:var(--ink)}
+
+/* detay */
+dialog{border:0;padding:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;background:var(--kagit);color:var(--ink);overflow:auto;
+  background-image:linear-gradient(rgba(20,27,36,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(20,27,36,.045) 1px,transparent 1px);background-size:32px 32px}
+dialog::backdrop{background:rgba(20,27,36,.6)}
+.detay-ic{max-width:1240px;margin:0 auto;padding:0 18px 100px}
+.d-ust{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;background:var(--kagit);border-bottom:1.5px solid var(--ink);font-weight:600;font-size:14px}
+.d-kapat{min-height:44px;padding:0 14px;border:1.5px solid var(--ink);background:var(--pafta);cursor:pointer;font-weight:600}
+.d-kapat:hover{background:var(--ink);color:var(--pafta)}
+.d-bas{padding:26px 0 20px}
+.d-bas h2{font-size:clamp(40px,9.5vw,84px)}
+.d-bas p{color:var(--soluk);margin-top:10px;font-size:17px}
+.d-bas .d-fiyat{font-family:var(--serif);font-size:clamp(38px,9vw,60px);line-height:1;margin-top:16px;color:var(--ink)}
+.d-fiyat small{font-family:var(--sans);font-size:16px;color:var(--soluk);margin-left:8px}
+.d-govde{display:grid;gap:28px}
+.d-plan{background:var(--pafta);border:1.5px solid var(--ink);padding:12px}
+.d-plan p{font-size:12.5px;color:var(--soluk);border-top:1px solid var(--cizgi);margin-top:8px;padding-top:8px}
+.d-yan h3{font-family:var(--serif);font-weight:400;font-size:30px;margin:26px 0 10px}
+.d-yan h3:first-child{margin-top:0}
+.d-tablo{width:100%;border-collapse:collapse}
+.d-tablo th{text-align:left;font-weight:500;color:var(--soluk)}
+.d-tablo td{text-align:right;font-weight:600}
+.d-tablo :is(th,td){padding:9px 0;border-bottom:1px solid var(--cizgi)}
+.d-etiket{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-top:14px}
+.d-etiket li{border:1.5px solid var(--ink);padding:4px 10px;font-size:14px;font-weight:500}
+.d-foto{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.d-foto div{aspect-ratio:4/3;border:1.5px dashed var(--soluk);display:grid;place-items:center;font-size:12px;color:var(--soluk);text-align:center;padding:6px;background:repeating-linear-gradient(-45deg,transparent 0 9px,rgba(20,27,36,.05) 9px 10px)}
+.d-eylem{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:var(--kagit);border-top:1.5px solid var(--ink);z-index:6}
+.d-eylem .dugme{flex:1;padding:0 10px;font-size:15.5px}
+.d-eylem .dugme.cizgili{min-height:52px}
+
+@media (min-width:640px){.paftalar{grid-template-columns:1fr 1fr}.suzgec{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1000px){
+  body{font-size:17.5px}
+  .ust{padding:22px 40px}.ust nav{display:flex}
+  .giris{grid-template-columns:1.05fr .95fr;gap:30px 60px;padding:30px 40px 80px;align-items:center}
+  .giris h1{font-size:clamp(76px,8vw,124px)}
+  .giris-yazi p{font-size:20px}
+  .hizli{grid-column:1/-1;grid-template-columns:260px 1fr 1fr auto;align-items:end;padding:16px}
+  .vitrin{padding:60px 40px 100px}
+  .suzgec{grid-template-columns:repeat(6,1fr) auto;align-items:end}
+  .paftalar{grid-template-columns:repeat(3,1fr);gap:30px}
+  .usul ol{grid-template-columns:repeat(3,1fr);gap:50px;padding:120px 40px}
+  .satalim{grid-template-columns:.8fr 1.2fr;gap:70px;padding:120px 40px;align-items:start}
+  .sat-yazi{position:sticky;top:40px}
+  #satForm{padding:34px}
+  .alanlar{grid-template-columns:repeat(4,1fr)}
+  fieldset:nth-of-type(2) .alanlar{grid-template-columns:1fr 1fr}
+  .kredi{padding:0 40px 130px}
+  .kredi-ic{grid-template-columns:.9fr 1.1fr;gap:70px;padding-top:40px}
+  .kredi-sonuc{padding:36px}
+  .ofis-ic{padding:120px 40px}
+  .ofis-kol{grid-template-columns:repeat(3,1fr);gap:50px}
+  .dip{padding:30px 40px 50px;grid-template-columns:auto 1fr;gap:30px;align-items:baseline}
+  .detay-ic{padding:0 40px 60px}
+  .d-govde{grid-template-columns:1.25fr .75fr;gap:50px;align-items:start}
+  .d-eylem{position:static;padding:0;border:0;background:none;margin-top:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-delay:0s!important}
+}
+
+</style>
+</head>
+<body>
+<a class="atla" href="#vitrin">İlanlara geç</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="tarama" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v7" stroke="#4F7355" stroke-width="1.4"/></pattern>
+  <pattern id="nokta" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#141B24" opacity=".35"/></pattern>
+</defs></svg>
+
+<header class="ust">
+  <a class="marka" href="#top" aria-label="Eşik Gayrimenkul">
+    <svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true"><path d="M5 29V5h24v24H19V18h-6v11z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M13 29h6" stroke="#C8432B" stroke-width="2.4"/></svg>
+    <span>Eşik</span>
+  </a>
+  <nav aria-label="Bölümler"><a href="#vitrin">İlanlar</a><a href="#satalim">Evinizi satalım</a><a href="#kredi">Kredi hesabı</a><a href="#ofis">Ofis</a></nav>
+  <a class="dugme cizgili" href="https://wa.me/905000000000?text=Merhaba%2C%20bir%20ilan%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp</a>
+</header>
+
+<main id="top">
+<section class="giris">
+  <div class="giris-yazi">
+    <h1>Kapıdan girmeden <em>evin planını</em> görün.</h1>
+    <p>Eşik'te her ilan, ölçülüp çizilmiş kat planıyla yayınlanır. Geniş açılı fotoğraf odayı büyütür; plan büyütmez.</p>
+  </div>
+  <figure class="giris-plan" id="girisPlan"></figure>
+  <form class="hizli" id="hizli" aria-label="Hızlı arama">
+    <div class="ikili" role="radiogroup" aria-label="İşlem">
+      <label><input type="radio" name="islem" value="satilik" checked><span>Satılık</span></label>
+      <label><input type="radio" name="islem" value="kiralik"><span>Kiralık</span></label>
+    </div>
+    <label class="hizli-alan"><span>İlçe</span><select name="ilce" id="hizliIlce"><option value="">Tüm İzmir</option></select></label>
+    <label class="hizli-alan"><span>Oda</span><select name="oda"><option value="">Fark etmez</option><option>1+0</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1</option></select></label>
+    <button class="dugme" type="submit">İlanları göster</button>
+  </form>
+</section>
+
+<section class="vitrin" id="vitrin" aria-labelledby="vitrinB">
+  <div class="vitrin-bas">
+    <h2 id="vitrinB">İlanlar</h2>
+    <p id="sayac" aria-live="polite"></p>
+  </div>
+  <form class="suzgec" id="suzgec" aria-label="İlan süzgeçleri">
+    <label><span>İşlem</span><select name="islem"><option value="">Hepsi</option><option value="satilik">Satılık</option><option value="kiralik">Kiralık</option></select></label>
+    <label><span>İlçe</span><select name="ilce" id="sIlce"><option value="">Tüm İzmir</option></select></label>
+    <label><span>Tür</span><select name="tur"><option value="">Hepsi</option><option>Daire</option><option>Müstakil</option><option>İş yeri</option></select></label>
+    <label><span>Oda</span><select name="oda"><option value="">Fark etmez</option><option>1+0</option><option>1+1</option><option>2+1</option><option>3+1</option><option>4+1</option></select></label>
+    <label><span>En az net m²</span><select name="m2"><option value="0">Fark etmez</option><option>50</option><option>80</option><option>100</option><option>120</option></select></label>
+    <label><span>Sırala</span><select name="sira"><option value="yeni">En yeni</option><option value="artan">Fiyat: düşükten yükseğe</option><option value="azalan">Fiyat: yüksekten düşüğe</option><option value="m2">Metrekare: büyükten küçüğe</option></select></label>
+    <button type="reset" class="yazi-dugme">Süzgeçleri temizle</button>
+  </form>
+  <ul class="paftalar" id="paftalar"></ul>
+  <p class="bos" id="bos" hidden>Bu ölçülere uyan ilanımız şu an yok. Süzgeçleri gevşetin ya da bize yazın; aradığınız evi biz arayalım.</p>
+</section>
+
+<section class="usul" data-foto>
+  <img class="foto" src="data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==" alt="" loading="lazy" decoding="async">
+  <ol>
+    <li><span>Önce ölçeriz.</span> Her eve lazer metreyle gider, oda oda ölçü alırız. İlandaki metrekare tapudaki değil, ayak bastığınız metrekaredir.</li>
+    <li><span>Sonra çizeriz.</span> Planı ilana koyarız. Koltuk sığar mı, çocuk odası yeter mi; görüşmeye gelmeden bilirsiniz.</li>
+    <li><span>Kusuru da yazarız.</span> Eski tesisat, kuzey cephe, yüksek aidat. Sonradan öğrenilen her şey güveni bozar; biz baştan söyleriz.</li>
+  </ol>
+</section>
+
+<section class="satalim" id="satalim" aria-labelledby="satB">
+  <div class="sat-yazi">
+    <h2 id="satB">Evinizi <em>satalım.</em></h2>
+    <p>Birkaç bilgi bırakın. Sizi arar, evi ücretsiz ölçer ve planını çizeriz. Satmaktan vazgeçseniz de plan sizde kalır.</p>
+  </div>
+  <form id="satForm" novalidate>
+    <fieldset><legend>Ev</legend>
+      <div class="ikili" role="radiogroup" aria-label="Ne yapmak istiyorsunuz">
+        <label><input type="radio" name="niyet" value="Satmak" checked><span>Satmak istiyorum</span></label>
+        <label><input type="radio" name="niyet" value="Kiraya vermek"><span>Kiraya vermek istiyorum</span></label>
+      </div>
+      <div class="alanlar">
+        <label class="alan"><span>İlçe</span><select name="ilce" id="satIlce" required><option value="">Seçin</option></select></label>
+        <label class="alan"><span>Oda sayısı</span><select name="oda"><option>1+0</option><option>1+1</option><option selected>2+1</option><option>3+1</option><option>4+1</option><option>Diğer</option></select></label>
+        <label class="alan"><span>Yaklaşık m²</span><input name="m2" type="number" inputmode="numeric" min="10" max="2000" placeholder="110"></label>
+        <label class="alan"><span>Bina yaşı</span><input name="yas" type="number" inputmode="numeric" min="0" max="150" placeholder="15"></label>
+      </div>
+    </fieldset>
+    <fieldset><legend>Siz</legend>
+      <div class="alanlar">
+        <label class="alan"><span>Adınız</span><input name="ad" autocomplete="name" required></label>
+        <label class="alan"><span>Telefonunuz</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="05XX XXX XX XX" required></label>
+        <label class="alan gen"><span>Eklemek istediğiniz (isteğe bağlı)</span><textarea name="not" rows="2" maxlength="300"></textarea></label>
+      </div>
+      <label class="onay"><input type="checkbox" name="onay" required><span>Bilgilerimin yalnızca bana dönüş yapılması için kullanılmasını kabul ediyorum.</span></label>
+    </fieldset>
+    <button class="dugme" type="submit">Mesajı hazırla</button>
+    <p class="hata" id="satHata" role="alert" hidden></p>
+    <div class="sonuc" id="satSonuc" role="status" hidden></div>
+  </form>
+</section>
+
+<section class="kredi" id="kredi" aria-labelledby="krediB">
+  <h2 id="krediB">Kredi hesabı</h2>
+  <div class="kredi-ic">
+    <form id="krediForm" aria-label="Kredi hesaplayıcı">
+      <label class="alan"><span>Evin fiyatı</span><div class="tl"><input name="fiyat" id="kFiyat" inputmode="numeric" value="8.900.000" autocomplete="off"><i>₺</i></div></label>
+      <label class="alan"><span>Peşinat: <output id="kPesinO"></output></span><input type="range" name="pesin" id="kPesin" aria-label="Peşinat oranı" min="10" max="90" step="5" value="40"></label>
+      <label class="alan"><span>Vade: <output id="kVadeO"></output></span><input type="range" name="vade" id="kVade" aria-label="Vade, ay" min="12" max="120" step="12" value="120"></label>
+      <label class="alan"><span>Aylık faiz oranı (%)</span><input name="faiz" id="kFaiz" inputmode="decimal" value="2,79" autocomplete="off"></label>
+    </form>
+    <div class="kredi-sonuc" aria-live="polite">
+      <p class="k-etiket">Aylık taksit</p>
+      <p class="k-taksit" id="kTaksit">—</p>
+      <div class="k-cubuk" role="img" id="kCubuk" aria-label=""><span id="kAna"></span><span id="kFz"></span></div>
+      <dl>
+        <div><dt><i class="ana"></i>Kredi tutarı</dt><dd id="kKredi"></dd></div>
+        <div><dt><i class="fz"></i>Toplam faiz</dt><dd id="kToplamFaiz"></dd></div>
+        <div><dt>Toplam geri ödeme</dt><dd id="kToplam"></dd></div>
+      </dl>
+      <p class="kucuk">Hesap bilgi içindir. Oran örnektir; güncel oranı ve kullanabileceğiniz en yüksek kredi tutarını bankanızdan öğrenin. Dosya masrafı ve sigortalar dahil değildir.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ofis" id="ofis" aria-labelledby="ofisB" data-foto>
+  <img class="foto" src="data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==" alt="" loading="lazy" decoding="async">
+  <div class="ofis-ic">
+    <h2 id="ofisB">Kahve bizden,<br><em>soru sizden.</em></h2>
+    <div class="ofis-kol">
+      <address><b>Ofis</b>Örnek Mahallesi, İskele Sokak No: 4/A<br>Karşıyaka, İzmir (hayali adres)</address>
+      <p><b>Saatler</b>Hafta içi 09:30 – 19:00<br>Cumartesi 10:00 – 16:00</p>
+      <p><b>Telefon</b><a href="tel:+905000000000">0 5XX XXX XX XX</a><br><a href="https://wa.me/905000000000" target="_blank" rel="noopener">WhatsApp'tan yazın</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="dip">
+  <p>Eşik Gayrimenkul</p>
+  <p>Bu site hayali bir işletme için hazırlanmış örnektir. İlanlar, fiyatlar, adres ve telefon gerçek değildir.</p>
+</footer>
+
+<dialog id="detay" aria-labelledby="dBaslik"><div class="detay-ic" id="detayIc"></div></dialog>
+
+<script>
+/* İlanlar ve plan şablonları. Yeni ilan eklemek için ILANLAR dizisine bir satır ekleyin. */
+/* Plan şablonu: [oda adı, x, y, genişlik, derinlik] metre cinsinden. tip: b=balkon, i=ıslak hacim */
+window.PLANLAR = {
+  studyo:{g:7,d:5,o:[["Yaşam alanı",0,0,4.5,5],["Mutfak",4.5,0,2.5,2.2],["Banyo",4.5,2.2,2.5,1.6,"i"],["Balkon",4.5,3.8,2.5,1.2,"b"]]},
+  bir:{g:9,d:7,o:[["Salon",0,0,5,4],["Mutfak",5,0,4,2.5],["Banyo",5,2.5,4,1.5,"i"],["Yatak odası",0,4,4.5,3],["Giriş",4.5,4,2,3],["Balkon",6.5,4,2.5,3,"b"]]},
+  iki:{g:11,d:8,o:[["Salon",0,0,6,4.5],["Mutfak",6,0,5,3],["Banyo",6,3,2.5,1.5,"i"],["WC",8.5,3,2.5,1.5,"i"],["Yatak odası",0,4.5,4,3.5],["Oda",4,4.5,3.5,3.5],["Hol",7.5,4.5,1.5,3.5],["Balkon",9,4.5,2,3.5,"b"]]},
+  uc:{g:13,d:9,o:[["Salon",0,0,7,5],["Mutfak",7,0,3.5,3.2],["Balkon",10.5,0,2.5,3.2,"b"],["Hol",7,3.2,6,1.8],["Ebeveyn odası",0,5,4.5,4],["Oda",4.5,5,3.5,4],["Oda",8,5,3,4],["Banyo",11,5,2,2.2,"i"],["WC",11,7.2,2,1.8,"i"]]},
+  dort:{g:14,d:10,o:[["Salon",0,0,8,6],["Mutfak",8,0,6,3.5],["Yemek odası",8,3.5,3.5,2.5],["Hol",11.5,3.5,2.5,2.5],["Ebeveyn odası",0,6,5,4],["Oda",5,6,3.5,4],["Oda",8.5,6,3,4],["Banyo",11.5,6,2.5,2,"i"],["Çalışma odası",11.5,8,2.5,2]]},
+  bahceli:{g:14,d:9,o:[["Salon",0,0,6.5,5],["Mutfak",6.5,0,4,3],["Veranda",10.5,0,3.5,5,"b"],["Hol",6.5,3,4,2],["Yatak odası",0,5,4.5,4],["Oda",4.5,5,3.5,4],["Oda",8,5,3,4],["Banyo",11,5,3,4,"i"]]},
+  isyeri:{g:12,d:6,o:[["Açık ofis",0,0,8,6],["Toplantı odası",8,0,4,3.2],["Mutfak",8,3.2,2,2.8],["WC",10,3.2,2,2.8,"i"]]}
+};
+window.ILANLAR = [
+ {no:"ES-118",islem:"satilik",tur:"Daire",ilce:"Karşıyaka",mah:"Bostanlı",baslik:"Körfeze iki sokak, gün boyu ışık",oda:"2+1",plan:"iki",brut:104,net:88,kat:"3 / 5",yas:12,isitma:"Doğal gaz kombi",aidat:1400,fiyat:8900000,gun:2,oz:["Asansör","Güney cephe","Kapalı otopark"],acik:"Bostanlı sahiline yürüyerek dört dakika. Salon ve büyük oda güneye bakıyor; mutfak ayrı ve pencereli. Banyo 2023'te yenilendi, tesisat dahil."},
+ {no:"ES-117",islem:"kiralik",tur:"Daire",ilce:"Konak",mah:"Alsancak",baslik:"Kıbrıs Şehitleri'ne paralel, sessiz arka cephe",oda:"1+1",plan:"bir",brut:62,net:54,kat:"2 / 4",yas:28,isitma:"Klima",aidat:600,fiyat:32000,gun:1,oz:["Eşyasız","Evcil hayvan olur"],acik:"Eski İzmir apartmanı; tavanlar yüksek, zemin orijinal karo. Sokak cephesi değil, bu yüzden geceleri sessiz. Ev sahibi yıllık sözleşme istiyor."},
+ {no:"ES-116",islem:"satilik",tur:"Müstakil",ilce:"Urla",mah:"Kuşçular",baslik:"Zeytinlik içinde tek katlı taş ev",oda:"3+1",plan:"bahceli",ayna:1,brut:142,net:118,kat:"Tek kat",yas:6,isitma:"Yerden ısıtma",aidat:0,fiyat:21500000,gun:5,oz:["620 m² arsa","Veranda","Kuyu suyu"],acik:"Arsada 14 zeytin ağacı var, hepsi verimde. Ev tek kat, basamak yok. Veranda batıya bakıyor. Merkeze araçla sekiz dakika."},
+ {no:"ES-115",islem:"satilik",tur:"Daire",ilce:"Bornova",mah:"Evka 3",baslik:"Metroya 300 metre, site içinde",oda:"3+1",plan:"uc",brut:138,net:117,kat:"6 / 9",yas:9,isitma:"Merkezi sistem",aidat:2800,fiyat:9750000,gun:3,oz:["Havuzlu site","Asansör","Otopark","Güvenlik"],acik:"Üniversiteye ve metroya yürüme mesafesinde. Ebeveyn odası ayrı banyolu değil, bunu baştan söyleyelim; karşılığında salon 35 metrekare."},
+ {no:"ES-114",islem:"kiralik",tur:"Daire",ilce:"Karşıyaka",mah:"Mavişehir",baslik:"Site içinde, eşyalı, hemen taşınılır",oda:"2+1",plan:"iki",ayna:1,brut:110,net:92,kat:"8 / 12",yas:7,isitma:"Doğal gaz kombi",aidat:3200,fiyat:48000,gun:6,oz:["Eşyalı","Havuzlu site","Otopark"],acik:"Beyaz eşya ve mobilya dahil. Balkon körfezi yandan görüyor. Aidat kiracıya ait."},
+ {no:"ES-113",islem:"satilik",tur:"Daire",ilce:"Konak",mah:"Göztepe",baslik:"Deniz gören balkon, yenilenmiş bina",oda:"3+1",plan:"uc",ayna:1,brut:150,net:128,kat:"5 / 7",yas:34,isitma:"Doğal gaz kombi",aidat:1900,fiyat:16800000,gun:9,oz:["Deniz manzarası","Asansör","Bina güçlendirildi"],acik:"Bina 2022'de güçlendirildi, raporu ofisimizde. Balkon ve salon körfeze bakıyor. Mutfak dolapları eski; pazarlıkta bunu gözettik."},
+ {no:"ES-112",islem:"satilik",tur:"Daire",ilce:"Bayraklı",mah:"Adalet",baslik:"İş merkezlerine yakın yatırımlık stüdyo",oda:"1+0",plan:"studyo",brut:44,net:35,kat:"11 / 20",yas:4,isitma:"Klima",aidat:1600,fiyat:4350000,gun:4,oz:["Kiracılı","Asansör","Rezidans"],acik:"Şu an aylık 24.000 liraya kiracılı, sözleşme mart ayında bitiyor. Oturmak için de yatırım için de uygun."},
+ {no:"ES-111",islem:"kiralik",tur:"İş yeri",ilce:"Konak",mah:"Pasaport",baslik:"Kordon'a bir sokak, zemin kat ofis",oda:"Ofis",plan:"isyeri",brut:78,net:70,kat:"Zemin",yas:40,isitma:"Klima",aidat:900,fiyat:65000,gun:11,oz:["Cadde girişi","Vitrin cephe","Toplantı odası"],acik:"Muayenehane, mimarlık ofisi ya da butik için uygun. Tabela izni var. Depozito üç kira."},
+ {no:"ES-110",islem:"satilik",tur:"Müstakil",ilce:"Güzelbahçe",mah:"Yelki",baslik:"Bahçeli dubleks, dört oda, çalışma odası ayrı",oda:"4+1",plan:"dort",planNet:118,brut:210,net:178,kat:"2 kat",yas:11,isitma:"Doğal gaz kombi",aidat:0,fiyat:27900000,gun:14,oz:["380 m² arsa","Otopark","Şömine"],acik:"Plan zemin katı gösteriyor; üst katta iki oda ve bir banyo daha var. Bahçe kuzeyde, yazın serin. Denize araçla beş dakika."},
+ {no:"ES-109",islem:"kiralik",tur:"Daire",ilce:"Bornova",mah:"Kazımdirik",baslik:"Kampüse yürüme mesafesinde öğrenci evi",oda:"1+1",plan:"bir",ayna:1,brut:58,net:50,kat:"1 / 4",yas:15,isitma:"Doğal gaz kombi",aidat:400,fiyat:22000,gun:8,oz:["Eşyalı","Öğrenciye uygun"],acik:"Ege Üniversitesi kapısına on dakika yürüyüş. Yatak, dolap, çalışma masası ve beyaz eşya var."},
+ {no:"ES-108",islem:"satilik",tur:"Daire",ilce:"Buca",mah:"Şirinyer",baslik:"Geniş aileye uygun, okul ve pazara yakın",oda:"3+1",plan:"uc",brut:132,net:112,kat:"2 / 5",yas:21,isitma:"Doğal gaz kombi",aidat:700,fiyat:6400000,gun:18,oz:["Asansör","Kiler"],acik:"İZBAN durağına sekiz dakika. İç kapılar ve pencereler 2021'de değişti. Krediye uygun."},
+ {no:"ES-107",islem:"satilik",tur:"Daire",ilce:"Karşıyaka",mah:"Atakent",baslik:"Sıfır binada, teslime hazır",oda:"2+1",plan:"iki",brut:98,net:84,kat:"4 / 6",yas:0,isitma:"Yerden ısıtma",aidat:1500,fiyat:10200000,gun:7,oz:["Sıfır","Asansör","Kapalı otopark","Deprem yönetmeliği 2018"],acik:"İskânı alınmış. Mutfak ankastresi ve vestiyer müteahhitten geliyor. Tramvay durağı sokağın başında."}
+];
+
+</script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const sakin=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!sakin)document.documentElement.classList.add("anim");
+const WA="905000000000", PLANLAR=window.PLANLAR, ILANLAR=window.ILANLAR;
+const tl=n=>Math.round(n).toLocaleString("tr-TR")+" ₺";
+const mt=n=>n.toFixed(2).replace(".",",")+" m";
+const kacis=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ISLEM={satilik:"Satılık",kiralik:"Kiralık"};
+const fiyatYaz=i=>tl(i.fiyat)+(i.islem==="kiralik"?"<small>/ ay</small>":"");
+
+/* ---------- Kat planı çizici ---------- */
+function olcek(sablon,net){const P=PLANLAR[sablon];return net?Math.sqrt(net/(P.g*P.d)):1}
+function odalar(il){const P=PLANLAR[il.plan], k=olcek(il.plan,il.planNet||il.net);return P.o.map(o=>({ad:o[0],m2:o[3]*o[4]*k*k,tip:o[5]}))}
+function plan(sablon,o){
+  o=o||{};const P=PLANLAR[sablon], K=40, W=P.g*K, H=P.d*K, pad=o.etiket?54:44, k=olcek(sablon,o.net), f=o.etiket?13:Math.round((W+pad*2)*.05);
+  let i=0, s="", dolgu="", yazi="";
+  P.o.forEach(r=>{const x=(o.ayna?P.g-r[1]-r[3]:r[1])*K, y=r[2]*K, w=r[3]*K, h=r[4]*K;i++;
+    if(r[5])dolgu+=`<rect class="dolgu" style="--i:${i}" x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#${r[5]==="b"?"tarama":"nokta"})"/>`;
+    s+=`<rect class="oda d" pathLength="1" style="--i:${i}" x="${x}" y="${y}" width="${w}" height="${h}"/>`;
+    if(o.etiket){const kucuk=w<95||h<60, ad=r[0].split(" ");
+      yazi+=`<g class="y${kucuk?" kucuk":""}" style="--i:${i+4}"><text class="ad" x="${x+w/2}" y="${y+h/2-(kucuk?1:ad.length>1&&w<150?12:3)}">${ad.length>1&&w<150?`<tspan x="${x+w/2}">${ad[0]}</tspan><tspan x="${x+w/2}" dy="1.1em">${ad.slice(1).join(" ")}</tspan>`:r[0]}</text><text class="m2" x="${x+w/2}" y="${y+h/2+(kucuk?13:ad.length>1&&w<150?30:16)}">${(r[3]*r[4]*k*k).toFixed(1).replace(".",",")} m²</text></g>`}
+  });
+  const n=P.o.length+2;
+  const olcu=`<path class="olcu d" pathLength="1" style="--i:${n}" d="M0 -22H${W}M0 -28v12M${W} -28v12"/><path class="olcu d" pathLength="1" style="--i:${n+1}" d="M-22 0V${H}M-28 0h12M-28 ${H}h12"/>
+    <text class="olcu-yazi y" style="--i:${n+2};font-size:${f}px" x="${W/2}" y="${o.etiket?-30:-30}">${mt(P.g*k)}</text><text class="olcu-yazi y" style="--i:${n+2};font-size:${f}px" transform="translate(${o.etiket?-30:-30} ${H/2}) rotate(-90)">${mt(P.d*k)}</text>`;
+  return `<svg class="plan${o.etiket?" etiketli":""}" viewBox="${-pad} ${-pad-(o.etiket?0:8)} ${W+pad+16} ${H+pad+16+(o.etiket?0:8)}" role="img" aria-label="${kacis(o.alt||"Kat planı")}">${dolgu}<rect class="dis d" pathLength="1" style="--i:0" x="0" y="0" width="${W}" height="${H}"/>${s}${olcu}${yazi}</svg>`;
+}
+const io=("IntersectionObserver" in window)&&!sakin?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("ciz");io.unobserve(e.target)}}),{threshold:.2}):null;
+function planlariIzle(kok){(kok||document).querySelectorAll(".plan:not(.ciz)").forEach(p=>io?io.observe(p):p.classList.add("ciz"))}
+
+/* ---------- Giriş planı ---------- */
+$("#girisPlan").innerHTML=plan("uc",{etiket:true,net:117,alt:"Örnek 3+1 daire planı: salon, mutfak, üç oda, banyo, WC ve balkon"})+`<figcaption><span>Örnek pafta · 3+1</span><span>117 m² net</span><span>Ölçek 1:100</span></figcaption>`;
+
+/* ---------- İlçe listeleri ---------- */
+const ILCELER=[...new Set(ILANLAR.map(i=>i.ilce))].sort((a,b)=>a.localeCompare(b,"tr"));
+["#hizliIlce","#sIlce"].forEach(s=>$(s).insertAdjacentHTML("beforeend",ILCELER.map(i=>`<option>${i}</option>`).join("")));
+$("#satIlce").insertAdjacentHTML("beforeend",["Balçova","Bayraklı","Bornova","Buca","Çiğli","Gaziemir","Güzelbahçe","Karabağlar","Karşıyaka","Konak","Narlıdere","Urla","Diğer"].map(i=>`<option>${i}</option>`).join(""));
+
+/* ---------- Vitrin ---------- */
+const suzgec=$("#suzgec");
+function vitrinCiz(){
+  const f=Object.fromEntries(new FormData(suzgec));
+  let l=ILANLAR.filter(i=>(!f.islem||i.islem===f.islem)&&(!f.ilce||i.ilce===f.ilce)&&(!f.tur||i.tur===f.tur)&&(!f.oda||i.oda===f.oda)&&i.net>=+f.m2);
+  l.sort({yeni:(a,b)=>a.gun-b.gun,artan:(a,b)=>a.fiyat-b.fiyat,azalan:(a,b)=>b.fiyat-a.fiyat,m2:(a,b)=>b.net-a.net}[f.sira]);
+  $("#paftalar").innerHTML=l.map(i=>`<li class="pafta"><div class="pafta-plan">${plan(i.plan,{ayna:i.ayna,net:i.planNet||i.net,alt:i.oda+" kat planı"})}</div>
+    <div class="antet"><p class="a-ust"><span>${i.no}${i.gun<=3?'<span class="yeni">Yeni</span>':""}</span><span class="islem">${ISLEM[i.islem]} · ${i.tur}</span></p>
+    <h3><a href="#ilan-${i.no}">${i.baslik}</a></h3><p class="a-yer">${i.mah}, ${i.ilce}</p>
+    <p class="a-ozet"><span>${i.oda}</span><span>${i.net} m² net</span><span>${/\d/.test(i.kat[0])?"Kat "+i.kat:i.kat}</span></p><p class="a-fiyat">${fiyatYaz(i)}</p></div></li>`).join("");
+  $("#bos").hidden=l.length>0;
+  $("#sayac").textContent=l.length===ILANLAR.length?`${l.length} ilan`:`${ILANLAR.length} ilandan ${l.length} tanesi`;
+  planlariIzle($("#paftalar"));
+}
+suzgec.addEventListener("change",vitrinCiz);
+suzgec.addEventListener("reset",()=>setTimeout(vitrinCiz));
+$("#hizli").addEventListener("submit",e=>{e.preventDefault();const f=new FormData(e.target);suzgec.reset();["islem","ilce","oda"].forEach(k=>suzgec.elements[k].value=f.get(k));vitrinCiz();$("#vitrin").scrollIntoView({behavior:sakin?"auto":"smooth"})});
+
+/* ---------- İlan detayı ---------- */
+const dlg=$("#detay");
+function detayAc(no){
+  const i=ILANLAR.find(x=>x.no===no);if(!i)return;
+  const msg=`Merhaba, ${i.no} numaralı ilan (${i.baslik}, ${i.mah} ${i.ilce}) hakkında bilgi almak istiyorum.`;
+  const oda=odalar(i), satir=(a,b)=>`<tr><th scope="row">${a}</th><td>${b}</td></tr>`;
+  $("#detayIc").innerHTML=`<div class="d-ust"><span>${i.no} · ${ISLEM[i.islem]} · ${i.tur}</span><button type="button" class="d-kapat" id="dKapat">Kapat ✕</button></div>
+  <div class="d-bas"><h2 id="dBaslik">${i.baslik}</h2><p>${i.mah}, ${i.ilce} · ${i.oda} · ${i.net} m² net</p><p class="d-fiyat">${fiyatYaz(i)}</p></div>
+  <div class="d-govde"><div><div class="d-plan">${plan(i.plan,{ayna:i.ayna,net:i.planNet||i.net,etiket:true,alt:i.baslik+" kat planı"})}<p>Ölçüler iç ölçüdür, yuvarlanmıştır. Kapı ve pencere yerleri için bizimle evi görün.${i.planNet?" Plan yalnızca zemin katı gösterir.":""}</p></div>
+    <div class="d-yan"><h3>Fotoğraflar</h3><div class="d-foto"><div>Fotoğraf yeri<br>Salon</div><div>Fotoğraf yeri<br>Mutfak</div><div>Fotoğraf yeri<br>Cephe</div></div></div></div>
+  <div class="d-yan"><h3>Ev hakkında</h3><p>${i.acik}</p><ul class="d-etiket">${i.oz.map(o=>`<li>${o}</li>`).join("")}</ul>
+    <h3>Künye</h3><table class="d-tablo"><tbody>${satir("Brüt / net",i.brut+" / "+i.net+" m²")+satir("Oda",i.oda)+satir("Kat",i.kat)+satir("Bina yaşı",i.yas?i.yas+" yıl":"Sıfır")+satir("Isıtma",i.isitma)+satir("Aidat",i.aidat?tl(i.aidat)+" / ay":"Yok")}</tbody></table>
+    <h3>Odalar</h3><table class="d-tablo"><tbody>${oda.map(o=>satir(o.ad,o.m2.toFixed(1).replace(".",",")+" m²")).join("")}</tbody></table>
+    <div class="d-eylem"><a class="dugme" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">WhatsApp'tan sorun</a>${i.islem==="satilik"?`<button type="button" class="dugme cizgili" id="dKredi">Kredisini hesapla</button>`:""}</div></div></div>`;
+  if(!dlg.open)dlg.showModal();dlg.scrollTop=0;
+  $("#dKapat").addEventListener("click",()=>dlg.close());
+  const kb=$("#dKredi");if(kb)kb.addEventListener("click",()=>{dlg.close();$("#kFiyat").value=i.fiyat.toLocaleString("tr-TR");krediHesap();$("#kredi").scrollIntoView({behavior:sakin?"auto":"smooth"})});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>dlg.querySelectorAll(".plan").forEach(p=>p.classList.add("ciz"))));
+}
+dlg.addEventListener("close",()=>{if(location.hash.startsWith("#ilan-"))history.replaceState(null,"",location.pathname+location.search)});
+function yol(){const h=decodeURIComponent(location.hash);if(h.startsWith("#ilan-"))detayAc(h.slice(6));else if(dlg.open)dlg.close()}
+addEventListener("hashchange",yol);
+
+/* ---------- Evinizi satalım ---------- */
+$("#satForm").addEventListener("submit",e=>{
+  e.preventDefault();const fm=e.target, f=Object.fromEntries(new FormData(fm)), hata=$("#satHata");let m="",odak=null;
+  $$("#satForm [aria-invalid]").forEach(x=>x.removeAttribute("aria-invalid"));
+  if(!f.ilce){m="Evin hangi ilçede olduğunu seçin.";odak=fm.ilce}
+  else if(!f.ad.trim()){m="Adınızı yazın.";odak=fm.ad}
+  else if(f.tel.replace(/\D/g,"").length<10){m="Telefon numaranız eksik görünüyor.";odak=fm.tel}
+  else if(!f.onay){m="Size dönebilmemiz için onay kutusunu işaretleyin.";odak=fm.onay}
+  hata.hidden=!m;hata.textContent=m;if(m){odak.setAttribute("aria-invalid","true");odak.focus();$("#satSonuc").hidden=true;return}
+  const msg=`Merhaba, evim için görüşmek istiyorum.\nİstek: ${f.niyet}\nEv: ${f.ilce}, ${f.oda}${f.m2?`, yaklaşık ${f.m2} m²`:""}${f.yas?`, ${f.yas} yaşında bina`:""}\nAd: ${f.ad.trim()} · Tel: ${f.tel.trim()}${f.not.trim()?`\nNot: ${f.not.trim()}`:""}`;
+  const s=$("#satSonuc");s.hidden=false;
+  s.innerHTML=`<strong>Mesajınız hazır.</strong><pre>${kacis(msg)}</pre><a class="dugme" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">WhatsApp'ta açın</a><small>Örnek sitede mesaj deneme numarasına gider; bilgileriniz hiçbir yere kaydedilmez.</small>`;
+  s.scrollIntoView({block:"nearest",behavior:sakin?"auto":"smooth"});
+});
+
+/* ---------- Kredi hesabı ---------- */
+function krediHesap(){
+  const fiyat=+$("#kFiyat").value.replace(/\D/g,"")||0, p=+$("#kPesin").value, n=+$("#kVade").value, r=(parseFloat($("#kFaiz").value.replace(",","."))||0)/100;
+  const kredi=fiyat*(1-p/100), taksit=kredi<=0?0:r>0?kredi*r/(1-Math.pow(1+r,-n)):kredi/n, toplam=taksit*n, faiz=Math.max(0,toplam-kredi);
+  $("#kPesinO").textContent=`%${p} · ${tl(fiyat*p/100)}`;$("#kVadeO").textContent=`${n} ay (${n/12} yıl)`;
+  $("#kTaksit").textContent=taksit?tl(taksit):"—";$("#kKredi").textContent=tl(kredi);$("#kToplamFaiz").textContent=tl(faiz);$("#kToplam").textContent=tl(toplam);
+  const ao=toplam?kredi/toplam*100:100;$("#kAna").style.width=ao+"%";$("#kFz").style.width=(100-ao)+"%";
+  $("#kCubuk").setAttribute("aria-label",`Geri ödemenin yüzde ${Math.round(ao)} kadarı anapara, yüzde ${Math.round(100-ao)} kadarı faiz`);
+}
+$("#krediForm").addEventListener("input",e=>{if(e.target.id==="kFiyat"){const d=e.target.value.replace(/\D/g,"").slice(0,11);e.target.value=d?(+d).toLocaleString("tr-TR"):""}krediHesap()});
+$("#krediForm").addEventListener("submit",e=>e.preventDefault());
+
+/* ---------- Görseller ---------- */
+$$("[data-foto] > .foto").forEach(img=>{const bak=()=>{if(img.naturalWidth>8)img.parentElement.classList.add("foto-var")};img.complete?bak():img.addEventListener("load",bak)});
+
+vitrinCiz();krediHesap();planlariIzle();yol();
+})();
+
+</script>
+</body>
+</html>
