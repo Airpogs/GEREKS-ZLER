@@ -1,3 +1,5 @@
+> **Güncelleme:** Kaydırmaya bağlı "İşler" vitrini kaldırıldı. Örnekler artık sektör sekmeleriyle tek bir kartta gösteriliyor; her örneğin rengi yalnızca kendi kartında kullanılıyor. Metinler esnafın diliyle sadeleştirildi, ana eylem her yerde WhatsApp. Eski sürüm `eski/` klasöründe.
+
 # Portfolyo — tasarım fikri
 
 **Karakter.** Tek kişilik bir stüdyo; esnafla esnaf gibi konuşuyor. Ajans dili yok, "dijital dönüşüm" yok. Büyük, kalın, net cümleler ve işin kendisi. Sayfanın asıl malzemesi yapılan siteler; tasarım onlara sahne oluyor.
